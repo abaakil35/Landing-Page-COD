@@ -1,4 +1,7 @@
 
+import Ready from "./Components/ready";
+import Footer from "./Components/Footer";
+
 
 import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
 import Navbar from "./Components/Navbar";
@@ -9,7 +12,9 @@ import Pricing from "./Components/Pricing";
 import Demo from "./Components/Demo";
 
 import HowCODWorks from "./Components/how";
+
 import SeeAction from "./Components/seeAction";
+import Customers from "./Components/customers";
 
 function App() {
   return (
@@ -23,6 +28,9 @@ function App() {
               <Features />
               <HowCODWorks />
               <SeeAction />
+              <Customers />
+              <Pricing />
+              <Ready />
             </>
           } />
           <Route path="/features" element={<Features />} />
@@ -31,6 +39,7 @@ function App() {
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
       </div>
+      <Footer />
     </Router>
   );
 }

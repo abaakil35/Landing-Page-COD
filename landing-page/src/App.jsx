@@ -14,7 +14,7 @@ function App() {
   return (
     <Router>
       <Navbar />
-      <div className="py-10">
+  <div>
         <Routes>
           <Route path="/" element={
             <>

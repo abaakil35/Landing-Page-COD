@@ -1,22 +1,24 @@
-import image from "./../assets/1597b2df-ea5c-47eb-adc8-cb4b80b8755c_removalai_preview.png";
+import image from "./../assets/Adobe Express - file.png";
 
 
 const HeroSection = () => {
 
     return (
-    <section className="hero-section flex flex-col md:flex-row items-center justify-between bg-white px-7 md:px-16 pb-7 md:pb-16 gap-x-8">
-            <div className="hero-content flex flex-col justify-center md:items-start items-center text-left max-w-xl w-full">
+    <section className="hero-section flex flex-col md:flex-row items-center justify-between bg-gradient-to-br from-white via-[#f9f4f9] to-[#f7eaf7] px-7 md:px-16 pb-7 md:pb-16 gap-x-8">
+            <div className="hero-content flex flex-col justify-center md:items-start items-center text-left max-w-xl w-full mt-3">
                 <h1 className="text-4xl md:text-5xl font-extrabold leading-tight mb-4 text-gray-900">
-                    Streamline <span className="text-purple-600">Cash on<br className='block md:hidden'/> Delivery</span> for Your<br className='hidden md:block'/> Shopify Store
+                    <span className="inline-block bg-gradient-to-r from-[#5e255dff] via-[#a78bfa] to-[#5e255dff] bg-clip-text text-transparent">
+                        Streamline <span className="text-[#5e255dff]">Cash on Delivery</span>
+                    </span> for Your Shopify Store
                 </h1>
                 <p className="mb-8 text-lg md:text-xl text-gray-700 font-medium">
                     Manage COD orders with customizable forms, workflows, and full order tracking – all in one app.
                 </p>
                 <div className="flex gap-4 w-full md:w-auto">
-                    <button className="px-7 py-3 rounded-lg font-semibold text-lg text-white bg-purple-600 hover:bg-purple-700 transition-transform duration-200 transform hover:scale-105 shadow-md focus:outline-none focus:ring-2 focus:ring-purple-400 focus:ring-offset-2">
+                    <button className="px-7 py-3 rounded-lg font-semibold text-lg text-white bg-[#5e255dff] hover:bg-[#4a1d49] transition-transform duration-200 transform hover:scale-105 shadow-md focus:outline-none focus:ring-2 focus:ring-[#5e255d] focus:ring-offset-2">
                         Start Free Trial
                     </button>
-                    <button className="px-7 py-3 rounded-lg font-semibold text-lg text-purple-700 border-2 border-gray-300 bg-white hover:bg-gray-100 transition-transform duration-200 transform hover:scale-105 shadow focus:outline-none focus:ring-2 focus:ring-purple-200 focus:ring-offset-2">
+                    <button className="px-7 py-3 rounded-lg font-semibold text-lg text-[#5e255d] border-2 border-[#e5c6e4] bg-[#f9f4f9] hover:bg-[#f3e6f3] transition-transform duration-200 transform hover:scale-105 shadow focus:outline-none focus:ring-2 focus:ring-[#e5c6e4] focus:ring-offset-2">
                         Watch Demo
                     </button>
                 </div>
@@ -24,7 +26,7 @@ const HeroSection = () => {
                                         No credit card required. <span className="font-semibold text-purple-600">5 months free for early users.</span>
                                 </div>
                                 {/* Stats Bar */}
-                                <div className="flex flex-col sm:flex-row items-center gap-6 mt-8  rounded-xl px-6 py-4 w-full md:w-auto">
+                                <div className="flex flex-col sm:flex-row items-center gap-6 mt-2  rounded-xl px-6 py-4 w-full md:w-auto">
                                     <div className="flex items-center gap-2">
                                         {/* User Icon */}
                                         <svg width="28" height="28" fill="none" viewBox="0 0 24 24"><path d="M12 12c2.761 0 5-2.239 5-5s-2.239-5-5-5-5 2.239-5 5 2.239 5 5 5zm0 2c-3.314 0-10 1.657-10 5v2c0 .553.447 1 1 1h18c.553 0 1-.447 1-1v-2c0-3.343-6.686-5-10-5z" fill="#a78bfa"/><path d="M12 12c2.761 0 5-2.239 5-5s-2.239-5-5-5-5 2.239-5 5 2.239 5 5 5zm0 2c-3.314 0-10 1.657-10 5v2c0 .553.447 1 1 1h18c.553 0 1-.447 1-1v-2c0-3.343-6.686-5-10-5z" fill="#a78bfa" fillOpacity=".2"/></svg>

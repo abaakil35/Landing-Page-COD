@@ -24,7 +24,7 @@ const Contact = () => {
       <div className="absolute -bottom-24 -right-24 w-72 h-72 bg-[#5affff]/20 rounded-full blur-3xl opacity-60 z-0" />
       <div className="max-w-2xl mx-auto relative z-10">
         <div className="flex items-center justify-center mb-4">
-          <span className="inline-block w-16 h-2 rounded-full gradient-to-r from-[#9d3ecb] via-[#5affff] to-[#2d123a] opacity-90 shadow-md mr-3" />
+          <span className="inline-block w-16 h-2 rounded-full bg-gradient-to-r from-[#9d3ecb] via-[#a259c9] to-[#702c91] opacity-90 shadow-md mr-3" />
           <span className="uppercase tracking-widest text-xs font-semibold text-[#702c91]">
             Contact
           </span>

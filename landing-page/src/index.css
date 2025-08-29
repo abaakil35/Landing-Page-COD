@@ -6,3 +6,32 @@ body {
 }
 @import "tailwindcss";
 
+
+/* src/index.css */
+
+/* Define variables for the light theme (this is the default) */
+body.light {
+  --background-color: #f8f9fa;
+  --text-color: #212529;
+  --nav-bg: #e9ecef;
+  --button-bg: #dee2e6;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Define variables for the dark theme */
+body.dark {
+  --background-color: #212529;
+  --text-color: #f8f9fa;
+  --nav-bg: #343a40;
+  --button-bg: #495057;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Apply the variables globally */
+body {
+  margin: 0;
+  background-color: var(--background-color);
+  color: var(--text-color);
+}
+
+

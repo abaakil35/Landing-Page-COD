@@ -1,12 +1,92 @@
-# React + Vite
+# COD Rocket Landing Page
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A modern, responsive landing page for the COD Rocket Shopify app, built with React and Tailwind CSS.
 
-Currently, two official plugins are available:
+## Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- Clean, modern UI/UX inspired by SaaS best practices
+- Fully responsive design for all devices
+- Custom SVG icons and illustrations
+- Smooth gradients and purple-focused color palette
+- Animated FAQ section
+- Contact form with validation
+- Modular React components for easy customization
 
-## Expanding the ESLint configuration
+## Getting Started
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+### Prerequisites
+
+- Node.js (v16 or higher recommended)
+- npm or yarn
+
+### Installation
+
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/your-username/landing-page-cod.git
+   cd landing-page-cod/landing-page
+   ```
+2. Install dependencies:
+   ```bash
+   npm install
+   # or
+   yarn install
+   ```
+3. Start the development server:
+   ```bash
+   npm run dev
+   # or
+   yarn dev
+   ```
+4. Open your browser at [http://localhost:5173](http://localhost:5173)
+
+## Project Structure
+
+```
+landing-page/
+├── public/
+├── src/
+│   ├── Components/
+│   │   ├── Features.jsx
+│   │   ├── how.jsx
+│   │   ├── seeAction.jsx
+│   │   ├── customers.jsx
+│   │   ├── Pricing.jsx
+│   │   ├── ready.jsx
+│   │   ├── contact.jsx
+│   │   ├── FAQ.jsx
+│   │   └── ...
+│   ├── App.jsx
+│   └── ...
+├── index.html
+├── package.json
+├── tailwind.config.js
+├── vite.config.js
+└── README.md
+```
+
+## Customization
+
+- Update colors, gradients, and content in the `src/Components/` files.
+- Replace images in `src/assets/` as needed.
+- Edit the contact form logic in `contact.jsx` to connect to your backend or email service.
+
+## Deployment
+
+You can deploy this project to Vercel, Netlify, or any static hosting provider:
+
+- Build for production:
+  ```bash
+  npm run build
+  # or
+  yarn build
+  ```
+- Deploy the `dist/` folder to your preferred host.
+
+## License
+
+MIT
+
+---
+
+> Designed and developed with ❤️ for the Shopify community.

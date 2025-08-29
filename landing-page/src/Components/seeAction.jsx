@@ -25,7 +25,7 @@ const SeeAction = () => (
       {/* Left: Text and checklist */}
       <div className="flex-1 mb-12 md:mb-0">
         <div className="flex items-center mb-4">
-          <span className="inline-block w-16 h-2 rounded-full bg-gradient-to-r from-[#9d3ecb] via-[#5affff] to-[#2d123a] opacity-90 shadow-md mr-3" />
+          <span className="inline-block w-16 h-2 rounded-full bg-gradient-to-r from-[#9d3ecb] via-[#a259c9] to-[#702c91] opacity-90 shadow-md mr-3" />
           <span className="uppercase tracking-widest text-xs font-semibold text-[#702c91]">
             Live Demo
           </span>

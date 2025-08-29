@@ -131,9 +131,9 @@ const Features = () => (
     <div className="max-w-7xl mx-auto px-4 relative z-10">
       {/* Decorative accent above title */}
       <div className="flex justify-center mb-4">
-        <span className="inline-block w-24 h-2 rounded-full bg-gradient-to-r from-[#5e255d] via-[#c084fc] to-[#f7eaf7] opacity-80 shadow-md" />
+        <span className="inline-block w-16 h-2 rounded-full bg-gradient-to-r from-[#9d3ecb] via-[#a259c9] to-[#702c91] opacity-90 shadow-md mr-3" />
       </div>
-      <h2 className="text-4xl md:text-5xl font-extrabold text-center mb-4 text-[#5e255dff] drop-shadow-sm tracking-tight">
+      <h2 className="text-3xl md:text-4xl font-extrabold text-center mb-4 text-[#5e255dff] drop-shadow-sm tracking-tight">
         Why Choose COD Rocket?
       </h2>
       <p className="text-xl md:text-2xl text-gray-600 text-center mb-16 max-w-3xl mx-auto">

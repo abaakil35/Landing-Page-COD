@@ -124,30 +124,40 @@ const features = [
 ];
 
 const Features = () => (
-  <section className="w-full bg-gradient-to-br from-white via-[#f9f4f9] to-[#f7eaf7] py-20 px-4 md:px-12">
-    <div className="max-w-7xl mx-auto px-4">
-      <h2 className="text-4xl md:text-5xl font-extrabold text-center mb-4 text-[#5e255dff] drop-shadow-sm">
+  <section className="relative w-full bg-gradient-to-br from-white via-[#f9f4f9] to-[#f7eaf7] py-24 px-6 md:px-16 overflow-hidden">
+    {/* Decorative blurred background shapes */}
+    <div className="absolute top-10 left-10 w-80 h-80 bg-[#e9d6f7] rounded-full opacity-30 blur-3xl z-0" />
+    <div className="absolute bottom-10 right-10 w-80 h-80 bg-[#f7eaf7] rounded-full opacity-40 blur-2xl z-0" />
+    <div className="max-w-7xl mx-auto px-4 relative z-10">
+      {/* Decorative accent above title */}
+      <div className="flex justify-center mb-4">
+        <span className="inline-block w-24 h-2 rounded-full bg-gradient-to-r from-[#5e255d] via-[#c084fc] to-[#f7eaf7] opacity-80 shadow-md" />
+      </div>
+      <h2 className="text-4xl md:text-5xl font-extrabold text-center mb-4 text-[#5e255dff] drop-shadow-sm tracking-tight">
         Why Choose COD Rocket?
       </h2>
-      <p className="text-xl md:text-2xl text-gray-600 text-center mb-14 max-w-3xl mx-auto">
+      <p className="text-xl md:text-2xl text-gray-600 text-center mb-16 max-w-3xl mx-auto">
         Everything you need to manage cash on delivery orders efficiently and
         boost your Shopify store's conversion rates.
       </p>
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-10 justify-center items-stretch">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-12 justify-center items-stretch">
         {features.map((feature, idx) => (
           <div
             key={idx}
-            className="bg-white/90 border border-[#f3e6f3] rounded-3xl shadow-xl p-10 flex-1 min-w-[280px] max-w-sm flex flex-col items-center text-center transition-all duration-200 hover:shadow-2xl hover:-translate-y-2 hover:border-[#5e255dff] group cursor-pointer"
+            className="bg-white/60 backdrop-blur-xl border border-[#f3e6f3] rounded-3xl shadow-2xl p-10 flex-1 min-w-[280px] max-w-sm flex flex-col items-center text-center transition-all duration-300 hover:shadow-[0_8px_32px_0_rgba(94,37,93,0.18)] hover:-translate-y-3 hover:border-[#a855f7] group cursor-pointer hover:bg-white/80"
+            style={{ boxShadow: "0 4px 32px 0 rgba(94,37,93,0.08)" }}
           >
-            <div className="mb-6">
-              <span className="inline-flex items-center justify-center w-20 h-20 rounded-2xl bg-[#f7eaf7] group-hover:bg-[#5e255d1a] transition-colors duration-200">
-                {feature.icon}
+            <div className="mb-7">
+              <span className="inline-flex items-center justify-center w-20 h-20 rounded-2xl bg-[#f7eaf7] group-hover:bg-[#a855f71a] transition-colors duration-300 shadow-md">
+                <span className="transition-transform duration-300 group-hover:scale-110 group-hover:rotate-6">
+                  {feature.icon}
+                </span>
               </span>
             </div>
-            <h3 className="text-2xl font-bold mb-2 text-[#5e255dff] group-hover:underline underline-offset-4">
+            <h3 className="text-2xl font-bold mb-3 text-[#5e255dff] group-hover:underline underline-offset-4 transition-colors duration-200">
               {feature.title}
             </h3>
-            <p className="text-gray-600 text-lg leading-relaxed">
+            <p className="text-gray-600 text-lg leading-relaxed tracking-wide">
               {feature.desc}
             </p>
           </div>

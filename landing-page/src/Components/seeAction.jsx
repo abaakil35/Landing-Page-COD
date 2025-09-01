@@ -7,7 +7,7 @@ const checklist = [
 import demoImage from "../assets/ChatGPT Image Aug 28, 2025, 11_43_20 AM.png";
 
 const SeeAction = () => (
-  <section className="relative w-full py-16 px-23 bg-gradient-to-tl from-[#f7eaf7] via-[#f9f4f9] to-white overflow-hidden">
+  <section className="relative w-full py-16 px-23 bg-[#FCFCFC] overflow-hidden">
     {/* Decorative SVG background shapes, rotated 180° */}
     <svg
       className="absolute -bottom-24 -left-24 w-96 h-96 opacity-20 z-0 rotate-180"
@@ -21,7 +21,7 @@ const SeeAction = () => (
       viewBox="0 0 160 160"
       fill="none"
     ></svg>
-    <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center gap-x-16 relative z-10">
+    <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center relative z-10">
       {/* Left: Text and checklist */}
       <div className="flex-1 mb-12 md:mb-0">
         <div className="flex items-center mb-4">
@@ -35,8 +35,8 @@ const SeeAction = () => (
           See COD Rocket in Action
         </h2>
         <p className="text-lg md:text-xl text-[#3f3f3f] mb-8 max-w-2xl">
-          Watch how easy it is to set up and manage cash on delivery orders with
-          COD Rocket's intuitive interface.
+          Watch how easy it is to set up and manage cash <br /> on delivery
+          orders with COD Rocket's intuitive interface.
         </p>
         <ul className="space-y-6">
           {checklist.map((item, idx) => (

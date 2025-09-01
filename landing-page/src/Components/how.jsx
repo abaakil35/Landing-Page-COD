@@ -1,3 +1,5 @@
+import { motion } from "framer-motion";
+
 const steps = [
   {
     title: "Install & Setup",
@@ -92,41 +94,75 @@ const HowCODWorks = () => (
       viewBox="0 0 160 160"
       fill="none"
     ></svg>
-    <div className="max-w-6xl mx-auto relative z-10">
+    <div className="max-w-6xl mx-auto flex flex-col items-center relative z-10">
       {/* Decorative accent above title */}
-      <div className="flex justify-center mb-4">
+      <motion.div
+        className="flex justify-center mb-4"
+        initial={{ opacity: 0, scale: 0.8 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{ duration: 0.6, delay: 0.1 }}
+      >
         <span className="mt-1 inline-block w-16 h-2 rounded-full bg-gradient-to-r from-[#9d3ecb] via-[#a259c9] to-[#702c91] opacity-90 shadow-md mr-3" />
         <span className="uppercase tracking-widest text-xs font-semibold text-[#702c91]">
           How It Works
         </span>
-      </div>
+      </motion.div>
 
-      <h2 className="text-4xl md:text-5xl font-extrabold text-center mb-4 text-[#2d123a] tracking-tight drop-shadow-sm">
+      <motion.h2
+        className="text-4xl md:text-5xl font-extrabold text-center mb-4 text-[#2d123a] tracking-tight drop-shadow-sm"
+        initial={{ opacity: 0, y: 30 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.8, delay: 0.2 }}
+      >
         How COD Rocket Works
-      </h2>
-      <p className="text-2xl text-[#3f3f3f] text-center mb-14 max-w-3xl mx-auto">
+      </motion.h2>
+      <motion.p
+        className="text-2xl text-[#3f3f3f] text-center mb-14 max-w-3xl mx-auto"
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.8, delay: 0.4 }}
+      >
         Get started in minutes with our simple 3-step process
-      </p>
+      </motion.p>
       <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
         {steps.map((step, idx) => (
-          <div
+          <motion.div
             key={idx}
             className="flex flex-col items-center text-center bg-white/80 backdrop-blur-xl rounded-3xl shadow-xl p-8 transition-all duration-300 hover:shadow-2xl hover:-translate-y-2 group border border-[#dddddd]"
+            initial={{ opacity: 0, y: 50 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.6 + idx * 0.2 }}
+            whileHover={{ y: -8, scale: 1.02 }}
           >
-            <div className="mb-7">
+            <motion.div
+              className="mb-7"
+              initial={{ opacity: 0, scale: 0.8 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.5, delay: 0.8 + idx * 0.2 }}
+            >
               <span className="inline-flex items-center justify-center w-28 h-28 rounded-full shadow-lg group-hover:scale-105 transition-transform duration-300 bg-white">
                 <span className="transition-transform duration-300 group-hover:scale-110 group-hover:rotate-6">
                   {step.icon}
                 </span>
               </span>
-            </div>
-            <h3 className="text-2xl font-bold mb-3 text-[#2d123a] group-hover:text-[#9d3ecb] transition-colors duration-200">
+            </motion.div>
+            <motion.h3
+              className="text-2xl font-bold mb-3 text-[#2d123a] group-hover:text-[#9d3ecb] transition-colors duration-200"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 1.0 + idx * 0.2 }}
+            >
               {step.title}
-            </h3>
-            <p className="text-[#3f3f3f] text-lg leading-relaxed">
+            </motion.h3>
+            <motion.p
+              className="text-[#3f3f3f] text-lg leading-relaxed"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 1.2 + idx * 0.2 }}
+            >
               {step.desc}
-            </p>
-          </div>
+            </motion.p>
+          </motion.div>
         ))}
       </div>
     </div>

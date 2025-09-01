@@ -1,8 +1,8 @@
 const Ready = () => (
-  <section className="relative w-full py-20 px-23 bg-gradient-to-br from-white via-[#f9f4f9] to-[#f7eaf7] text-center overflow-hidden">
+  <section className="relative w-full py-20 bg-[#FCFCFC] text-center overflow-hidden">
     {/* Decorative blurred circles */}
-    <div className="absolute -top-24 -left-24 w-72 h-72 bg-[#9d3ecb]/20 rounded-full blur-3xl opacity-60 z-0" />
-    <div className="absolute -bottom-24 -right-24 w-72 h-72 bg-[#5affff]/20 rounded-full blur-3xl opacity-60 z-0" />
+    <div className="absolute top-1/2 -translate-y-1/2 -left-24 w-72 h-72 bg-[#9d3ecb]/20 rounded-full blur-3xl opacity-60 z-0" />
+    <div className="absolute top-1/2 -translate-y-1/2 -right-24 w-72 h-72 bg-[#5affff]/20 rounded-full blur-3xl opacity-60 z-0" />
     <div className="max-w-4xl mx-auto relative z-10">
       <div className="flex items-center justify-center mb-4">
         <span className="inline-block w-16 h-2 rounded-full bg-gradient-to-r from-[#9d3ecb] via-[#a259c9] to-[#702c91] opacity-90 shadow-md mr-3" />

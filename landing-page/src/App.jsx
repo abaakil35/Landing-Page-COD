@@ -15,6 +15,7 @@ import HowCODWorks from "./Components/how";
 import SeeAction from "./Components/seeAction";
 import Customers from "./Components/customers";
 import Contact from "./Components/contact";
+import HelpCenter from "./Components/helpCenter";
 // import FAQ from "./Components/FAQ";
 
 function App() {
@@ -42,7 +43,7 @@ function App() {
           <Route path="/features" element={<Features />} />
           <Route path="/how-it-works" element={<HowCODWorks />} />
           <Route path="/pricing" element={<Pricing />} />
-          <Route path="/help-center" element={<Contact />} />
+          <Route path="/help-center" element={<HelpCenter />} />
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
       </div>

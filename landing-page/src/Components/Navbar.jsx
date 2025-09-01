@@ -29,40 +29,88 @@ const Navbar = () => {
   }, []);
 
   return (
-    <nav
-      className={`w-full flex items-center justify-between py-4 px-23 sticky top-0 left-0 z-50 bg-white backdrop-blur-md transition-all duration-300 ${
+    <motion.nav
+      className={`relative w-full flex items-center justify-between py-4 px-23 sticky top-0 left-0 z-50 bg-white backdrop-blur-md transition-all duration-300 overflow-hidden ${
         isScrolled ? "shadow-[0_4px_24px_0_rgba(94,37,93,0.07)]" : ""
       }`}
+      initial={{ opacity: 0, y: -20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.6, ease: "easeOut" }}
     >
-      <div className="flex items-center min-w-[120px]">
-        <img src={logo} alt="Logo" className="h-6 w-auto mr-4" />
-      </div>
+      <motion.div
+        className="flex items-center min-w-[120px]"
+        initial={{ opacity: 0, x: -30 }}
+        animate={{ opacity: 1, x: 0 }}
+        transition={{ duration: 0.6, delay: 0.1 }}
+      >
+        <motion.img
+          src={logo}
+          alt="Logo"
+          className="h-6 w-auto mr-4"
+          initial={{ opacity: 0, scale: 0.8 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.5, delay: 0.2 }}
+          whileHover={{ scale: 1.1, rotate: 2 }}
+        />
+      </motion.div>
       <div className="flex-1 flex justify-center gap-2">
-        {navLinks.map((link) => {
+        {navLinks.map((link, index) => {
           const isActive = location.pathname === link.to;
           return (
             <motion.div
               key={link.to}
+              whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               className="relative group"
+              initial={{ opacity: 0, y: -10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.4, delay: 0.3 + index * 0.1 }}
             >
               <Link
                 to={link.to}
                 className={`text-gray-700 text-base font-medium px-4 py-2 rounded-lg transition-all duration-200 relative flex items-center justify-center
-                  hover:text-[#5e255dff]  focus:text-[#5e255dff]
-                   ${isActive ? "text-[#5e255dff]" : ""}`}
+                  hover:text-[#5e255dff] focus:text-[#5e255dff] focus:outline-none focus:ring-2 focus:ring-[#5e255dff]/20 focus:ring-offset-2
+                   ${isActive ? "text-[#5e255dff] font-semibold" : ""}`}
               >
                 {link.label}
+
+                {/* Hover underline animation */}
+                <motion.div
+                  className="absolute bottom-0 left-1/2 h-0.5 bg-[#5e255dff]"
+                  initial={{ width: 0, x: "-50%" }}
+                  whileHover={{ width: "80%" }}
+                  transition={{ duration: 0.3, ease: "easeInOut" }}
+                />
+
+                {/* Active state underline */}
+                {isActive && (
+                  <motion.div
+                    className="absolute bottom-0 left-1/2 h-0.5 bg-[#5e255dff]"
+                    initial={{ width: 0, x: "-50%" }}
+                    animate={{ width: "100%" }}
+                    transition={{ duration: 0.4, ease: "easeInOut" }}
+                  />
+                )}
               </Link>
             </motion.div>
           );
         })}
       </div>
-      <div className="flex items-center gap-4">
-        <button
+      <motion.div
+        className="flex items-center gap-4"
+        initial={{ opacity: 0, x: 30 }}
+        animate={{ opacity: 1, x: 0 }}
+        transition={{ duration: 0.6, delay: 0.8 }}
+      >
+        <motion.button
           onClick={toggleTheme}
           aria-label="Toggle dark mode"
           className="p-2 rounded-lg hover:bg-gray-100 transition-colors"
+          initial={{ opacity: 0, scale: 0.8 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.4, delay: 0.9 }}
+          whileHover={{ scale: 1.1, rotate: 10 }}
+          whileTap={{ scale: 0.9 }}
         >
           {theme === "light" ? (
             // Sun SVG for light mode (default) - COMMENTED OUT
@@ -93,15 +141,29 @@ const Navbar = () => {
               />
             </svg>
           )}
-        </button>
-        <button className="px-4 py-2 rounded-lg font-medium text-base text-gray-700 hover:text-[#5e255dff] hover:bg-gray-50 transition-colors">
+        </motion.button>
+        <motion.button
+          className="px-4 py-2 rounded-lg font-medium text-base text-gray-700 hover:text-[#5e255dff] hover:bg-gray-50 transition-colors"
+          initial={{ opacity: 0, y: -10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.4, delay: 1.0 }}
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.95 }}
+        >
           Login
-        </button>
-        <button className="px-5 py-2 rounded-lg font-semibold text-base text-white bg-[#5e255dff] hover:bg-[#4a1d49] transition-all duration-200 transform hover:scale-105 shadow-sm focus:outline-none focus:ring-2 focus:ring-[#5e255d] focus:ring-offset-1">
+        </motion.button>
+        <motion.button
+          className="px-5 py-2 rounded-lg font-semibold text-base text-white bg-[#5e255dff] hover:bg-[#4a1d49] transition-all duration-200 transform hover:scale-105 shadow-sm focus:outline-none focus:ring-2 focus:ring-[#5e255d] focus:ring-offset-1"
+          initial={{ opacity: 0, scale: 0.8 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.5, delay: 1.1 }}
+          whileHover={{ scale: 1.1, y: -2 }}
+          whileTap={{ scale: 0.95 }}
+        >
           Install Now
-        </button>
-      </div>
-    </nav>
+        </motion.button>
+      </motion.div>
+    </motion.nav>
   );
 };
 

@@ -1,3 +1,5 @@
+import { motion } from "framer-motion";
+
 const features = [
   {
     title: "Smart COD Forms",
@@ -288,30 +290,59 @@ const Features = () => (
 
     <div className="max-w-7xl justify-center mx-auto relative z-10">
       {/* Enhanced header section */}
-      <div className="text-center mb-16">
-        <div className="flex justify-center mb-6">
+      <motion.div
+        className="text-center mb-16"
+        initial={{ opacity: 0, y: 30 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.8 }}
+        viewport={{ once: true }}
+      >
+        <motion.div
+          className="flex justify-center mb-6"
+          initial={{ opacity: 0, scale: 0.8 }}
+          whileInView={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.6, delay: 0.2 }}
+          viewport={{ once: true }}
+        >
           <div className="flex justify-center mb-4">
             <span className="mt-1 inline-block w-16 h-2 rounded-full bg-gradient-to-r from-[#9d3ecb] via-[#a259c9] to-[#702c91] opacity-90 shadow-md mr-3" />
             <span className="uppercase tracking-widest text-xs font-semibold text-[#702c91]">
               Why Choose COD Rocket?
             </span>
           </div>
-        </div>
-        <h2 className="text-4xl md:text-5xl font-extrabold mb-6 text-[#5e255dff] drop-shadow-sm tracking-tight">
+        </motion.div>
+        <motion.h2
+          className="text-4xl md:text-5xl font-extrabold mb-6 text-[#5e255dff] drop-shadow-sm tracking-tight"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.3 }}
+          viewport={{ once: true }}
+        >
           Why Choose COD Rocket?
-        </h2>
-        <p className="text-xl md:text-2xl text-gray-600 max-w-4xl mx-auto leading-relaxed px-23">
+        </motion.h2>
+        <motion.p
+          className="text-xl md:text-2xl text-gray-600 max-w-4xl mx-auto leading-relaxed px-23"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.4 }}
+          viewport={{ once: true }}
+        >
           Everything you need to manage cash on delivery orders efficiently and
           boost your Shopify store's conversion rates.
-        </p>
-      </div>
+        </motion.p>
+      </motion.div>
 
       {/* Enhanced features grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 lg:gap-10 px-23">
         {features.map((feature, idx) => (
-          <div
+          <motion.div
             key={idx}
             className="group bg-white/70 backdrop-blur-xl border border-white/30 rounded-2xl shadow-lg p-8 flex flex-col items-center text-center transition-all duration-500 hover:shadow-2xl hover:shadow-purple-500/10 hover:-translate-y-2 hover:border-purple-200 hover:bg-white/90 cursor-pointer"
+            initial={{ opacity: 0, y: 50 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: idx * 0.1 }}
+            viewport={{ once: true }}
+            whileHover={{ y: -8, scale: 1.02 }}
           >
             {/* Icon container with enhanced styling */}
             <div className="mb-8 relative">
@@ -334,13 +365,23 @@ const Features = () => (
 
             {/* Hover indicator */}
             <div className="mt-6 w-0 h-1 bg-gradient-to-r from-[#9d3ecb] to-[#a855f7] rounded-full group-hover:w-16 transition-all duration-300" />
-          </div>
+          </motion.div>
         ))}
       </div>
 
       {/* Call to action section */}
-      <div className="text-center mt-16">
-        <button className="inline-flex items-center gap-3 px-8 py-4 bg-gradient-to-r from-[#5e255dff] to-[#a855f7] text-white font-semibold text-lg rounded-xl hover:from-[#4a1d49] hover:to-[#9333ea] transform hover:scale-105 transition-all duration-300 shadow-lg hover:shadow-xl focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2">
+      <motion.div
+        className="text-center mt-16"
+        initial={{ opacity: 0, y: 30 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.8, delay: 0.5 }}
+        viewport={{ once: true }}
+      >
+        <motion.button
+          className="inline-flex items-center gap-3 px-8 py-4 bg-gradient-to-r from-[#5e255dff] to-[#a855f7] text-white font-semibold text-lg rounded-xl hover:from-[#4a1d49] hover:to-[#9333ea] transform hover:scale-105 transition-all duration-300 shadow-lg hover:shadow-xl focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2"
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.95 }}
+        >
           <span>Ready to get started?</span>
           <svg
             width="18"
@@ -357,8 +398,8 @@ const Features = () => (
               strokeLinejoin="round"
             />
           </svg>
-        </button>
-      </div>
+        </motion.button>
+      </motion.div>
     </div>
   </section>
 );

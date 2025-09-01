@@ -95,8 +95,12 @@ const HowCODWorks = () => (
     <div className="max-w-6xl mx-auto relative z-10">
       {/* Decorative accent above title */}
       <div className="flex justify-center mb-4">
-        <span className="inline-block w-16 h-2 rounded-full bg-gradient-to-r from-[#9d3ecb] via-[#a259c9] to-[#702c91] opacity-90 shadow-md mr-3" />
+        <span className="mt-1 inline-block w-16 h-2 rounded-full bg-gradient-to-r from-[#9d3ecb] via-[#a259c9] to-[#702c91] opacity-90 shadow-md mr-3" />
+        <span className="uppercase tracking-widest text-xs font-semibold text-[#702c91]">
+            How It Works
+          </span>
       </div>
+
       <h2 className="text-4xl md:text-5xl font-extrabold text-center mb-4 text-[#2d123a] tracking-tight drop-shadow-sm">
         How COD Rocket Works
       </h2>

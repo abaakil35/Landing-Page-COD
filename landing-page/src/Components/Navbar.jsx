@@ -8,9 +8,9 @@ import ThemeContext from "../Context/ThemeContextContext.js";
 const navLinks = [
   { to: "/", label: "Home" },
   { to: "/features", label: "Features" },
+  { to: "/how-it-works", label: "How it Works" },
   { to: "/pricing", label: "Pricing" },
-  { to: "/demo", label: "Demo" },
-  { to: "/docs", label: "Docs" }, // Docs: Documentation page link
+  { to: "/help-center", label: "Help Center" }, // Help Center: Support and documentation page
 ];
 
 const Navbar = () => {
@@ -21,29 +21,29 @@ const Navbar = () => {
       <div className="flex items-center min-w-[120px]">
         <img src={logo} alt="Logo" className="h-6 w-auto mr-4" />
       </div>
-      <div className="flex-1 flex justify-center gap-12">
+      <div className="flex-1 flex justify-center gap-5">
         {navLinks.map((link) => {
           const isActive = location.pathname === link.to;
           return (
             <motion.div
               key={link.to}
-              whileTap={{ scale: 0.92 }}
+              whileTap={{ scale: 0.95 }}
               className="relative group"
             >
               <Link
                 to={link.to}
-                className={`text-gray-700 text-lg font-medium px-2 py-1 rounded transition-colors duration-150 relative
-                  hover:text-[#5e255dff] focus:text-[#5e255dff]
-                  ${isActive ? "text-[#5e255dff]" : ""}`}
+                className={`text-gray-700 text-base font-medium px-4 py-2 rounded-lg transition-all duration-200 relative
+                  hover:text-[#5e255dff]  focus:text-[#5e255dff] 
+                  ${isActive ? "text-[#5e255dff] bg-gray-50" : ""}`}
               >
                 {link.label}
                 {/* Underline for active and hover states */}
                 <span
-                  className={`absolute left-0 -bottom-1 w-full h-0.5 rounded transition-all duration-200
+                  className={`absolute left-1/2 -translate-x-1/2 -bottom-0.5 w-0 h-0.5 rounded transition-all duration-200
                     ${
                       isActive
-                        ? "bg-[#5e255dff] opacity-100"
-                        : "bg-[#5e255dff] opacity-0 group-hover:opacity-60 group-hover:scale-100 group-hover:opacity-100 scale-x-75"
+                        ? "bg-[#5e255dff] w-3/4"
+                        : "bg-[#5e255dff] group-hover:w-3/4"
                     }`}
                 />
               </Link>
@@ -55,10 +55,11 @@ const Navbar = () => {
         <button
           onClick={toggleTheme}
           aria-label="Toggle dark mode"
-          className="p-2 rounded-full hover:bg-gray-200 dark:hover:bg-gray-200 transition-colors"
+          className="p-2 rounded-lg hover:bg-gray-100 transition-colors"
         >
           {theme === "light" ? (
-            // Sun SVG for light mode (default)
+            // Sun SVG for light mode (default) - COMMENTED OUT
+            /*
             <svg width="24" height="24" fill="none" viewBox="0 0 24 24">
               <circle cx="12" cy="12" r="5" fill="#FFD600" />
               <g stroke="#FFD600" strokeWidth="2">
@@ -72,6 +73,8 @@ const Navbar = () => {
                 <line x1="18.36" y1="5.64" x2="19.78" y2="4.22" />
               </g>
             </svg>
+            */
+            <div className="w-6 h-6"></div>
           ) : (
             // Moon SVG for dark mode
             <svg width="24" height="24" fill="none" viewBox="0 0 24 24">
@@ -84,12 +87,12 @@ const Navbar = () => {
             </svg>
           )}
         </button>
-        <a
-          href="#install"
-          className="px-6 py-2 rounded-lg font-bold text-lg text-white bg-[#5e255dff] hover:bg-[#4a1d49] transition-transform duration-200 transform hover:scale-105 shadow-md focus:outline-none focus:ring-2 focus:ring-[#5e255d] focus:ring-offset-2"
-        >
+        <button className="px-4 py-2 rounded-lg font-medium text-base text-gray-700 hover:text-[#5e255dff] hover:bg-gray-50 transition-colors">
+          Login
+        </button>
+        <button className="px-5 py-2 rounded-lg font-semibold text-base text-white bg-[#5e255dff] hover:bg-[#4a1d49] transition-all duration-200 transform hover:scale-105 shadow-sm focus:outline-none focus:ring-2 focus:ring-[#5e255d] focus:ring-offset-1">
           Install Now
-        </a>
+        </button>
       </div>
     </nav>
   );

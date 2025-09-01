@@ -29,7 +29,7 @@ const SeeAction = () => (
           <span className="uppercase tracking-widest text-xs font-semibold text-[#702c91]">
             Live Demo
           </span>
-        </div>
+        </div>  
         <div className="flex items-center mb-2"></div>
         <h2 className="text-3xl md:text-4xl font-extrabold mb-4 text-[#2d123a] drop-shadow-sm tracking-tight">
           See COD Rocket in Action

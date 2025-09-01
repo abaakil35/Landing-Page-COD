@@ -1,7 +1,7 @@
 import logo from "../assets/logo.png";
 import { Link, useLocation } from "react-router-dom";
 import { motion } from "framer-motion";
-import { useContext } from "react";
+import { useContext, useState, useEffect } from "react";
 import ThemeContext from "../Context/ThemeContextContext.js";
 
 // navLinks: Navigation items for the main navbar. Each item uses React Router DOM for client-side navigation.
@@ -16,12 +16,28 @@ const navLinks = [
 const Navbar = () => {
   const location = useLocation();
   const { theme, toggleTheme } = useContext(ThemeContext);
+  const [isScrolled, setIsScrolled] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const scrollTop = window.scrollY;
+      setIsScrolled(scrollTop > 0);
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
   return (
-    <nav className="w-full flex items-center justify-between py-4 px-8 sticky top-0 left-0 z-50 bg-gradient-to-br from-white via-[#f9f4f9] to-[#f7eaf7] backdrop-blur-md shadow-[0_4px_24px_0_rgba(94,37,93,0.07)]">
+    <nav
+      className={`w-full flex items-center justify-between py-4 px-23 sticky top-0 left-0 z-50 bg-white backdrop-blur-md transition-all duration-300 ${
+        isScrolled ? "shadow-[0_4px_24px_0_rgba(94,37,93,0.07)]" : ""
+      }`}
+    >
       <div className="flex items-center min-w-[120px]">
         <img src={logo} alt="Logo" className="h-6 w-auto mr-4" />
       </div>
-      <div className="flex-1 flex justify-center gap-5">
+      <div className="flex-1 flex justify-center gap-2">
         {navLinks.map((link) => {
           const isActive = location.pathname === link.to;
           return (
@@ -32,20 +48,11 @@ const Navbar = () => {
             >
               <Link
                 to={link.to}
-                className={`text-gray-700 text-base font-medium px-4 py-2 rounded-lg transition-all duration-200 relative
-                  hover:text-[#5e255dff]  focus:text-[#5e255dff] 
-                  ${isActive ? "text-[#5e255dff] bg-gray-50" : ""}`}
+                className={`text-gray-700 text-base font-medium px-4 py-2 rounded-lg transition-all duration-200 relative flex items-center justify-center
+                  hover:text-[#5e255dff]  focus:text-[#5e255dff]
+                   ${isActive ? "text-[#5e255dff]" : ""}`}
               >
                 {link.label}
-                {/* Underline for active and hover states */}
-                <span
-                  className={`absolute left-1/2 -translate-x-1/2 -bottom-0.5 w-0 h-0.5 rounded transition-all duration-200
-                    ${
-                      isActive
-                        ? "bg-[#5e255dff] w-3/4"
-                        : "bg-[#5e255dff] group-hover:w-3/4"
-                    }`}
-                />
               </Link>
             </motion.div>
           );

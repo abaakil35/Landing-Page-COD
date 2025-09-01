@@ -7,7 +7,7 @@ const checklist = [
 import demoImage from "../assets/ChatGPT Image Aug 28, 2025, 11_43_20 AM.png";
 
 const SeeAction = () => (
-  <section className="relative w-full py-20 px-6 md:px-16 bg-gradient-to-br from-white via-[#f9f4f9] to-[#f7eaf7] overflow-hidden">
+  <section className="relative w-full py-16 px-23 bg-gradient-to-tl from-[#f7eaf7] via-[#f9f4f9] to-white overflow-hidden">
     {/* Decorative SVG background shapes, rotated 180° */}
     <svg
       className="absolute -bottom-24 -left-24 w-96 h-96 opacity-20 z-0 rotate-180"
@@ -29,7 +29,7 @@ const SeeAction = () => (
           <span className="uppercase tracking-widest text-xs font-semibold text-[#702c91]">
             Live Demo
           </span>
-        </div>  
+        </div>
         <div className="flex items-center mb-2"></div>
         <h2 className="text-3xl md:text-4xl font-extrabold mb-4 text-[#2d123a] drop-shadow-sm tracking-tight">
           See COD Rocket in Action

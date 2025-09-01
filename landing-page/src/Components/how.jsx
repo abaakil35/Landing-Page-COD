@@ -78,7 +78,7 @@ const steps = [
 ];
 
 const HowCODWorks = () => (
-  <section className="relative w-full py-20 px-6 md:px-16 bg-gradient-to-tl from-[#f7eaf7] via-[#f9f4f9] to-white overflow-hidden">
+  <section className="relative w-full py-20 px-23 bg-gradient-to-tl from-[#f7eaf7] via-[#f9f4f9] to-white overflow-hidden">
     {/* Decorative SVG background shapes */}
     <svg
       className="absolute -top-24 -left-24 w-96 h-96 opacity-20 z-0"
@@ -97,8 +97,8 @@ const HowCODWorks = () => (
       <div className="flex justify-center mb-4">
         <span className="mt-1 inline-block w-16 h-2 rounded-full bg-gradient-to-r from-[#9d3ecb] via-[#a259c9] to-[#702c91] opacity-90 shadow-md mr-3" />
         <span className="uppercase tracking-widest text-xs font-semibold text-[#702c91]">
-            How It Works
-          </span>
+          How It Works
+        </span>
       </div>
 
       <h2 className="text-4xl md:text-5xl font-extrabold text-center mb-4 text-[#2d123a] tracking-tight drop-shadow-sm">

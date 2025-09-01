@@ -1,5 +1,5 @@
 const Ready = () => (
-  <section className="relative w-full py-20 px-6 md:px-16 bg-gradient-to-br from-white via-[#f9f4f9] to-[#f7eaf7] text-center overflow-hidden">
+  <section className="relative w-full py-20 px-23 bg-gradient-to-br from-white via-[#f9f4f9] to-[#f7eaf7] text-center overflow-hidden">
     {/* Decorative blurred circles */}
     <div className="absolute -top-24 -left-24 w-72 h-72 bg-[#9d3ecb]/20 rounded-full blur-3xl opacity-60 z-0" />
     <div className="absolute -bottom-24 -right-24 w-72 h-72 bg-[#5affff]/20 rounded-full blur-3xl opacity-60 z-0" />

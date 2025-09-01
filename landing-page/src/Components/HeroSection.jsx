@@ -2,7 +2,7 @@ import image from "./../assets/Adobe Express - file.png";
 
 const HeroSection = () => {
   return (
-    <section className="hero-section flex flex-col md:flex-row items-center justify-between bg-gradient-to-br from-white via-[#f9f4f9] to-[#f7eaf7] px-7 md:px-16 pb-7 md:pb-16 gap-x-8">
+    <section className="hero-section flex flex-col md:flex-row items-center justify-between bg-white px-23 pb-12 gap-x-8">
       <div className="hero-content flex flex-col justify-center md:items-start items-center text-left max-w-xl w-full mt-3">
         <h1 className="text-4xl md:text-5xl font-extrabold leading-tight mb-4 text-gray-900">
           <span className="inline-block bg-gradient-to-r from-[#5e255dff] via-[#a78bfa] to-[#5e255dff] bg-clip-text text-transparent">

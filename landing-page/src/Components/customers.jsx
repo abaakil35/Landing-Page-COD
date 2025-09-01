@@ -20,7 +20,7 @@ const testimonials = [
 ];
 
 const Customers = () => (
-  <section className="relative w-full py-20 px-6 md:px-16 bg-gradient-to-br from-white via-[#f9f4f9] to-[#f7eaf7] overflow-hidden">
+  <section className="relative w-full py-20 px-23 bg-gradient-to-br from-white via-[#f9f4f9] to-[#f7eaf7] overflow-hidden">
     {/* Decorative blurred circle */}
     <div className="absolute -top-24 -left-24 w-72 h-72 bg-[#9d3ecb]/20 rounded-full blur-3xl opacity-60 z-0" />
     <div className="absolute -bottom-24 -right-24 w-72 h-72 bg-[#5affff]/20 rounded-full blur-3xl opacity-60 z-0" />
@@ -42,9 +42,7 @@ const Customers = () => (
           >
             <div>
               <div className="flex items-center mb-4">
-                <span className="text-xl mr-2 bg-gradient-to-r from-[#FFD700] via-[#9d3ecb] to-[#702c91] bg-clip-text text-transparent">
-                  ★★★★★
-                </span>
+                <span className="text-xl mr-2 text-[#FFD700]">★★★★★</span>
               </div>
               <p className="text-lg md:text-xl text-[#3f3f3f] mb-8 italic">
                 {t.text}

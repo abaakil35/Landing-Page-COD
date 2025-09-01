@@ -280,34 +280,34 @@ const features = [
 ];
 
 const Features = () => (
-  <section className="relative w-full bg-gradient-to-br from-white via-[#f9f4f9] to-[#f7eaf7] py-24 px-12 overflow-hidden">
+  <section className="relative w-full bg-gradient-to-br from-white via-[#f9f4f9] to-[#f7eaf7] py-24 px-23 overflow-hidden">
     {/* Enhanced decorative background elements */}
     <div className="absolute top-10 left-10 w-96 h-96 bg-gradient-to-br from-[#e9d6f7] to-[#f3e8ff] rounded-full opacity-20 blur-3xl z-0" />
     <div className="absolute bottom-10 right-10 w-80 h-80 bg-gradient-to-br from-[#f7eaf7] to-[#e9d5ff] rounded-full opacity-30 blur-2xl z-0" />
     <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-72 h-72 bg-gradient-to-br from-[#ddd6fe] to-[#e9d5ff] rounded-full opacity-10 blur-3xl z-0" />
 
-    <div className="max-w-7xl mx-auto px-12 relative z-10">
+    <div className="max-w-7xl justify-center mx-auto relative z-10">
       {/* Enhanced header section */}
       <div className="text-center mb-16">
         <div className="flex justify-center mb-6">
           <div className="flex justify-center mb-4">
-        <span className="mt-1 inline-block w-16 h-2 rounded-full bg-gradient-to-r from-[#9d3ecb] via-[#a259c9] to-[#702c91] opacity-90 shadow-md mr-3" />
-        <span className="uppercase tracking-widest text-xs font-semibold text-[#702c91]">
-            Why Choose COD Rocket?
-          </span>
-      </div>
+            <span className="mt-1 inline-block w-16 h-2 rounded-full bg-gradient-to-r from-[#9d3ecb] via-[#a259c9] to-[#702c91] opacity-90 shadow-md mr-3" />
+            <span className="uppercase tracking-widest text-xs font-semibold text-[#702c91]">
+              Why Choose COD Rocket?
+            </span>
+          </div>
         </div>
         <h2 className="text-4xl md:text-5xl font-extrabold mb-6 text-[#5e255dff] drop-shadow-sm tracking-tight">
           Why Choose COD Rocket?
         </h2>
-        <p className="text-xl md:text-2xl text-gray-600 max-w-4xl mx-auto leading-relaxed px-12">
+        <p className="text-xl md:text-2xl text-gray-600 max-w-4xl mx-auto leading-relaxed px-23">
           Everything you need to manage cash on delivery orders efficiently and
           boost your Shopify store's conversion rates.
         </p>
       </div>
 
       {/* Enhanced features grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 lg:gap-10 px-12">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 lg:gap-10 px-23">
         {features.map((feature, idx) => (
           <div
             key={idx}

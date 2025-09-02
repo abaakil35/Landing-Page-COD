@@ -90,7 +90,7 @@ const Pricing = () => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.4 }}
         >
-          Start free and scale as you grow. No hidden fees, no long-term
+          Start free and scale as you grow. No hidden fees, no lo ng-term
           contracts.
         </motion.p>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
@@ -420,6 +420,127 @@ const Pricing = () => {
                     ))}
                   </tbody>
                 </table>
+              </div>
+            </div>
+          </motion.div>
+        )}
+
+        {/* Contact Sales Section */}
+        {isPricingPage && (
+          <motion.div
+            className="mt-20 mx-auto max-w-4xl"
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+            viewport={{ once: true }}
+          >
+            <div className="bg-gradient-to-br from-[#5e255dff] to-[#9d3ecb] rounded-3xl p-12 text-center relative overflow-hidden">
+              {/* Background Pattern */}
+              <div className="absolute inset-0 opacity-10">
+                <div className="absolute top-0 left-0 w-40 h-40 bg-white rounded-full -translate-x-20 -translate-y-20"></div>
+                <div className="absolute bottom-0 right-0 w-32 h-32 bg-white rounded-full translate-x-16 translate-y-16"></div>
+                <div className="absolute top-1/2 left-1/4 w-6 h-6 bg-white rounded-full"></div>
+                <div className="absolute top-1/4 right-1/4 w-4 h-4 bg-white rounded-full"></div>
+              </div>
+
+              <div className="relative z-10">
+                <div className="inline-flex items-center justify-center w-16 h-16 bg-white/20 rounded-full mb-6">
+                  <svg
+                    className="w-8 h-8 text-white"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"
+                    />
+                  </svg>
+                </div>
+
+                <h3 className="text-3xl font-bold text-white mb-4">
+                  Need Something Custom?
+                </h3>
+                <p className="text-xl text-white/90 mb-8 max-w-2xl mx-auto">
+                  Looking for enterprise solutions, custom integrations, or have
+                  specific requirements? Our sales team is here to help you find
+                  the perfect solution for your business.
+                </p>
+
+                <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+                  <motion.button
+                    className="bg-white text-[#5e255dff] px-8 py-4 rounded-full font-semibold text-lg hover:bg-gray-100 transition-all duration-200 flex items-center gap-2 min-w-[200px] justify-center"
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                  >
+                    <svg
+                      className="w-5 h-5"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"
+                      />
+                    </svg>
+                    Contact Sales Team
+                  </motion.button>
+
+                  <motion.a
+                    href="mailto:sales@yourcompany.com"
+                    className="text-white/90 hover:text-white transition-colors duration-200 flex items-center gap-2 text-lg"
+                    whileHover={{ scale: 1.05 }}
+                  >
+                    <svg
+                      className="w-5 h-5"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
+                      />
+                    </svg>
+                    sales@yourcompany.com
+                  </motion.a>
+                </div>
+
+                <div className="mt-8 pt-8 border-t border-white/20">
+                  <div className="grid grid-cols-1 md:grid-cols-3 gap-6 text-center">
+                    <div>
+                      <div className="text-2xl font-bold text-white mb-1">
+                        24/7
+                      </div>
+                      <div className="text-white/80 text-sm">
+                        Enterprise Support
+                      </div>
+                    </div>
+                    <div>
+                      <div className="text-2xl font-bold text-white mb-1">
+                        99.9%
+                      </div>
+                      <div className="text-white/80 text-sm">
+                        Uptime Guarantee
+                      </div>
+                    </div>
+                    <div>
+                      <div className="text-2xl font-bold text-white mb-1">
+                        Custom
+                      </div>
+                      <div className="text-white/80 text-sm">
+                        Integration Solutions
+                      </div>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
           </motion.div>

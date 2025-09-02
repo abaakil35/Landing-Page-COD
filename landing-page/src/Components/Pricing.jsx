@@ -31,7 +31,7 @@ const plans = [
     button: {
       text: "Start Free Trial",
       style:
-        "border-2 border-transparent text-black font-bold bg-white hover:shadow-md transition-all",
+        "border-2 border-transparent text-white font-bold bg-[#5e255dff] hover:bg-[#4a1d49] transition-all shadow-lg hover:shadow-xl",
     },
     popular: true,
   },

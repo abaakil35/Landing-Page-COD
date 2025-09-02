@@ -1,6 +1,13 @@
-import { motion } from "framer-motion";
+import React, { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 
 const HelpCenter = () => {
+  const [openFAQ, setOpenFAQ] = useState(null);
+
+  const toggleFAQ = (index) => {
+    setOpenFAQ(openFAQ === index ? null : index);
+  };
+
   const faqs = [
     {
       question: "How do I integrate COD Rocket with my Shopify store?",
@@ -34,29 +41,6 @@ const HelpCenter = () => {
     },
   ];
 
-  const guides = [
-    {
-      title: "Getting Started Guide",
-      description: "Learn how to set up COD Rocket in your Shopify store",
-      icon: "🚀",
-    },
-    {
-      title: "Customization Guide",
-      description: "Customize forms and checkout flow to match your brand",
-      icon: "🎨",
-    },
-    {
-      title: "Analytics Guide",
-      description: "Understanding your COD performance metrics",
-      icon: "📊",
-    },
-    {
-      title: "Best Practices",
-      description: "Tips to maximize your COD conversion rates",
-      icon: "💡",
-    },
-  ];
-
   return (
     <div className="relative w-full py-20 px-23 bg-white">
       <div className="max-w-7xl mx-auto">
@@ -68,10 +52,10 @@ const HelpCenter = () => {
           transition={{ duration: 0.6 }}
         >
           <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
-            Help Center
+            COD Form Builder
           </h1>
           <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-            Get answers to your questions and learn how to make the most of COD
+            Complete help center for your Cash on Delivery form building needs
             Rocket
           </p>
         </motion.div>
@@ -107,31 +91,144 @@ const HelpCenter = () => {
           </div>
         </motion.div>
 
-        {/* Quick Start Guides */}
+        {/* Quick Start Guide */}
         <motion.div
-          className="mb-16"
+          className="mb-20"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.2 }}
         >
-          <h2 className="text-3xl font-bold text-gray-900 mb-8 text-center">
-            Quick Start Guides
-          </h2>
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {guides.map((guide, index) => (
-              <motion.div
-                key={index}
-                className="bg-gray-50 p-6 rounded-xl hover:shadow-lg transition-shadow cursor-pointer border border-gray-200 hover:border-[#5e255dff]"
-                whileHover={{ y: -5 }}
-                transition={{ duration: 0.2 }}
+          <div className="text-center mb-12">
+            <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
+              Quick Start Guide
+            </h2>
+            <p className="text-xl text-gray-600 max-w-2xl mx-auto">
+              Get up and running with COD Form Builder in minutes
+            </p>
+          </div>
+
+          {/* 3-Step Process */}
+          <div className="flex flex-col md:flex-row justify-center items-center gap-6 md:gap-8">
+            {/* Step 1: Install App */}
+            <motion.div
+              className="text-center group flex-1 max-w-xs"
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.3 }}
+            >
+              <div className="relative mb-6">
+                {/* Icon Container */}
+                <div className="w-20 h-20 mx-auto bg-gradient-to-br from-[#f3e8ff] to-[#e9d5ff] rounded-xl flex items-center justify-center shadow-md group-hover:shadow-lg transition-all duration-300 group-hover:scale-105">
+                  <svg
+                    className="w-10 h-10 text-[#5e255dff]"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M9 19l3 3m0 0l3-3m-3 3V10"
+                    />
+                  </svg>
+                </div>
+              </div>
+              <h3 className="text-lg font-bold text-gray-900 mb-3">
+                Install App
+              </h3>
+              <p className="text-gray-600 text-sm leading-relaxed mb-4">
+                Install COD Form Builder from the Shopify App Store with one
+                click
+              </p>
+              <motion.button
+                className="px-4 py-2 border-2 border-[#5e255dff] text-[#5e255dff] rounded-lg text-sm font-semibold hover:bg-[#5e255dff] hover:text-white transition-all duration-300"
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
               >
-                <div className="text-4xl mb-4">{guide.icon}</div>
-                <h3 className="text-xl font-semibold text-gray-900 mb-3">
-                  {guide.title}
-                </h3>
-                <p className="text-gray-600">{guide.description}</p>
-              </motion.div>
-            ))}
+                Learn More
+              </motion.button>
+            </motion.div>
+
+            {/* Step 2: Create Form */}
+            <motion.div
+              className="text-center group flex-1 max-w-xs"
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.4 }}
+            >
+              <div className="relative mb-6">
+                {/* Icon Container */}
+                <div className="w-20 h-20 mx-auto bg-gradient-to-br from-[#e0f2fe] to-[#b3e5fc] rounded-xl flex items-center justify-center shadow-md group-hover:shadow-lg transition-all duration-300 group-hover:scale-105">
+                  <svg
+                    className="w-10 h-10 text-[#0288d1]"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"
+                    />
+                  </svg>
+                </div>
+              </div>
+              <h3 className="text-lg font-bold text-gray-900 mb-3">
+                Create Form
+              </h3>
+              <p className="text-gray-600 text-sm leading-relaxed mb-4">
+                Use our drag-and-drop builder to create your perfect COD form
+              </p>
+              <motion.button
+                className="px-4 py-2 border-2 border-[#0288d1] text-[#0288d1] rounded-lg text-sm font-semibold hover:bg-[#0288d1] hover:text-white transition-all duration-300"
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                Learn More
+              </motion.button>
+            </motion.div>
+
+            {/* Step 3: Customize */}
+            <motion.div
+              className="text-center group flex-1 max-w-xs"
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.5 }}
+            >
+              <div className="relative mb-6">
+                {/* Icon Container */}
+                <div className="w-20 h-20 mx-auto bg-gradient-to-br from-[#e8f5e8] to-[#c8e6c9] rounded-xl flex items-center justify-center shadow-md group-hover:shadow-lg transition-all duration-300 group-hover:scale-105">
+                  <svg
+                    className="w-10 h-10 text-[#2e7d32]"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zM21 5a2 2 0 00-2-2h-4a2 2 0 00-2 2v12a4 4 0 004 4h4a2 2 0 002-2V5z"
+                    />
+                  </svg>
+                </div>
+              </div>
+              <h3 className="text-lg font-bold text-gray-900 mb-3">
+                Customize
+              </h3>
+              <p className="text-gray-600 text-sm leading-relaxed mb-4">
+                Style your form to match your brand and set up delivery rules
+              </p>
+              <motion.button
+                className="px-4 py-2 border-2 border-[#2e7d32] text-[#2e7d32] rounded-lg text-sm font-semibold hover:bg-[#2e7d32] hover:text-white transition-all duration-300"
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                Learn More
+              </motion.button>
+            </motion.div>
           </div>
         </motion.div>
 
@@ -148,36 +245,73 @@ const HelpCenter = () => {
             {faqs.map((faq, index) => (
               <motion.div
                 key={index}
-                className="bg-white border border-gray-200 rounded-xl overflow-hidden"
+                className="bg-white border border-gray-200 rounded-xl overflow-hidden shadow-sm"
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: 0.1 * index }}
+                whileHover={{
+                  y: -2,
+                  boxShadow: "0 10px 25px rgba(0, 0, 0, 0.1)",
+                }}
               >
-                <details className="group">
-                  <summary className="flex justify-between items-center p-6 cursor-pointer hover:bg-gray-50 transition-colors">
-                    <h3 className="text-lg font-semibold text-gray-900 pr-4">
-                      {faq.question}
-                    </h3>
-                    <svg
-                      className="w-5 h-5 text-gray-500 transform group-open:rotate-180 transition-transform flex-shrink-0"
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
+                <motion.button
+                  className="w-full flex justify-between items-center p-6 cursor-pointer hover:bg-gray-50 transition-colors text-left"
+                  onClick={() => toggleFAQ(index)}
+                  whileTap={{ scale: 0.995 }}
+                >
+                  <h3 className="text-lg font-semibold text-gray-900 pr-4">
+                    {faq.question}
+                  </h3>
+                  <motion.svg
+                    className="w-5 h-5 text-gray-500 flex-shrink-0"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                    animate={{ rotate: openFAQ === index ? 180 : 0 }}
+                    transition={{ duration: 0.3, ease: "easeInOut" }}
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M19 9l-7 7-7-7"
+                    />
+                  </motion.svg>
+                </motion.button>
+
+                <AnimatePresence>
+                  {openFAQ === index && (
+                    <motion.div
+                      initial={{ height: 0, opacity: 0 }}
+                      animate={{
+                        height: "auto",
+                        opacity: 1,
+                      }}
+                      exit={{
+                        height: 0,
+                        opacity: 0,
+                      }}
+                      transition={{
+                        duration: 0.3,
+                        ease: "easeInOut",
+                        opacity: { duration: 0.2 },
+                      }}
+                      className="overflow-hidden"
                     >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M19 9l-7 7-7-7"
-                      />
-                    </svg>
-                  </summary>
-                  <div className="px-6 pb-6">
-                    <p className="text-gray-600 leading-relaxed">
-                      {faq.answer}
-                    </p>
-                  </div>
-                </details>
+                      <motion.div
+                        initial={{ y: -10 }}
+                        animate={{ y: 0 }}
+                        exit={{ y: -10 }}
+                        transition={{ duration: 0.2, delay: 0.1 }}
+                        className="px-6 pb-6"
+                      >
+                        <p className="text-gray-600 leading-relaxed">
+                          {faq.answer}
+                        </p>
+                      </motion.div>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
               </motion.div>
             ))}
           </div>

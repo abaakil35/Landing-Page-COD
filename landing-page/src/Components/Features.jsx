@@ -282,7 +282,7 @@ const features = [
 ];
 
 const Features = () => (
-  <section className="relative w-full bg-gradient-to-br from-white via-[#f9f4f9] to-[#f7eaf7] py-24 px-23 overflow-hidden">
+  <section className="relative w-full bg-gradient-to-br from-white via-[#f9f4f9] to-[#f7eaf7] py-20 px-23 overflow-hidden">
     {/* Enhanced decorative background elements */}
     <div className="absolute top-10 left-10 w-96 h-96 bg-gradient-to-br from-[#e9d6f7] to-[#f3e8ff] rounded-full opacity-20 blur-3xl z-0" />
     <div className="absolute bottom-10 right-10 w-80 h-80 bg-gradient-to-br from-[#f7eaf7] to-[#e9d5ff] rounded-full opacity-30 blur-2xl z-0" />

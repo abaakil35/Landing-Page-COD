@@ -7,7 +7,7 @@ const checklist = [
 import demoImage from "../assets/ChatGPT Image Aug 28, 2025, 11_43_20 AM.png";
 
 const SeeAction = () => (
-  <section className="relative w-full py-16 px-23 bg-[#FCFCFC] overflow-hidden">
+  <section className="relative w-full py-20 px-23 bg-[#FCFCFC] overflow-hidden">
     {/* Decorative SVG background shapes, rotated 180° */}
     <svg
       className="absolute -bottom-24 -left-24 w-96 h-96 opacity-20 z-0 rotate-180"

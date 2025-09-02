@@ -3,7 +3,7 @@ import image from "./../assets/Adobe Express - file.png";
 
 const HeroSection = () => {
   return (
-    <section className="relative w-full py-9 px-23 bg-white overflow-hidden flex flex-col md:flex-row items-center justify-between gap-x-8">
+    <section className="relative w-full py-20 px-23 bg-white overflow-hidden flex flex-col md:flex-row items-center justify-between gap-x-8">
       <motion.div
         className="hero-content flex flex-col justify-center md:items-start items-center text-left max-w-xl w-full mt-3"
         initial={{ opacity: 0, x: -50 }}

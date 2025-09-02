@@ -127,29 +127,31 @@ const Footer = () => (
 
         {/* Right: Newsletter Subscription */}
         <motion.div
-          className="lg:w-1/2 text-center lg:text-right"
+          className="lg:w-1/2 justify-start"
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.2 }}
           viewport={{ once: true }}
         >
-          <h3 className="text-xl font-bold text-white mb-4">
-            Join COD Rocket's monthly newsletter
-          </h3>
+          <div className="flex flex-col gap-4 mb-4">
+            <h3 className="text-xl font-bold text-white">
+              Join COD Rocket's monthly newsletter
+            </h3>
 
-          <div className="flex flex-col sm:flex-row gap-3 max-w-md mx-auto lg:mx-0 lg:ml-auto mb-4">
-            <input
-              type="email"
-              placeholder="Enter your email"
-              className="flex-1 px-4 py-3 bg-white/10 border border-white/20 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-white/40 transition-colors"
-            />
-            <motion.button
-              className="px-8 py-3 bg-black text-white rounded-lg font-medium hover:bg-gray-800 transition-colors whitespace-nowrap"
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-            >
-              Subscribe →
-            </motion.button>
+            <div className="flex gap-3">
+              <input
+                type="email"
+                placeholder="Enter your email"
+                className="w-84 px-4 py-3 bg-white/10 border border-white/20 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-white/40 transition-colors"
+              />
+              <motion.button
+                className="px-8 py-3 bg-black text-white rounded-lg font-medium hover:bg-gray-800 transition-colors whitespace-nowrap"
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                Subscribe →
+              </motion.button>
+            </div>
           </div>
 
           <p className="text-sm text-gray-400">
@@ -162,11 +164,11 @@ const Footer = () => (
       </div>
 
       {/* Bottom Section: Navigation Links */}
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-8 mb-12">
+      <div className="flex flex-wrap justify-between gap-8 mb-12">
         {footerSections.map((section, sectionIdx) => (
           <motion.div
             key={section.title}
-            className="space-y-4"
+            className="flex-1 min-w-[200px] space-y-4"
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.1 * sectionIdx }}
@@ -250,12 +252,7 @@ const Footer = () => (
             </motion.a>
           ))}
 
-          <div className="flex items-center space-x-2 ml-4">
-            <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
-            <span className="text-xs text-gray-400">
-              All systems operational
-            </span>
-          </div>
+          
         </div>
       </motion.div>
     </div>

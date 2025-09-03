@@ -5,6 +5,7 @@ import {
   Routes,
   Route,
   Navigate,
+  useLocation,
 } from "react-router-dom";
 import Navbar from "./Components/Navbar";
 import HeroSection from "./Components/HeroSection";
@@ -19,9 +20,13 @@ import HelpCenter from "./Components/helpCenter";
 import Documentation from "./Components/Documentation";
 // import FAQ from "./Components/FAQ";
 
-function App() {
+function AppContent() {
+  const location = useLocation();
+  const isDocPage =
+    location.pathname === "/doc" || location.pathname === "/help-center/doc";
+
   return (
-    <Router>
+    <>
       <Navbar />
       <div>
         <Routes>
@@ -50,7 +55,15 @@ function App() {
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
       </div>
-      <Footer />
+      {!isDocPage && <Footer />}
+    </>
+  );
+}
+
+function App() {
+  return (
+    <Router>
+      <AppContent />
     </Router>
   );
 }

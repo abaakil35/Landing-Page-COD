@@ -181,7 +181,7 @@ const Customers = () => {
               {testimonials.map((t, idx) => (
                 <motion.div
                   key={idx}
-                  className="flex-none w-80 bg-white/80 backdrop-blur-xl rounded-2xl shadow-xl border-2 border-[#9d3ecb]/10 p-8 flex flex-col justify-between min-h-[320px] transition-transform hover:-translate-y-2 hover:shadow-xl"
+                  className="flex-none w-96 bg-white/80 backdrop-blur-xl rounded-2xl shadow-xl border-2 border-[#9d3ecb]/10 p-8 flex flex-col justify-between min-h-[320px] transition-transform hover:-translate-y-2 hover:shadow-xl"
                   initial={{ opacity: 0, y: 50 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: idx * 0.1 }}

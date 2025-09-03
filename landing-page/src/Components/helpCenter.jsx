@@ -301,12 +301,12 @@ const HelpCenter = () => {
               <p className="text-gray-600 mb-4 leading-relaxed">
                 Learn the basics of setting up and configuring your COD forms
               </p>
-              <motion.button
+              <Link
+                to="/doc?section=introduction"
                 className="text-gray-900 font-semibold hover:text-[#5e255dff] transition-colors inline-flex items-center"
-                whileHover={{ x: 5 }}
               >
-                View Articles →
-              </motion.button>
+                <motion.span whileHover={{ x: 5 }}>View Articles →</motion.span>
+              </Link>
             </motion.div>
 
             {/* Form Builder */}
@@ -339,12 +339,12 @@ const HelpCenter = () => {
                 Master the drag-and-drop form builder with advanced
                 customization options
               </p>
-              <motion.button
+              <Link
+                to="/doc?section=form-builder"
                 className="text-gray-900 font-semibold hover:text-[#5e255dff] transition-colors inline-flex items-center"
-                whileHover={{ x: 5 }}
               >
-                View Articles →
-              </motion.button>
+                <motion.span whileHover={{ x: 5 }}>View Articles →</motion.span>
+              </Link>
             </motion.div>
 
             {/* Order Management */}
@@ -377,12 +377,12 @@ const HelpCenter = () => {
                 Handle COD orders, track deliveries, and manage customer
                 communications
               </p>
-              <motion.button
+              <Link
+                to="/doc?section=order-management"
                 className="text-gray-900 font-semibold hover:text-[#5e255dff] transition-colors inline-flex items-center"
-                whileHover={{ x: 5 }}
               >
-                View Articles →
-              </motion.button>
+                <motion.span whileHover={{ x: 5 }}>View Articles →</motion.span>
+              </Link>
             </motion.div>
 
             {/* Customization */}
@@ -415,12 +415,12 @@ const HelpCenter = () => {
                 Customize form appearance, validation rules, and delivery
                 options
               </p>
-              <motion.button
+              <Link
+                to="/doc?section=customization"
                 className="text-gray-900 font-semibold hover:text-[#5e255dff] transition-colors inline-flex items-center"
-                whileHover={{ x: 5 }}
               >
-                View Articles →
-              </motion.button>
+                <motion.span whileHover={{ x: 5 }}>View Articles →</motion.span>
+              </Link>
             </motion.div>
 
             {/* Shopify Integration */}
@@ -452,12 +452,12 @@ const HelpCenter = () => {
               <p className="text-gray-600 mb-4 leading-relaxed">
                 Seamlessly integrate with your Shopify store and other apps
               </p>
-              <motion.button
+              <Link
+                to="/doc?section=shopify-integration"
                 className="text-gray-900 font-semibold hover:text-[#5e255dff] transition-colors inline-flex items-center"
-                whileHover={{ x: 5 }}
               >
-                View Articles →
-              </motion.button>
+                <motion.span whileHover={{ x: 5 }}>View Articles →</motion.span>
+              </Link>
             </motion.div>
 
             {/* Troubleshooting */}
@@ -489,12 +489,12 @@ const HelpCenter = () => {
               <p className="text-gray-600 mb-4 leading-relaxed">
                 Solve common issues and get your forms working perfectly
               </p>
-              <motion.button
+              <Link
+                to="/doc?section=troubleshooting"
                 className="text-gray-900 font-semibold hover:text-[#5e255dff] transition-colors inline-flex items-center"
-                whileHover={{ x: 5 }}
               >
-                View Articles →
-              </motion.button>
+                <motion.span whileHover={{ x: 5 }}>View Articles →</motion.span>
+              </Link>
             </motion.div>
           </div>
         </motion.div>

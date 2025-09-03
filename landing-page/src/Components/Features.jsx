@@ -334,7 +334,7 @@ const Features = () => (
         </motion.div>
 
         {/* Enhanced features grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 lg:gap-10 px-23">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 lg:gap-10 ">
           {features.map((feature, idx) => (
             <motion.div
               key={idx}

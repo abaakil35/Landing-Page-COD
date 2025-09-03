@@ -10,6 +10,7 @@ const navLinks = [
   { to: "/features", label: "Features" },
   { to: "/how-it-works", label: "How it Works" },
   { to: "/pricing", label: "Pricing" },
+  { to: "/doc", label: "Docs" }, // Documentation: Complete guide and API reference
   { to: "/help-center", label: "Help Center" }, // Help Center: Support and documentation page
 ];
 

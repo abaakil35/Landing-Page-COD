@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { Link } from "react-router-dom";
 
 const HelpCenter = () => {
   const [openFAQ, setOpenFAQ] = useState(null);
@@ -67,15 +68,35 @@ const HelpCenter = () => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.1 }}
         >
-          <div className="relative">
-            <input
-              type="text"
-              placeholder="Search for help articles..."
-              className="w-full px-6 py-4 text-lg border-2 border-gray-300 rounded-xl focus:border-[#5e255dff] focus:outline-none transition-colors"
-            />
-            <button className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-[#5e255dff] transition-colors">
+          <div className="flex flex-col md:flex-row gap-4">
+            <div className="relative flex-1">
+              <input
+                type="text"
+                placeholder="Search for help articles..."
+                className="w-full px-6 py-4 text-lg border-2 border-gray-300 rounded-xl focus:border-[#5e255dff] focus:outline-none transition-colors"
+              />
+              <button className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-[#5e255dff] transition-colors">
+                <svg
+                  className="w-6 h-6"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+                  />
+                </svg>
+              </button>
+            </div>
+            <Link
+              to="/doc"
+              className="px-6 py-4 bg-[#5e255dff] text-white font-semibold rounded-xl hover:bg-[#702c91] transition-colors duration-200 flex items-center gap-2 whitespace-nowrap"
+            >
               <svg
-                className="w-6 h-6"
+                className="w-5 h-5"
                 fill="none"
                 stroke="currentColor"
                 viewBox="0 0 24 24"
@@ -84,10 +105,11 @@ const HelpCenter = () => {
                   strokeLinecap="round"
                   strokeLinejoin="round"
                   strokeWidth={2}
-                  d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+                  d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.746 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"
                 />
               </svg>
-            </button>
+              View Documentation
+            </Link>
           </div>
         </motion.div>
 

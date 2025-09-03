@@ -88,7 +88,7 @@ const footerSections = [
 ];
 
 const Footer = () => (
-  <footer className="w-full bg-gradient-to-br from-[#5e255dff] via-[#4a1d49] to-[#2d1129] text-gray-300 pt-20 pb-8 px-23 relative overflow-hidden">
+  <footer className="w-full bg-gradient-to-br from-[#5e255dff] via-[#4a1d49] to-[#2d1129] text-gray-300 pt-20 pb-8 px-23 relative overflow-hidden z-20">
     <div className="max-w-7xl mx-auto">
       {/* Background Decorative Elements */}
       <div className="absolute top-0 left-0 w-full h-full opacity-5">

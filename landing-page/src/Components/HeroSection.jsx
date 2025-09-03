@@ -181,8 +181,12 @@ const HeroSection = () => {
           >
             <img
               src={image}
-              alt="Hero image"
+              alt="COD Rocket dashboard interface showing order management and analytics"
+              width="448"
+              height="512"
               className="object-contain max-h-full max-w-full drop-shadow-2xl"
+              loading="eager"
+              decoding="async"
             />
           </motion.div>
         </motion.div>

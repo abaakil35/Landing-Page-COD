@@ -20,7 +20,7 @@ const Ready = () => (
       <div className="flex flex-col md:flex-row justify-center gap-6 mb-8">
         <a
           href="#"
-          className="px-10 py-5 rounded-lg font-bold text-lg bg-gradient-to-r from-[#9d3ecb] via-[#a259c9] to-[#702c91] text-white shadow-md hover:shadow-xl transition-all border-2 border-transparent"
+          className="px-10 py-5 rounded-lg font-bold text-lg bg-[#5e255dff] text-white shadow-md hover:shadow-xl transition-all border-2 border-transparent"
         >
           Install from Shopify App Store
         </a>

@@ -74,7 +74,7 @@ const Contact = () => {
             />
             <button
               type="submit"
-              className="bg-gradient-to-r from-[#9d3ecb] via-[#a259c9] to-[#702c91] text-white font-bold py-4 rounded-lg text-lg shadow-md hover:opacity-90 transition-all"
+              className="bg-[#5e255dff] text-white font-bold py-4 rounded-lg text-lg shadow-md hover:opacity-90 transition-all"
             >
               Send Message
             </button>

@@ -36,12 +36,6 @@ const testimonials = [
 
 const Customers = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [formData, setFormData] = useState({
-    name: "",
-    role: "",
-    text: "",
-    rating: 5,
-  });
   const scrollContainerRef = useRef(null);
 
   // Handle manual scroll detection
@@ -70,31 +64,6 @@ const Customers = () => {
       return () => scrollContainer.removeEventListener("scroll", handleScroll);
     }
   }, [currentIndex]);
-
-  const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    setFormData((prev) => ({
-      ...prev,
-      [name]: value,
-    }));
-  };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    // Here you would typically send the data to your backend
-    console.log("New testimonial:", formData);
-    // Reset form
-    setFormData({
-      name: "",
-      role: "",
-      text: "",
-      rating: 5,
-    });
-    // Show success message (you could add a toast notification here)
-    alert(
-      "Thank you for your testimonial! It will be reviewed and added soon."
-    );
-  };
 
   const scrollLeft = () => {
     const newIndex =
@@ -137,9 +106,14 @@ const Customers = () => {
             Testimonials
           </span>
         </div>
-        <h2 className="text-3xl md:text-4xl font-extrabold text-center mb-12 text-[#2d123a] drop-shadow-sm tracking-tight">
+        <h2 className="text-3xl md:text-4xl font-extrabold text-center mb-4 text-[#2d123a] drop-shadow-sm tracking-tight">
           What Our Customers Say
         </h2>
+        <p className="text-center text-lg text-gray-600 mb-12 max-w-2xl mx-auto leading-relaxed">
+          Discover how COD Rocket has transformed businesses across different
+          industries. Real stories from real customers who've experienced
+          remarkable growth.
+        </p>
 
         {/* Testimonials Container with Scroll Buttons */}
         <div className="relative mb-8">
@@ -203,7 +177,7 @@ const Customers = () => {
               WebkitScrollbar: { display: "none" },
             }}
           >
-            <div className="flex gap-8 px-12 py-10">
+            <div className="flex gap-8 px-12 py-8">
               {testimonials.map((t, idx) => (
                 <motion.div
                   key={idx}
@@ -224,8 +198,12 @@ const Customers = () => {
                   <div className="flex items-center mt-auto">
                     <img
                       src={t.img}
-                      alt={t.name}
+                      alt={`${t.name} - ${t.role}`}
+                      width="48"
+                      height="48"
                       className="w-12 h-12 rounded-full mr-4 object-cover border-2 border-white shadow"
+                      loading="lazy"
+                      decoding="async"
                     />
                     <div>
                       <div className="font-bold text-base text-[#2d123a]">
@@ -240,108 +218,23 @@ const Customers = () => {
           </div>
         </div>
 
-        {/* Add Testimonial Form */}
+        {/* Share Testimonials Button */}
         <motion.div
-          className="max-w-2xl mx-auto mt-16"
-          initial={{ opacity: 0, y: 30 }}
+          className="text-center mt-10"
+          initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.5 }}
+          transition={{ delay: 0.6 }}
         >
-          <div className="bg-white/80 backdrop-blur-xl rounded-2xl shadow-xl border-2 border-[#9d3ecb]/10 p-8">
-            <div className="text-center mb-6">
-              <h3 className="text-2xl font-bold text-[#2d123a] mb-2">
-                Share Your Experience
-              </h3>
-              <p className="text-[#702c91]">
-                Help others by sharing your COD Rocket experience
-              </p>
-            </div>
-
-            <form onSubmit={handleSubmit} className="space-y-6">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div>
-                  <label className="block text-sm font-semibold text-[#2d123a] mb-2">
-                    Your Name *
-                  </label>
-                  <input
-                    type="text"
-                    name="name"
-                    value={formData.name}
-                    onChange={handleInputChange}
-                    required
-                    className="w-full px-4 py-3 rounded-xl border-2 border-[#9d3ecb]/20 focus:border-[#9d3ecb] focus:outline-none transition-colors bg-white/50 backdrop-blur-sm"
-                    placeholder="Enter your full name"
-                  />
-                </div>
-
-                <div>
-                  <label className="block text-sm font-semibold text-[#2d123a] mb-2">
-                    Your Role/Business *
-                  </label>
-                  <input
-                    type="text"
-                    name="role"
-                    value={formData.role}
-                    onChange={handleInputChange}
-                    required
-                    className="w-full px-4 py-3 rounded-xl border-2 border-[#9d3ecb]/20 focus:border-[#9d3ecb] focus:outline-none transition-colors bg-white/50 backdrop-blur-sm"
-                    placeholder="e.g., Fashion Store Owner"
-                  />
-                </div>
-              </div>
-
-              <div>
-                <label className="block text-sm font-semibold text-[#2d123a] mb-2">
-                  Your Experience *
-                </label>
-                <textarea
-                  name="text"
-                  value={formData.text}
-                  onChange={handleInputChange}
-                  required
-                  rows={4}
-                  className="w-full px-4 py-3 rounded-xl border-2 border-[#9d3ecb]/20 focus:border-[#9d3ecb] focus:outline-none transition-colors bg-white/50 backdrop-blur-sm resize-none"
-                  placeholder="Tell us about your experience with COD Rocket..."
-                />
-              </div>
-
-              <div>
-                <label className="block text-sm font-semibold text-[#2d123a] mb-2">
-                  Rating
-                </label>
-                <div className="flex items-center gap-2">
-                  {[1, 2, 3, 4, 5].map((star) => (
-                    <button
-                      key={star}
-                      type="button"
-                      onClick={() =>
-                        setFormData((prev) => ({ ...prev, rating: star }))
-                      }
-                      className={`text-2xl transition-colors ${
-                        star <= formData.rating
-                          ? "text-[#FFD700]"
-                          : "text-gray-300"
-                      }`}
-                    >
-                      ★
-                    </button>
-                  ))}
-                  <span className="ml-2 text-sm text-[#702c91]">
-                    {formData.rating} star{formData.rating !== 1 ? "s" : ""}
-                  </span>
-                </div>
-              </div>
-
-              <motion.button
-                type="submit"
-                className="w-full bg-gradient-to-r from-[#9d3ecb] to-[#702c91] text-white font-semibold py-4 px-6 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1"
-                whileHover={{ scale: 1.02 }}
-                whileTap={{ scale: 0.98 }}
-              >
-                Submit Testimonial
-              </motion.button>
-            </form>
-          </div>
+          <motion.button
+            className="bg-gradient-to-r from-[#9d3ecb] to-[#702c91] text-white font-semibold py-4 px-8 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1"
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+          >
+            Share Your Testimonials
+          </motion.button>
+          <p className="text-sm text-gray-600 mt-3">
+            Help others discover COD Rocket's benefits
+          </p>
         </motion.div>
       </div>
     </section>

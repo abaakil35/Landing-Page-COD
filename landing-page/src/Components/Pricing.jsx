@@ -99,7 +99,7 @@ const Pricing = () => {
               <motion.div
                 key={idx}
                 className={`bg-white/80 backdrop-blur-xl rounded-2xl shadow-xl border-2 ${
-                  plan.popular ? "border-[#9d3ecb]" : "border-[#9d3ecb]/10"
+                  plan.popular ? "border-[#5e255dff]" : "border-[#9d3ecb]/10"
                 } p-10 flex flex-col items-center relative transition-transform hover:-translate-y-2 hover:shadow-2xl`}
                 initial={{ opacity: 0, y: 50 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -107,11 +107,11 @@ const Pricing = () => {
                 whileHover={{ y: -8, scale: 1.02 }}
               >
                 {plan.popular && (
-                  <span className="absolute -top-6 left-1/2 -translate-x-1/2 bg-gradient-to-r from-[#9d3ecb] via-[#a259c9] to-[#702c91] text-white text-base font-bold px-6 py-1 rounded-full shadow">
+                  <span className="absolute -top-6 left-1/2 -translate-x-1/2 bg-[#5e255dff] text-white text-base font-bold px-6 py-1 rounded-full shadow">
                     Most Popular
                   </span>
                 )}
-                <h3 className="text-xl md:text-2xl font-bold mb-4 text-[#702c91]">
+                <h3 className="text-xl md:text-2xl font-bold mb-4 text-[#5e255dff]">
                   {plan.name}
                 </h3>
                 <div className="flex items-end mb-6">
@@ -128,10 +128,10 @@ const Pricing = () => {
                       key={i}
                       className="flex items-center text-base md:text-lg text-[#3f3f3f] mb-3"
                     >
-                      <span className="inline-flex items-center justify-center w-7 h-7 rounded-full bg-[#9d3ecb] mr-3 shadow">
+                      <span className="inline-flex items-center justify-center w-5 h-5 rounded-full bg-[#5e255dff] mr-3 shadow">
                         <svg
-                          width="16"
-                          height="16"
+                          width="12"
+                          height="12"
                           fill="none"
                           viewBox="0 0 16 16"
                         >
@@ -206,7 +206,7 @@ const Pricing = () => {
                             Get Started →
                           </button>
                         </th>
-                        <th className="px-8 py-6 text-center border-l border-gray-200 bg-gradient-to-br from-[#5e255dff]/5 to-[#9d3ecb]/5">
+                        <th className="px-8 py-6 text-center border-l border-[#5e255dff] bg-[#5e255dff]">
                           <div className="text-2xl font-bold text-gray-900 mb-2">
                             Professional
                           </div>

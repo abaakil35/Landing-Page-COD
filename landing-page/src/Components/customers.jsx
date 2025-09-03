@@ -226,7 +226,7 @@ const Customers = () => {
           transition={{ delay: 0.6 }}
         >
           <motion.button
-            className="bg-gradient-to-r from-[#9d3ecb] to-[#702c91] text-white font-semibold py-4 px-8 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1"
+            className="bg-[#5e255dff] text-white font-semibold py-4 px-8 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1"
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
           >

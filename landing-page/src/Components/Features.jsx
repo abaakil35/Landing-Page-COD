@@ -282,124 +282,126 @@ const features = [
 ];
 
 const Features = () => (
-  <section className="relative w-full bg-gradient-to-br from-white via-[#f9f4f9] to-[#f7eaf7] py-20 px-23 overflow-hidden">
-    {/* Enhanced decorative background elements */}
-    <div className="absolute top-10 left-10 w-96 h-96 bg-gradient-to-br from-[#e9d6f7] to-[#f3e8ff] rounded-full opacity-20 blur-3xl z-0" />
-    <div className="absolute bottom-10 right-10 w-80 h-80 bg-gradient-to-br from-[#f7eaf7] to-[#e9d5ff] rounded-full opacity-30 blur-2xl z-0" />
-    <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-72 h-72 bg-gradient-to-br from-[#ddd6fe] to-[#e9d5ff] rounded-full opacity-10 blur-3xl z-0" />
+  <section className="relative w-full bg-gradient-to-br from-white via-[#f9f4f9] to-[#f7eaf7] py-23 px-23 overflow-hidden">
+    <div className="max-w-7xl mx-auto">
+      {/* Enhanced decorative background elements */}
+      <div className="absolute top-10 left-10 w-96 h-96 bg-gradient-to-br from-[#e9d6f7] to-[#f3e8ff] rounded-full opacity-20 blur-3xl z-0" />
+      <div className="absolute bottom-10 right-10 w-80 h-80 bg-gradient-to-br from-[#f7eaf7] to-[#e9d5ff] rounded-full opacity-30 blur-2xl z-0" />
+      <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-72 h-72 bg-gradient-to-br from-[#ddd6fe] to-[#e9d5ff] rounded-full opacity-10 blur-3xl z-0" />
 
-    <div className="max-w-7xl justify-center mx-auto relative z-10">
-      {/* Enhanced header section */}
-      <motion.div
-        className="text-center mb-16"
-        initial={{ opacity: 0, y: 30 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8 }}
-        viewport={{ once: true }}
-      >
+      <div className="max-w-7xl justify-center mx-auto relative z-10">
+        {/* Enhanced header section */}
         <motion.div
-          className="flex justify-center mb-6"
-          initial={{ opacity: 0, scale: 0.8 }}
-          whileInView={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.6, delay: 0.2 }}
-          viewport={{ once: true }}
-        >
-          <div className="flex justify-center mb-4">
-            <span className="mt-1 inline-block w-16 h-2 rounded-full bg-gradient-to-r from-[#9d3ecb] via-[#a259c9] to-[#702c91] opacity-90 shadow-md mr-3" />
-            <span className="uppercase tracking-widest text-xs font-semibold text-[#702c91]">
-              Why Choose COD Rocket?
-            </span>
-          </div>
-        </motion.div>
-        <motion.h2
-          className="text-4xl md:text-5xl font-extrabold mb-6 text-[#5e255dff] drop-shadow-sm tracking-tight"
-          initial={{ opacity: 0, y: 20 }}
+          className="text-center mb-16"
+          initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.3 }}
+          transition={{ duration: 0.8 }}
           viewport={{ once: true }}
         >
-          Why Choose COD Rocket?
-        </motion.h2>
-        <motion.p
-          className="text-xl md:text-2xl text-gray-600 max-w-4xl mx-auto leading-relaxed px-23"
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.4 }}
-          viewport={{ once: true }}
-        >
-          Everything you need to manage cash on delivery orders efficiently and
-          boost your Shopify store's conversion rates.
-        </motion.p>
-      </motion.div>
-
-      {/* Enhanced features grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 lg:gap-10 px-23">
-        {features.map((feature, idx) => (
           <motion.div
-            key={idx}
-            className="group bg-white/70 backdrop-blur-xl border border-white/30 rounded-2xl shadow-lg p-8 flex flex-col items-center text-center transition-all duration-500 hover:shadow-2xl hover:shadow-purple-500/10 hover:-translate-y-2 hover:border-purple-200 hover:bg-white/90 cursor-pointer"
-            initial={{ opacity: 0, y: 50 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: idx * 0.1 }}
+            className="flex justify-center mb-6"
+            initial={{ opacity: 0, scale: 0.8 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.6, delay: 0.2 }}
             viewport={{ once: true }}
-            whileHover={{ y: -8, scale: 1.02 }}
           >
-            {/* Icon container with enhanced styling */}
-            <div className="mb-8 relative">
-              <div className="w-20 h-20 rounded-2xl bg-gradient-to-br from-white to-gray-50 shadow-lg flex items-center justify-center group-hover:shadow-xl group-hover:scale-110 transition-all duration-300 border border-gray-100">
-                <div className="transition-transform duration-300 group-hover:scale-105">
-                  {feature.icon}
-                </div>
-              </div>
-              {/* Decorative ring */}
-              <div className="absolute -inset-2 rounded-3xl bg-gradient-to-r from-purple-400/20 to-pink-400/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 blur-sm -z-10" />
+            <div className="flex justify-center mb-4">
+              <span className="mt-1 inline-block w-16 h-2 rounded-full bg-gradient-to-r from-[#9d3ecb] via-[#a259c9] to-[#702c91] opacity-90 shadow-md mr-3" />
+              <span className="uppercase tracking-widest text-xs font-semibold text-[#702c91]">
+                Why Choose COD Rocket?
+              </span>
             </div>
-
-            {/* Content */}
-            <h3 className="text-2xl lg:text-3xl font-bold mb-4 text-[#5e255dff] group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-[#5e255dff] group-hover:to-[#a855f7] transition-all duration-300">
-              {feature.title}
-            </h3>
-            <p className="text-gray-600 text-lg leading-relaxed group-hover:text-gray-700 transition-colors duration-300">
-              {feature.desc}
-            </p>
-
-            {/* Hover indicator */}
-            <div className="mt-6 w-0 h-1 bg-gradient-to-r from-[#9d3ecb] to-[#a855f7] rounded-full group-hover:w-16 transition-all duration-300" />
           </motion.div>
-        ))}
-      </div>
-
-      {/* Call to action section */}
-      <motion.div
-        className="text-center mt-16"
-        initial={{ opacity: 0, y: 30 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8, delay: 0.5 }}
-        viewport={{ once: true }}
-      >
-        <motion.button
-          className="inline-flex items-center gap-3 px-8 py-4 bg-gradient-to-r from-[#5e255dff] to-[#a855f7] text-white font-semibold text-lg rounded-xl hover:from-[#4a1d49] hover:to-[#9333ea] transform hover:scale-105 transition-all duration-300 shadow-lg hover:shadow-xl focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2"
-          whileHover={{ scale: 1.05 }}
-          whileTap={{ scale: 0.95 }}
-        >
-          <span>Ready to get started?</span>
-          <svg
-            width="18"
-            height="18"
-            viewBox="0 0 16 16"
-            fill="none"
-            className="text-white"
+          <motion.h2
+            className="text-4xl md:text-5xl font-extrabold mb-6 text-[#5e255dff] drop-shadow-sm tracking-tight"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.3 }}
+            viewport={{ once: true }}
           >
-            <path
-              d="M8.5 3.5L13 8l-4.5 4.5M13 8H3"
-              stroke="currentColor"
-              strokeWidth="1.5"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            />
-          </svg>
-        </motion.button>
-      </motion.div>
+            Why Choose COD Rocket?
+          </motion.h2>
+          <motion.p
+            className="text-xl md:text-2xl text-gray-600 max-w-4xl mx-auto leading-relaxed px-23"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.4 }}
+            viewport={{ once: true }}
+          >
+            Everything you need to manage cash on delivery orders efficiently
+            and boost your Shopify store's conversion rates.
+          </motion.p>
+        </motion.div>
+
+        {/* Enhanced features grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 lg:gap-10 px-23">
+          {features.map((feature, idx) => (
+            <motion.div
+              key={idx}
+              className="group bg-white/70 backdrop-blur-xl border border-white/30 rounded-2xl shadow-lg p-8 flex flex-col items-center text-center transition-all duration-500 hover:shadow-2xl hover:shadow-purple-500/10 hover:-translate-y-2 hover:border-purple-200 hover:bg-white/90 cursor-pointer"
+              initial={{ opacity: 0, y: 50 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: idx * 0.1 }}
+              viewport={{ once: true }}
+              whileHover={{ y: -8, scale: 1.02 }}
+            >
+              {/* Icon container with enhanced styling */}
+              <div className="mb-8 relative">
+                <div className="w-20 h-20 rounded-2xl bg-gradient-to-br from-white to-gray-50 shadow-lg flex items-center justify-center group-hover:shadow-xl group-hover:scale-110 transition-all duration-300 border border-gray-100">
+                  <div className="transition-transform duration-300 group-hover:scale-105">
+                    {feature.icon}
+                  </div>
+                </div>
+                {/* Decorative ring */}
+                <div className="absolute -inset-2 rounded-3xl bg-gradient-to-r from-purple-400/20 to-pink-400/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 blur-sm -z-10" />
+              </div>
+
+              {/* Content */}
+              <h3 className="text-2xl lg:text-3xl font-bold mb-4 text-[#5e255dff] group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-[#5e255dff] group-hover:to-[#a855f7] transition-all duration-300">
+                {feature.title}
+              </h3>
+              <p className="text-gray-600 text-lg leading-relaxed group-hover:text-gray-700 transition-colors duration-300">
+                {feature.desc}
+              </p>
+
+              {/* Hover indicator */}
+              <div className="mt-6 w-0 h-1 bg-gradient-to-r from-[#9d3ecb] to-[#a855f7] rounded-full group-hover:w-16 transition-all duration-300" />
+            </motion.div>
+          ))}
+        </div>
+
+        {/* Call to action section */}
+        <motion.div
+          className="text-center mt-16"
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.5 }}
+          viewport={{ once: true }}
+        >
+          <motion.button
+            className="inline-flex items-center gap-3 px-8 py-4 bg-gradient-to-r from-[#5e255dff] to-[#a855f7] text-white font-semibold text-lg rounded-xl hover:from-[#4a1d49] hover:to-[#9333ea] transform hover:scale-105 transition-all duration-300 shadow-lg hover:shadow-xl focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2"
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+          >
+            <span>Ready to get started?</span>
+            <svg
+              width="18"
+              height="18"
+              viewBox="0 0 16 16"
+              fill="none"
+              className="text-white"
+            >
+              <path
+                d="M8.5 3.5L13 8l-4.5 4.5M13 8H3"
+                stroke="currentColor"
+                strokeWidth="1.5"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+            </svg>
+          </motion.button>
+        </motion.div>
+      </div>
     </div>
   </section>
 );

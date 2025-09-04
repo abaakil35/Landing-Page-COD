@@ -52,10 +52,13 @@ const HelpCenter = () => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
         >
-          <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
+          <h1
+            className="text-4xl md:text-5xl font-bold mb-6"
+            style={{ color: "#5e255dff" }}
+          >
             COD Form Builder
           </h1>
-          <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+          <p className="text-xl text-gray-900 max-w-3xl mx-auto">
             Complete help center for your Cash on Delivery form building needs
             Rocket
           </p>
@@ -121,7 +124,10 @@ const HelpCenter = () => {
           transition={{ duration: 0.6, delay: 0.2 }}
         >
           <div className="text-center mb-12">
-            <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
+            <h2
+              className="text-4xl md:text-5xl font-bold mb-4"
+              style={{ color: "#5e255dff" }}
+            >
               Quick Start Guide
             </h2>
             <p className="text-xl text-gray-600 max-w-2xl mx-auto">
@@ -262,7 +268,10 @@ const HelpCenter = () => {
           transition={{ duration: 0.6, delay: 0.4 }}
         >
           <div className="text-center mb-12">
-            <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
+            <h2
+              className="text-4xl md:text-5xl font-bold mb-4"
+              style={{ color: "#5e255dff" }}
+            >
               Help Categories
             </h2>
             <p className="text-xl text-gray-600 max-w-2xl mx-auto">
@@ -280,9 +289,9 @@ const HelpCenter = () => {
               transition={{ duration: 0.6, delay: 0.5 }}
               whileHover={{ y: -5 }}
             >
-              <div className="w-16 h-16 bg-gray-200 rounded-lg mb-6 flex items-center justify-center">
+              <div className="w-16 h-16 bg-gradient-to-br from-blue-500 to-blue-600 rounded-lg mb-6 flex items-center justify-center shadow-lg">
                 <svg
-                  className="w-8 h-8 text-gray-500"
+                  className="w-8 h-8 text-white"
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
@@ -317,9 +326,9 @@ const HelpCenter = () => {
               transition={{ duration: 0.6, delay: 0.6 }}
               whileHover={{ y: -5 }}
             >
-              <div className="w-16 h-16 bg-gray-200 rounded-lg mb-6 flex items-center justify-center">
+              <div className="w-16 h-16 bg-gradient-to-br from-green-500 to-green-600 rounded-lg mb-6 flex items-center justify-center shadow-lg">
                 <svg
-                  className="w-8 h-8 text-gray-500"
+                  className="w-8 h-8 text-white"
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
@@ -355,9 +364,9 @@ const HelpCenter = () => {
               transition={{ duration: 0.6, delay: 0.7 }}
               whileHover={{ y: -5 }}
             >
-              <div className="w-16 h-16 bg-gray-200 rounded-lg mb-6 flex items-center justify-center">
+              <div className="w-16 h-16 bg-gradient-to-br from-orange-500 to-orange-600 rounded-lg mb-6 flex items-center justify-center shadow-lg">
                 <svg
-                  className="w-8 h-8 text-gray-500"
+                  className="w-8 h-8 text-white"
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
@@ -393,9 +402,9 @@ const HelpCenter = () => {
               transition={{ duration: 0.6, delay: 0.8 }}
               whileHover={{ y: -5 }}
             >
-              <div className="w-16 h-16 bg-gray-200 rounded-lg mb-6 flex items-center justify-center">
+              <div className="w-16 h-16 bg-gradient-to-br from-purple-500 to-purple-600 rounded-lg mb-6 flex items-center justify-center shadow-lg">
                 <svg
-                  className="w-8 h-8 text-gray-500"
+                  className="w-8 h-8 text-white"
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
@@ -431,9 +440,9 @@ const HelpCenter = () => {
               transition={{ duration: 0.6, delay: 0.9 }}
               whileHover={{ y: -5 }}
             >
-              <div className="w-16 h-16 bg-gray-200 rounded-lg mb-6 flex items-center justify-center">
+              <div className="w-16 h-16 bg-gradient-to-br from-teal-500 to-teal-600 rounded-lg mb-6 flex items-center justify-center shadow-lg">
                 <svg
-                  className="w-8 h-8 text-gray-500"
+                  className="w-8 h-8 text-white"
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
@@ -468,9 +477,9 @@ const HelpCenter = () => {
               transition={{ duration: 0.6, delay: 1.0 }}
               whileHover={{ y: -5 }}
             >
-              <div className="w-16 h-16 bg-gray-200 rounded-lg mb-6 flex items-center justify-center">
+              <div className="w-16 h-16 bg-gradient-to-br from-red-500 to-red-600 rounded-lg mb-6 flex items-center justify-center shadow-lg">
                 <svg
-                  className="w-8 h-8 text-gray-500"
+                  className="w-8 h-8 text-white"
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"

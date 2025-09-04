@@ -94,72 +94,149 @@ const Pricing = () => {
             Start free and scale as you grow. No hidden fees, no lo ng-term
             contracts.
           </motion.p>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {plans.map((plan, idx) => (
-              <motion.div
-                key={idx}
-                className={`bg-white/80 backdrop-blur-xl rounded-2xl shadow-xl border-2 ${
-                  plan.popular ? "border-[#5e255dff]" : "border-[#9d3ecb]/10"
-                } p-10 flex flex-col items-center relative transition-transform hover:-translate-y-2 hover:shadow-2xl`}
-                initial={{ opacity: 0, y: 50 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 0.6 + idx * 0.2 }}
-                whileHover={{ y: -8, scale: 1.02 }}
-              >
-                {plan.popular && (
-                  <span className="absolute -top-6 left-1/2 -translate-x-1/2 bg-[#5e255dff] text-white text-base font-bold px-6 py-1 rounded-full shadow">
-                    Most Popular
-                  </span>
-                )}
-                <h3 className="text-xl md:text-2xl font-bold mb-4 text-[#5e255dff]">
-                  {plan.name}
-                </h3>
-                <div className="flex items-end mb-6">
-                  <span className="text-3xl md:text-4xl font-extrabold mr-2 text-[#2d123a]">
-                    {plan.price}
-                  </span>
-                  <span className="text-[#702c91] text-lg md:text-xl">
-                    {plan.period}
-                  </span>
-                </div>
-                <ul className="mb-8 w-full">
-                  {plan.features.map((feature, i) => (
-                    <li
-                      key={i}
-                      className="flex items-center text-base md:text-lg text-[#3f3f3f] mb-3"
-                    >
-                      <span className="inline-flex items-center justify-center w-5 h-5 rounded-full bg-[#5e255dff] mr-3 shadow">
-                        <svg
-                          width="12"
-                          height="12"
-                          fill="none"
-                          viewBox="0 0 16 16"
-                        >
-                          <polyline
-                            points="4,9 7,12 12,5"
-                            stroke="#fff"
-                            strokeWidth="2"
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                          />
-                        </svg>
-                      </span>
-                      {feature}
-                    </li>
-                  ))}
-                </ul>
-                <motion.button
-                  className={`w-full py-3 rounded-lg mt-auto text-lg ${plan.button.style}`}
-                  initial={{ opacity: 0, y: 20 }}
+          <div className="space-y-8">
+            {/* First row: 2 cards */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+              {plans.slice(0, 2).map((plan, idx) => (
+                <motion.div
+                  key={idx}
+                  className={`bg-white/80 backdrop-blur-xl rounded-2xl shadow-xl border-2 ${
+                    plan.popular ? "border-[#5e255dff]" : "border-[#9d3ecb]/10"
+                  } p-10 flex flex-col items-center relative transition-transform hover:-translate-y-2 hover:shadow-2xl`}
+                  initial={{ opacity: 0, y: 50 }}
                   animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.6, delay: 1.0 + idx * 0.2 }}
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
+                  transition={{ duration: 0.6, delay: 0.6 + idx * 0.2 }}
+                  whileHover={{ y: -8, scale: 1.02 }}
                 >
-                  {plan.button.text}
-                </motion.button>
-              </motion.div>
-            ))}
+                  {plan.popular && (
+                    <span className="absolute -top-6 left-1/2 -translate-x-1/2 bg-[#5e255dff] text-white text-base font-bold px-6 py-1 rounded-full shadow">
+                      Most Popular
+                    </span>
+                  )}
+                  <h3 className="text-xl md:text-2xl font-bold mb-4 text-[#5e255dff]">
+                    {plan.name}
+                  </h3>
+                  <div className="flex items-end mb-6">
+                    <span className="text-3xl md:text-4xl font-extrabold mr-2 text-[#2d123a]">
+                      {plan.price}
+                    </span>
+                    <span className="text-[#702c91] text-lg md:text-xl">
+                      {plan.period}
+                    </span>
+                  </div>
+                  <ul className="mb-8 w-full">
+                    {plan.features.map((feature, i) => (
+                      <li
+                        key={i}
+                        className="flex items-center text-base md:text-lg text-[#3f3f3f] mb-3"
+                      >
+                        <span className="inline-flex items-center justify-center w-5 h-5 rounded-full bg-[#5e255dff] mr-3 shadow">
+                          <svg
+                            width="12"
+                            height="12"
+                            fill="none"
+                            viewBox="0 0 16 16"
+                          >
+                            <polyline
+                              points="4,9 7,12 12,5"
+                              stroke="#fff"
+                              strokeWidth="2"
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                            />
+                          </svg>
+                        </span>
+                        {feature}
+                      </li>
+                    ))}
+                  </ul>
+                  <motion.button
+                    className={`w-full py-3 rounded-lg mt-auto text-lg ${plan.button.style}`}
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.6, delay: 1.0 + idx * 0.2 }}
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                  >
+                    {plan.button.text}
+                  </motion.button>
+                </motion.div>
+              ))}
+            </div>
+
+            {/* Second row: 3rd card centered */}
+            <div className="flex justify-center">
+              <div className="w-full max-w-sm">
+                {plans.slice(2, 3).map((plan, idx) => (
+                  <motion.div
+                    key={idx + 2}
+                    className={`bg-white/80 backdrop-blur-xl rounded-2xl shadow-xl border-2 ${
+                      plan.popular
+                        ? "border-[#5e255dff]"
+                        : "border-[#9d3ecb]/10"
+                    } p-10 flex flex-col items-center relative transition-transform hover:-translate-y-2 hover:shadow-2xl`}
+                    initial={{ opacity: 0, y: 50 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.6, delay: 1.0 }}
+                    whileHover={{ y: -8, scale: 1.02 }}
+                  >
+                    <h3 className="text-xl md:text-2xl font-bold mb-4 text-[#5e255dff]">
+                      {plan.name}
+                    </h3>
+                    <div className="flex items-end mb-6">
+                      <span className="text-3xl md:text-4xl font-extrabold mr-2 text-[#2d123a]">
+                        {plan.price}
+                      </span>
+                      <span className="text-lg text-[#3f3f3f]">
+                        {plan.period}
+                      </span>
+                    </div>
+                    <ul className="space-y-4 mb-8 text-center">
+                      {plan.features.map((feature, featureIdx) => (
+                        <motion.li
+                          key={featureIdx}
+                          className="flex items-center text-[#2d123a]"
+                          initial={{ opacity: 0, x: -20 }}
+                          animate={{ opacity: 1, x: 0 }}
+                          transition={{
+                            duration: 0.4,
+                            delay: 1.2 + featureIdx * 0.1,
+                          }}
+                        >
+                          <span className="inline-flex items-center justify-center w-6 h-6 rounded-full bg-[#9d3ecb] mr-3 shadow-sm">
+                            <svg
+                              width="16"
+                              height="16"
+                              fill="none"
+                              viewBox="0 0 16 16"
+                            >
+                              <polyline
+                                points="3,8 6,11 13,4"
+                                stroke="#fff"
+                                strokeWidth="2"
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                              />
+                            </svg>
+                          </span>
+                          {feature}
+                        </motion.li>
+                      ))}
+                    </ul>
+                    <motion.button
+                      className={`w-full py-3 rounded-lg mt-auto text-lg ${plan.button.style}`}
+                      initial={{ opacity: 0, y: 20 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ duration: 0.6, delay: 1.6 }}
+                      whileHover={{ scale: 1.05 }}
+                      whileTap={{ scale: 0.95 }}
+                    >
+                      {plan.button.text}
+                    </motion.button>
+                  </motion.div>
+                ))}
+              </div>
+            </div>
           </div>
 
           {/* Comparison Table - Only show on /pricing page */}
@@ -212,13 +289,9 @@ const Pricing = () => {
                           </div>
                           <div className="text-3xl font-bold text-white mb-1">
                             $19
-                            <span className="text-lg text-white">
-                              /month
-                            </span>
+                            <span className="text-lg text-white">/month</span>
                           </div>
-                          <div className="text-sm text-white">
-                            Most popular
-                          </div>
+                          <div className="text-sm text-white">Most popular</div>
                           <button className="mt-4 bg-gradient-to-r from-[#5e255dff] to-[#9d3ecb] text-white px-6 py-3 rounded-full text-sm font-semibold hover:shadow-lg transition-all duration-200 transform hover:scale-105">
                             Start Free Trial →
                           </button>

@@ -68,7 +68,7 @@ const Navbar = () => {
         </motion.div>
 
         {/* Desktop Navigation */}
-        <div className="hidden md:flex flex-1 justify-center gap-2">
+        <div className="hidden lg:flex flex-1 justify-center gap-2">
           {navLinks.map((link, index) => {
             const isActive = location.pathname === link.to;
             return (
@@ -114,7 +114,7 @@ const Navbar = () => {
 
         {/* Desktop Right Side */}
         <motion.div
-          className="hidden md:flex items-center gap-4"
+          className="hidden lg:flex items-center gap-4"
           initial={{ opacity: 0, x: 30 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.6, delay: 0.8 }}
@@ -183,7 +183,7 @@ const Navbar = () => {
 
         {/* Mobile Hamburger Menu */}
         <motion.button
-          className="md:hidden flex items-center justify-center p-2 rounded-lg hover:bg-gray-100 transition-colors"
+          className="lg:hidden flex items-center justify-center p-2 rounded-lg hover:bg-gray-100 transition-colors"
           onClick={toggleMobileMenu}
           aria-label="Toggle mobile menu"
           whileHover={{ scale: 1.05 }}
@@ -217,7 +217,7 @@ const Navbar = () => {
       <AnimatePresence>
         {isMobileMenuOpen && (
           <motion.div
-            className="md:hidden absolute top-full left-0 right-0 bg-white border-t border-gray-200 shadow-xl z-50"
+            className="lg:hidden absolute top-full left-0 right-0 bg-white border-t border-gray-200 shadow-xl z-50"
             initial={{ opacity: 0, y: -20, height: 0 }}
             animate={{ opacity: 1, y: 0, height: "auto" }}
             exit={{ opacity: 0, y: -20, height: 0 }}

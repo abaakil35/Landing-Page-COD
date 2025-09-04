@@ -1,6 +1,6 @@
 import logo from "../assets/logo.png";
 import { Link, useLocation } from "react-router-dom";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import { useContext, useState, useEffect } from "react";
 import ThemeContext from "../Context/ThemeContextContext.js";
 
@@ -18,6 +18,15 @@ const Navbar = () => {
   const location = useLocation();
   const { theme, toggleTheme } = useContext(ThemeContext);
   const [isScrolled, setIsScrolled] = useState(false);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+
+  // Check if we're on a documentation page
+  const isDocPage =
+    location.pathname === "/doc" || location.pathname === "/help-center/doc";
+
+  const toggleMobileMenu = () => {
+    setIsMobileMenuOpen(!isMobileMenuOpen);
+  };
 
   useEffect(() => {
     const handleScroll = () => {
@@ -31,8 +40,10 @@ const Navbar = () => {
 
   return (
     <motion.nav
-      className={`relative w-full py-4 px-23 sticky top-0 left-0 z-50 bg-white backdrop-blur-md transition-all duration-300 overflow-hidden ${
-        isScrolled ? "shadow-[0_4px_24px_0_rgba(94,37,93,0.07)]" : ""
+      className={`relative w-full py-4 px-23 sticky top-0 left-0 z-50 bg-white backdrop-blur-md transition-all duration-300 ${
+        isScrolled || isDocPage
+          ? "shadow-[0_4px_24px_0_rgba(94,37,93,0.07)]"
+          : ""
       }`}
       initial={{ opacity: 0, y: -20 }}
       animate={{ opacity: 1, y: 0 }}
@@ -55,7 +66,9 @@ const Navbar = () => {
             whileHover={{ scale: 1.1, rotate: 2 }}
           />
         </motion.div>
-        <div className="flex-1 flex justify-center gap-2">
+
+        {/* Desktop Navigation */}
+        <div className="hidden md:flex flex-1 justify-center gap-2">
           {navLinks.map((link, index) => {
             const isActive = location.pathname === link.to;
             return (
@@ -98,8 +111,10 @@ const Navbar = () => {
             );
           })}
         </div>
+
+        {/* Desktop Right Side */}
         <motion.div
-          className="flex items-center gap-4"
+          className="hidden md:flex items-center gap-4"
           initial={{ opacity: 0, x: 30 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.6, delay: 0.8 }}
@@ -165,7 +180,140 @@ const Navbar = () => {
             Install Now
           </motion.button>
         </motion.div>
+
+        {/* Mobile Hamburger Menu */}
+        <motion.button
+          className="md:hidden flex items-center justify-center p-2 rounded-lg hover:bg-gray-100 transition-colors"
+          onClick={toggleMobileMenu}
+          aria-label="Toggle mobile menu"
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.95 }}
+        >
+          <div className="w-6 h-6 flex flex-col justify-center items-center space-y-1">
+            <motion.span
+              className="bg-gray-700 block h-0.5 w-6 rounded-sm"
+              animate={
+                isMobileMenuOpen ? { rotate: 45, y: 6 } : { rotate: 0, y: 0 }
+              }
+              transition={{ duration: 0.3, ease: "easeInOut" }}
+            />
+            <motion.span
+              className="bg-gray-700 block h-0.5 w-6 rounded-sm"
+              animate={isMobileMenuOpen ? { opacity: 0 } : { opacity: 1 }}
+              transition={{ duration: 0.3, ease: "easeInOut" }}
+            />
+            <motion.span
+              className="bg-gray-700 block h-0.5 w-6 rounded-sm"
+              animate={
+                isMobileMenuOpen ? { rotate: -45, y: -6 } : { rotate: 0, y: 0 }
+              }
+              transition={{ duration: 0.3, ease: "easeInOut" }}
+            />
+          </div>
+        </motion.button>
       </div>
+
+      {/* Mobile Navigation Menu */}
+      <AnimatePresence>
+        {isMobileMenuOpen && (
+          <motion.div
+            className="md:hidden absolute top-full left-0 right-0 bg-white border-t border-gray-200 shadow-xl z-50"
+            initial={{ opacity: 0, y: -20, height: 0 }}
+            animate={{ opacity: 1, y: 0, height: "auto" }}
+            exit={{ opacity: 0, y: -20, height: 0 }}
+            transition={{ duration: 0.3, ease: "easeOut" }}
+          >
+            <motion.div
+              className="px-6 py-4 space-y-2"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.1, duration: 0.3 }}
+            >
+              {navLinks.map((link, index) => {
+                const isActive = location.pathname === link.to;
+                return (
+                  <motion.div
+                    key={link.to}
+                    initial={{ opacity: 0, x: -20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: 0.1 + index * 0.05, duration: 0.3 }}
+                  >
+                    <Link
+                      to={link.to}
+                      className={`block text-gray-700 text-lg font-medium px-4 py-3 rounded-lg transition-all duration-200 ${
+                        isActive
+                          ? "text-[#5e255dff] bg-purple-50"
+                          : "hover:text-[#5e255dff] hover:bg-gray-50"
+                      }`}
+                      onClick={() => setIsMobileMenuOpen(false)}
+                    >
+                      {link.label}
+                    </Link>
+                  </motion.div>
+                );
+              })}
+
+              {/* Mobile Action Buttons */}
+              <motion.div
+                className="pt-4 border-t border-gray-200 space-y-3"
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.4, duration: 0.3 }}
+              >
+                <motion.button
+                  onClick={() => {
+                    toggleTheme();
+                    setIsMobileMenuOpen(false);
+                  }}
+                  className="flex items-center justify-between w-full p-3 rounded-lg hover:bg-gray-100 transition-colors"
+                  whileHover={{ scale: 1.02 }}
+                  whileTap={{ scale: 0.98 }}
+                >
+                  <span className="text-gray-700 font-medium">
+                    Toggle Theme
+                  </span>
+                  {theme === "light" ? (
+                    <div className="w-6 h-6 bg-gray-300 rounded-full"></div>
+                  ) : (
+                    <svg width="24" height="24" fill="none" viewBox="0 0 24 24">
+                      <path
+                        d="M21 12.79A9 9 0 1111.21 3a7 7 0 109.79 9.79z"
+                        fill="#232b36"
+                        stroke="#232b36"
+                        strokeWidth="2"
+                      />
+                    </svg>
+                  )}
+                </motion.button>
+
+                <motion.button
+                  className="w-full px-4 py-3 rounded-lg font-medium text-lg text-gray-700 hover:text-[#5e255dff] hover:bg-gray-50 transition-colors border border-gray-300"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                  whileHover={{ scale: 1.02 }}
+                  whileTap={{ scale: 0.98 }}
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.5, duration: 0.3 }}
+                >
+                  Login
+                </motion.button>
+
+                <motion.button
+                  className="w-full px-5 py-3 rounded-lg font-semibold text-lg text-white bg-[#5e255dff] hover:bg-[#4a1d49] transition-all duration-200 shadow-sm"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                  whileHover={{ scale: 1.02, y: -2 }}
+                  whileTap={{ scale: 0.98 }}
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.6, duration: 0.3 }}
+                >
+                  Install Now
+                </motion.button>
+              </motion.div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </motion.nav>
   );
 };

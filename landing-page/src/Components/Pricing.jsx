@@ -206,17 +206,17 @@ const Pricing = () => {
                             Get Started →
                           </button>
                         </th>
-                        <th className="px-8 py-6 text-center border-l border-[#5e255dff] bg-[#5e255dff]">
-                          <div className="text-2xl font-bold text-gray-900 mb-2">
+                        <th className="px-8 py-6 text-center border-l border-[#5e255dff] bg-[#9D14A8]">
+                          <div className="text-2xl font-bold text-white mb-2">
                             Professional
                           </div>
-                          <div className="text-3xl font-bold text-[#5e255dff] mb-1">
+                          <div className="text-3xl font-bold text-white mb-1">
                             $19
-                            <span className="text-lg text-gray-600">
+                            <span className="text-lg text-white">
                               /month
                             </span>
                           </div>
-                          <div className="text-sm text-gray-500">
+                          <div className="text-sm text-white">
                             Most popular
                           </div>
                           <button className="mt-4 bg-gradient-to-r from-[#5e255dff] to-[#9d3ecb] text-white px-6 py-3 rounded-full text-sm font-semibold hover:shadow-lg transition-all duration-200 transform hover:scale-105">

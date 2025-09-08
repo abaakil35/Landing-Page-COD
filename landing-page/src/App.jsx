@@ -11,7 +11,6 @@ import Navbar from "./Components/Navbar";
 import HeroSection from "./Components/HeroSection";
 import Features from "./Components/Features";
 import Pricing from "./Components/Pricing";
-import Demo from "./Components/Demo";
 import HowCODWorks from "./Components/how";
 import SeeAction from "./Components/seeAction";
 import Customers from "./Components/customers";

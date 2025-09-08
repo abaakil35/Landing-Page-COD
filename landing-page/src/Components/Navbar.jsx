@@ -68,7 +68,7 @@ const Navbar = () => {
         </motion.div>
 
         {/* Desktop Navigation */}
-        <div className="hidden lg:flex flex-1 justify-center gap-2">
+        <div className="hidden xl:flex flex-1 justify-center gap-2">
           {navLinks.map((link, index) => {
             const isActive = location.pathname === link.to;
             return (
@@ -85,7 +85,7 @@ const Navbar = () => {
                   to={link.to}
                   className={`text-gray-700 text-base font-medium px-4 py-2 rounded-lg transition-all duration-200 relative flex items-center justify-center
                   hover:text-[#5e255dff] focus:text-[#5e255dff] focus:outline-none focus:ring-2 focus:ring-[#5e255dff]/20 focus:ring-offset-2
-                   ${isActive ? "text-[#5e255dff] font-semibold" : ""}`}
+                  ${isActive ? "text-[#5e255dff] font-semibold" : ""}`}
                 >
                   {link.label}
 
@@ -114,7 +114,7 @@ const Navbar = () => {
 
         {/* Desktop Right Side */}
         <motion.div
-          className="hidden lg:flex items-center gap-4"
+          className="hidden xl:flex items-center gap-4"
           initial={{ opacity: 0, x: 30 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.6, delay: 0.8 }}
@@ -183,7 +183,7 @@ const Navbar = () => {
 
         {/* Mobile Hamburger Menu */}
         <motion.button
-          className="lg:hidden flex items-center justify-center p-2 rounded-lg hover:bg-gray-100 transition-colors"
+          className="xl:hidden flex items-center justify-center p-2 rounded-lg hover:bg-gray-100 transition-colors"
           onClick={toggleMobileMenu}
           aria-label="Toggle mobile menu"
           whileHover={{ scale: 1.05 }}
@@ -217,7 +217,7 @@ const Navbar = () => {
       <AnimatePresence>
         {isMobileMenuOpen && (
           <motion.div
-            className="lg:hidden absolute top-full left-0 right-0 bg-white border-t border-gray-200 shadow-xl z-50"
+            className="xl:hidden absolute top-full left-0 right-0 bg-white border-t border-gray-200 shadow-xl z-50"
             initial={{ opacity: 0, y: -20, height: 0 }}
             animate={{ opacity: 1, y: 0, height: "auto" }}
             exit={{ opacity: 0, y: -20, height: 0 }}

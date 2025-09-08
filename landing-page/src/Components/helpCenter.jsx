@@ -514,9 +514,18 @@ const HelpCenter = () => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.3 }}
         >
-          <h2 className="text-3xl font-bold text-gray-900 mb-8 text-center">
-            Frequently Asked Questions
-          </h2>
+          <div className="text-center mb-12">
+            <h2
+              className="text-4xl md:text-5xl font-bold mb-4"
+              style={{ color: "#5e255dff" }}
+            >
+              Frequently Asked Questions
+            </h2>
+            <p className="text-xl text-gray-600 max-w-2xl mx-auto">
+              Get quick answers to the most common questions about COD Form
+              Builder
+            </p>
+          </div>
           <div className="max-w-4xl mx-auto space-y-4">
             {faqs.map((faq, index) => (
               <motion.div
@@ -591,6 +600,39 @@ const HelpCenter = () => {
               </motion.div>
             ))}
           </div>
+
+          {/* More Questions Button */}
+          <motion.div
+            className="text-center mt-12"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.4 }}
+          >
+            <motion.button
+              className="px-8 py-4 bg-gradient-to-r from-[#5e255dff] to-[#a855f7] hover:from-[#4a1d49] hover:to-[#9333ea] text-white font-semibold rounded-xl transition-all duration-300 shadow-lg hover:shadow-xl flex items-center gap-3 mx-auto"
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+            >
+              <svg
+                className="w-5 h-5"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                />
+              </svg>
+              Have More Questions?
+            </motion.button>
+            <p className="text-gray-600 mt-3 text-sm">
+              Can't find what you're looking for? Contact our support team for
+              personalized help.
+            </p>
+          </motion.div>
         </motion.div>
 
         {/* Video Tutorials Section */}
@@ -812,6 +854,39 @@ const HelpCenter = () => {
               </div>
             </motion.div>
           </div>
+
+          {/* More Tutorials Button */}
+          <motion.div
+            className="text-center mt-12"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.9 }}
+          >
+            <motion.button
+              className="px-8 py-4 bg-gradient-to-r from-[#5e255dff] to-[#a855f7] hover:from-[#4a1d49] hover:to-[#9333ea] text-white font-semibold rounded-xl transition-all duration-300 shadow-lg hover:shadow-xl flex items-center gap-3 mx-auto"
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+            >
+              <svg
+                className="w-5 h-5"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M14.828 14.828a4 4 0 01-5.656 0M9 10h1m4 0h1m-6 4h8m-6-4H7a2 2 0 00-2 2v4a2 2 0 002 2h10a2 2 0 002-2v-4a2 2 0 00-2-2h-1"
+                />
+              </svg>
+              View More Tutorials
+            </motion.button>
+            <p className="text-gray-600 mt-3 text-sm">
+              Explore our complete library of video tutorials and learning
+              resources.
+            </p>
+          </motion.div>
         </motion.div>
 
         {/* Contact Support Section */}

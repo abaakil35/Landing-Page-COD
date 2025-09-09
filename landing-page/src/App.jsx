@@ -17,12 +17,14 @@ import Customers from "./Components/customers";
 import Contact from "./Components/contact";
 import HelpCenter from "./Components/helpCenter";
 import Documentation from "./Components/Documentation";
+import Login from "./Components/Connexion/Login";
 // import FAQ from "./Components/FAQ";
 
 function AppContent() {
   const location = useLocation();
   const isDocPage =
     location.pathname === "/doc" || location.pathname === "/help-center/doc";
+  const isLoginPage = location.pathname === "/login";
 
   return (
     <>
@@ -51,10 +53,11 @@ function AppContent() {
           <Route path="/doc" element={<Documentation />} />
           <Route path="/help-center" element={<HelpCenter />} />
           <Route path="/help-center/doc" element={<Documentation />} />
+          <Route path="/login" element={<Login />} />
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
       </div>
-      {!isDocPage && <Footer />}
+      {!isDocPage && !isLoginPage && <Footer />}
     </>
   );
 }

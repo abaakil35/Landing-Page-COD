@@ -159,16 +159,20 @@ const Navbar = () => {
               </svg>
             )}
           </motion.button>
-          <motion.button
-            className="px-4 py-2 rounded-lg font-medium text-base text-gray-700 hover:text-[#5e255dff] hover:bg-gray-50 transition-colors"
+          <motion.div
             initial={{ opacity: 0, y: -10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.4, delay: 1.0 }}
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
           >
-            Login
-          </motion.button>
+            <Link
+              to="/login"
+              className="px-4 py-2 rounded-lg font-medium text-base text-gray-700 hover:text-[#5e255dff] hover:bg-gray-50 transition-colors"
+            >
+              Login
+            </Link>
+          </motion.div>
           <motion.button
             className="px-5 py-2 rounded-lg font-semibold text-base text-white bg-[#5e255dff] hover:bg-[#4a1d49] transition-all duration-200 transform hover:scale-105 shadow-sm focus:outline-none focus:ring-2 focus:ring-[#5e255d] focus:ring-offset-1"
             initial={{ opacity: 0, scale: 0.8 }}
@@ -286,17 +290,21 @@ const Navbar = () => {
                   )}
                 </motion.button>
 
-                <motion.button
-                  className="w-full px-4 py-3 rounded-lg font-medium text-lg text-gray-700 hover:text-[#5e255dff] hover:bg-gray-50 transition-colors border border-gray-300"
-                  onClick={() => setIsMobileMenuOpen(false)}
-                  whileHover={{ scale: 1.02 }}
-                  whileTap={{ scale: 0.98 }}
+                <motion.div
                   initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.5, duration: 0.3 }}
+                  whileHover={{ scale: 1.02 }}
+                  whileTap={{ scale: 0.98 }}
                 >
-                  Login
-                </motion.button>
+                  <Link
+                    to="/login"
+                    className="w-full px-4 py-3 rounded-lg font-medium text-lg text-gray-700 hover:text-[#5e255dff] hover:bg-gray-50 transition-colors border border-gray-300 block text-center"
+                    onClick={() => setIsMobileMenuOpen(false)}
+                  >
+                    Login
+                  </Link>
+                </motion.div>
 
                 <motion.button
                   className="w-full px-5 py-3 rounded-lg font-semibold text-lg text-white bg-[#5e255dff] hover:bg-[#4a1d49] transition-all duration-200 shadow-sm"

@@ -17,104 +17,118 @@ const Login = () => {
       setIsLoading(false);
       // Add your login logic here
       console.log("Login attempt:", { email, password });
-    }, 2000);
+    }, 1200);
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-[#f8fafc] via-white to-[#f1f5f9] flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-md w-full space-y-8">
-        {/* Header */}
+    <div className="min-h-screen bg-gradient-to-br from-[#fbf9fd] via-[#f7f2fb] to-[#f3f7ff] flex items-center justify-center py-12 px-4 overflow-hidden">
+      <div className="relative w-full max-w-4xl mx-auto">
+        {/* Decorative subtle circles (non-overflowing) */}
+        <div className="pointer-events-none absolute -top-10 -left-16 w-40 h-40 bg-[#efe0f6] rounded-full filter blur-2xl opacity-60" />
+        <div className="pointer-events-none absolute -bottom-10 -right-16 w-48 h-48 bg-[#f6e7f3] rounded-full filter blur-2xl opacity-50" />
+
         <motion.div
-          className="text-center"
-          initial={{ opacity: 0, y: -20 }}
+          initial={{ opacity: 0, y: 12 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
+          transition={{ duration: 0.5 }}
+          className="bg-white rounded-2xl shadow-xl overflow-hidden grid grid-cols-1 md:grid-cols-2"
         >
-          <div className="flex justify-center mb-6">
-            <div className="w-16 h-16 bg-gradient-to-br from-[#5e255dff] to-[#a855f7] rounded-xl flex items-center justify-center shadow-lg">
-              <svg
-                className="w-8 h-8 text-white"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
+          {/* Left - Branding */}
+          <div className="hidden md:flex flex-col items-start justify-center px-10 py-12 bg-gradient-to-b from-[#5e255dff] to-[#a855f7] text-white">
+            <div className="mb-6">
+              <img
+                src="/src/assets/logo_white.png"
+                alt="COD Rocket"
+                className="w-32"
+                onError={(e) => (e.currentTarget.style.display = "none")}
+              />
+            </div>
+            <h3 className="text-2xl font-extrabold leading-tight mb-3">
+              Welcome to COD Rocket
+            </h3>
+            <p className="text-sm text-white/90 mb-6 max-w-xs">
+              Manage your Cash-on-Delivery orders, recover lost revenue and
+              boost conversions with simple tools built for Shopify merchants.
+            </p>
+            <ul className="text-sm space-y-2 opacity-95">
+              <li className="flex items-center gap-3">
+                <span className="inline-flex items-center justify-center w-8 h-8 bg-white/20 rounded-md">
+                  ✓
+                </span>
+                <span>Fast setup</span>
+              </li>
+              <li className="flex items-center gap-3">
+                <span className="inline-flex items-center justify-center w-8 h-8 bg-white/20 rounded-md">
+                  ✓
+                </span>
+                <span>No credit card</span>
+              </li>
+            </ul>
+            <div className="mt-8">
+              <a
+                href="#"
+                className="inline-block px-4 py-2 bg-white/20 rounded-md text-white text-sm font-semibold border border-white/20"
               >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"
-                />
-              </svg>
+                Learn more
+              </a>
             </div>
           </div>
-          <h2 className="text-3xl font-bold text-gray-900 mb-2">
-            Welcome Back!
-          </h2>
-          <p className="text-gray-600">
-            Sign in to your COD Form Builder account
-          </p>
-        </motion.div>
 
-        {/* Login Form */}
-        <motion.form
-          className="mt-8 space-y-6"
-          onSubmit={handleSubmit}
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.1 }}
-        >
-          <div className="bg-white rounded-2xl shadow-lg border border-gray-100 p-8">
-            <div className="space-y-6">
-              {/* Email Field */}
-              <div>
-                <label className="block text-sm font-semibold text-gray-700 mb-2">
-                  Email Address
-                </label>
-                <div className="relative">
-                  <input
-                    type="email"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-[#5e255dff] focus:outline-none transition-all duration-300 hover:border-gray-300"
-                    placeholder="Enter your email address"
-                    required
-                  />
-                  <div className="absolute inset-y-0 right-0 flex items-center pr-3">
-                    <svg
-                      className="w-5 h-5 text-gray-400"
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
-                      />
-                    </svg>
-                  </div>
+          {/* Right - Form */}
+          <div className="px-8 py-10 md:py-12 flex items-center justify-center">
+            <div className="w-full max-w-md">
+              <div className="text-center mb-6 md:mb-8">
+                <div className="mx-auto w-14 h-14 rounded-full flex items-center justify-center bg-gradient-to-br from-[#5e255dff] to-[#a855f7] mb-3">
+                  <svg
+                    className="w-7 h-7 text-white"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"
+                    />
+                  </svg>
                 </div>
+                <h2 className="text-2xl font-bold text-[#2d123a]">
+                  Sign in to your account
+                </h2>
+                <p className="text-sm text-gray-500 mt-2">
+                  Enter your credentials to continue
+                </p>
               </div>
 
-              {/* Password Field */}
-              <div>
-                <label className="block text-sm font-semibold text-gray-700 mb-2">
-                  Password
-                </label>
+              <form onSubmit={handleSubmit} className="space-y-4">
+                <label className="block text-sm text-gray-700">Email</label>
+                <input
+                  type="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  placeholder="you@company.com"
+                  className="w-full px-4 py-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-[#d9b3ff] focus:border-transparent outline-none"
+                  required
+                />
+
+                <label className="block text-sm text-gray-700">Password</label>
                 <div className="relative">
                   <input
                     type={showPassword ? "text" : "password"}
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
-                    className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-[#5e255dff] focus:outline-none transition-all duration-300 hover:border-gray-300"
-                    placeholder="Enter your password"
+                    placeholder="Enter password"
+                    className="w-full px-4 py-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-[#d9b3ff] focus:border-transparent outline-none"
                     required
                   />
                   <button
                     type="button"
                     onClick={() => setShowPassword(!showPassword)}
-                    className="absolute inset-y-0 right-0 flex items-center pr-3 text-gray-400 hover:text-gray-600"
+                    className="absolute inset-y-0 right-0 pr-3 flex items-center text-gray-500"
+                    aria-label={
+                      showPassword ? "Hide password" : "Show password"
+                    }
                   >
                     {showPassword ? (
                       <svg
@@ -127,7 +141,7 @@ const Login = () => {
                           strokeLinecap="round"
                           strokeLinejoin="round"
                           strokeWidth={2}
-                          d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.878 9.878L3 3m6.878 6.878L21 21"
+                          d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242"
                         />
                       </svg>
                     ) : (
@@ -143,137 +157,45 @@ const Login = () => {
                           strokeWidth={2}
                           d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
                         />
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          strokeWidth={2}
-                          d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"
-                        />
                       </svg>
                     )}
                   </button>
                 </div>
-              </div>
 
-              {/* Remember Me & Forgot Password */}
-              <div className="flex items-center justify-between">
-                <label className="flex items-center">
-                  <input
-                    type="checkbox"
-                    className="w-4 h-4 text-[#5e255dff] border-gray-300 rounded focus:ring-[#5e255dff] focus:ring-2"
-                  />
-                  <span className="ml-2 text-sm text-gray-600">
-                    Remember me
-                  </span>
-                </label>
-                <Link
-                  to="/forgot-password"
-                  className="text-sm text-[#5e255dff] hover:text-[#4a1d49] font-semibold"
+                <div className="flex items-center justify-between text-sm">
+                  <label className="flex items-center gap-2">
+                    <input
+                      type="checkbox"
+                      className="w-4 h-4 text-[#5e255dff] rounded"
+                    />
+                    <span className="text-gray-600">Remember me</span>
+                  </label>
+                  <Link
+                    to="/forgot-password"
+                    className="text-sm text-[#5e255dff] font-medium"
+                  >
+                    Forgot?
+                  </Link>
+                </div>
+
+                <button
+                  type="submit"
+                  disabled={isLoading}
+                  className="w-full mt-2 inline-flex items-center justify-center gap-2 bg-gradient-to-r from-[#5e255dff] to-[#a855f7] text-white px-4 py-3 rounded-lg font-semibold shadow hover:scale-[1.01] transition-transform disabled:opacity-60"
                 >
-                  Forgot password?
-                </Link>
-              </div>
+                  {isLoading ? "Signing in..." : "Sign in"}
+                </button>
 
-              {/* Login Button */}
-              <motion.button
-                type="submit"
-                disabled={isLoading}
-                className="w-full bg-gradient-to-r from-[#5e255dff] to-[#a855f7] hover:from-[#4a1d49] hover:to-[#9333ea] text-white px-8 py-4 rounded-xl font-semibold transition-all duration-300 shadow-lg hover:shadow-xl disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center space-x-2"
-                whileHover={{ scale: isLoading ? 1 : 1.02 }}
-                whileTap={{ scale: isLoading ? 1 : 0.98 }}
-              >
-                {isLoading ? (
-                  <>
-                    <svg
-                      className="animate-spin -ml-1 mr-3 h-5 w-5 text-white"
-                      xmlns="http://www.w3.org/2000/svg"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                    >
-                      <circle
-                        className="opacity-25"
-                        cx="12"
-                        cy="12"
-                        r="10"
-                        stroke="currentColor"
-                        strokeWidth="4"
-                      ></circle>
-                      <path
-                        className="opacity-75"
-                        fill="currentColor"
-                        d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
-                      ></path>
-                    </svg>
-                    <span>Signing In...</span>
-                  </>
-                ) : (
-                  <>
-                    <span>Sign In</span>
-                    <svg
-                      className="w-5 h-5"
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1"
-                      />
-                    </svg>
-                  </>
-                )}
-              </motion.button>
+                <div className="text-center text-sm text-gray-500 mt-3">
+                  Don’t have an account?{" "}
+                  <Link to="/signup" className="text-[#5e255dff] font-medium">
+                    Sign up
+                  </Link>
+                </div>
+              </form>
             </div>
           </div>
-
-          {/* Sign Up Link */}
-          <motion.div
-            className="text-center"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.6, delay: 0.3 }}
-          >
-            <p className="text-gray-600">
-              Don't have an account?{" "}
-              <Link
-                to="/signup"
-                className="text-[#5e255dff] hover:text-[#4a1d49] font-semibold"
-              >
-                Sign up for free
-              </Link>
-            </p>
-          </motion.div>
-
-          {/* Back to Home */}
-          <motion.div
-            className="text-center"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.6, delay: 0.4 }}
-          >
-            <Link
-              to="/"
-              className="inline-flex items-center text-gray-500 hover:text-gray-700 font-medium transition-colors"
-            >
-              <svg
-                className="w-4 h-4 mr-2"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M10 19l-7-7m0 0l7-7m-7 7h18"
-                />
-              </svg>
-              Back to Home
-            </Link>
-          </motion.div>
-        </motion.form>
+        </motion.div>
       </div>
     </div>
   );

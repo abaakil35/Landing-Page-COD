@@ -28,7 +28,7 @@ function AppContent() {
 
   return (
     <>
-      <Navbar />
+      {!isLoginPage && <Navbar />}
       <div>
         <Routes>
           <Route

@@ -1,28 +1,85 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [name, setName] = useState("");
+  const [mode, setMode] = useState("login");
+  const location = useLocation();
+  // ...existing code...
+  const navigate = useNavigate();
+  const [error, setError] = useState("");
+
+  useEffect(() => {
+    if (location && location.pathname === "/signup") setMode("signup");
+    else setMode("login");
+  }, [location]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsLoading(true);
+    setError("");
 
-    // Simulate API call
-    setTimeout(() => {
+    try {
+      if (mode === "login") {
+        const resp = await fetch("http://localhost:3000/login", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ email, password }),
+        });
+        const data = await resp.json().catch(() => ({}));
+        if (!resp.ok)
+          throw new Error(data.message || resp.statusText || "Login failed");
+        if (data.token) localStorage.setItem("token", data.token);
+        navigate("/");
+      } else {
+        const resp = await fetch("http://localhost:3000/signup", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ name, email, password }),
+        });
+        const data = await resp.json().catch(() => ({}));
+        if (!resp.ok)
+          throw new Error(data.message || resp.statusText || "Signup failed");
+        if (data.token) localStorage.setItem("token", data.token);
+        navigate("/");
+      }
+    } catch (err) {
+      setError(err.message || "An error occurred");
+    } finally {
       setIsLoading(false);
-      // Add your login logic here
-      console.log("Login attempt:", { email, password });
-    }, 1200);
+    }
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-[#fbf9fd] via-[#f7f2fb] to-[#f3f7ff] flex items-center justify-center py-12 px-4 overflow-hidden">
-      <div className="relative w-full max-w-4xl mx-auto">
+    <div className="min-h-screen bg-gradient-to-br from-[#fbf9fd] via-[#f7f2fb] to-[#f3f7ff] flex items-center justify-center py-3 px-4 overflow-hidden">
+      <div className="relative w-full max-w-6xl mx-auto">
+        {/* Top-left home button outside the card */}
+        <div className="absolute left-4 top-4 z-20">
+          <Link
+            to="/"
+            className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/90 hover:bg-white shadow text-sm text-gray-700 ring-1 ring-gray-100"
+          >
+            <svg
+              className="w-4 h-4 transform -rotate-90"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M3 10.5L12 4l9 6.5M12 4v16"
+              />
+            </svg>
+            Home
+          </Link>
+        </div>
         {/* Decorative subtle circles (non-overflowing) */}
         <div className="pointer-events-none absolute -top-10 -left-16 w-40 h-40 bg-[#efe0f6] rounded-full filter blur-2xl opacity-60" />
         <div className="pointer-events-none absolute -bottom-10 -right-16 w-48 h-48 bg-[#f6e7f3] rounded-full filter blur-2xl opacity-50" />
@@ -65,22 +122,23 @@ const Login = () => {
               </li>
             </ul>
             <div className="mt-8">
-              <a
-                href="#"
+              <Link
+                to="/doc"
                 className="inline-block px-4 py-2 bg-white/20 rounded-md text-white text-sm font-semibold border border-white/20"
+                aria-label="Learn more about COD Rocket"
               >
                 Learn more
-              </a>
+              </Link>
             </div>
           </div>
 
           {/* Right - Form */}
           <div className="px-8 py-10 md:py-12 flex items-center justify-center">
-            <div className="w-full max-w-md">
+            <div className="w-full max-w-lg">
               <div className="text-center mb-6 md:mb-8">
-                <div className="mx-auto w-14 h-14 rounded-full flex items-center justify-center bg-gradient-to-br from-[#5e255dff] to-[#a855f7] mb-3">
+                <div className="mx-auto w-16 h-16 rounded-full flex items-center justify-center bg-gradient-to-br from-[#5e255dff] to-[#a855f7] mb-4">
                   <svg
-                    className="w-7 h-7 text-white"
+                    className="w-8 h-8 text-white"
                     fill="none"
                     stroke="currentColor"
                     viewBox="0 0 24 24"
@@ -101,98 +159,274 @@ const Login = () => {
                 </p>
               </div>
 
-              <form onSubmit={handleSubmit} className="space-y-4">
-                <label className="block text-sm text-gray-700">Email</label>
-                <input
-                  type="email"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  placeholder="you@company.com"
-                  className="w-full px-4 py-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-[#d9b3ff] focus:border-transparent outline-none"
-                  required
-                />
-
-                <label className="block text-sm text-gray-700">Password</label>
-                <div className="relative">
-                  <input
-                    type={showPassword ? "text" : "password"}
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                    placeholder="Enter password"
-                    className="w-full px-4 py-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-[#d9b3ff] focus:border-transparent outline-none"
-                    required
-                  />
-                  <button
-                    type="button"
-                    onClick={() => setShowPassword(!showPassword)}
-                    className="absolute inset-y-0 right-0 pr-3 flex items-center text-gray-500"
-                    aria-label={
-                      showPassword ? "Hide password" : "Show password"
+              <div className="relative h-auto">
+                {/* Sliding panel container */}
+                <div className="relative" style={{ minHeight: 420 }}>
+                  {/* Login form */}
+                  <motion.form
+                    onSubmit={handleSubmit}
+                    className="space-y-4 absolute inset-0 w-full"
+                    initial={false}
+                    animate={
+                      mode === "login"
+                        ? { x: 0, opacity: 1 }
+                        : { x: -320, opacity: 0 }
                     }
+                    transition={{ type: "spring", stiffness: 220, damping: 25 }}
+                    aria-hidden={mode !== "login"}
                   >
-                    {showPassword ? (
-                      <svg
-                        className="w-5 h-5"
-                        fill="none"
-                        stroke="currentColor"
-                        viewBox="0 0 24 24"
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          strokeWidth={2}
-                          d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242"
-                        />
-                      </svg>
-                    ) : (
-                      <svg
-                        className="w-5 h-5"
-                        fill="none"
-                        stroke="currentColor"
-                        viewBox="0 0 24 24"
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          strokeWidth={2}
-                          d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
-                        />
-                      </svg>
+                    {error && (
+                      <div className="text-sm text-red-600 bg-red-50 border border-red-100 p-2 rounded mb-2">
+                        {error}
+                      </div>
                     )}
-                  </button>
-                </div>
-
-                <div className="flex items-center justify-between text-sm">
-                  <label className="flex items-center gap-2">
+                    <label className="block text-sm text-gray-700">Email</label>
                     <input
-                      type="checkbox"
-                      className="w-4 h-4 text-[#5e255dff] rounded"
+                      type="email"
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
+                      placeholder="you@company.com"
+                      className="w-full px-4 py-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-[#d9b3ff] focus:border-transparent outline-none"
+                      required
                     />
-                    <span className="text-gray-600">Remember me</span>
-                  </label>
-                  <Link
-                    to="/forgot-password"
-                    className="text-sm text-[#5e255dff] font-medium"
+
+                    <label className="block text-sm text-gray-700">
+                      Password
+                    </label>
+                    <div className="relative">
+                      <input
+                        type={showPassword ? "text" : "password"}
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}
+                        placeholder="Enter password"
+                        className="w-full px-4 py-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-[#d9b3ff] focus:border-transparent outline-none"
+                        required
+                      />
+                      <button
+                        type="button"
+                        onClick={() => setShowPassword(!showPassword)}
+                        className="absolute inset-y-0 right-0 pr-3 flex items-center text-gray-500"
+                        aria-label={
+                          showPassword ? "Hide password" : "Show password"
+                        }
+                      >
+                        {showPassword ? (
+                          <svg
+                            className="w-5 h-5"
+                            fill="none"
+                            stroke="currentColor"
+                            viewBox="0 0 24 24"
+                          >
+                            <path
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              strokeWidth={2}
+                              d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029"
+                            />
+                            <path
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              strokeWidth={2}
+                              d="M6.22 6.22A9.959 9.959 0 0112 5c4.478 0 8.268 2.943 9.543 7a9.968 9.968 0 01-4.587 5.544"
+                            />
+                            <path
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              strokeWidth={2}
+                              d="M3 3l18 18"
+                            />
+                          </svg>
+                        ) : (
+                          <svg
+                            className="w-5 h-5"
+                            fill="none"
+                            stroke="currentColor"
+                            viewBox="0 0 24 24"
+                          >
+                            <path
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              strokeWidth={2}
+                              d="M2.458 12C3.732 7.943 7.523 5 12 5s8.268 2.943 9.542 7c-1.274 4.057-5.064 7-9.542 7S3.732 16.057 2.458 12z"
+                            />
+                            <path
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              strokeWidth={2}
+                              d="M12 15a3 3 0 100-6 3 3 0 000 6z"
+                            />
+                          </svg>
+                        )}
+                      </button>
+                    </div>
+
+                    <div className="flex items-center justify-between text-sm">
+                      <label className="flex items-center gap-2">
+                        <input
+                          type="checkbox"
+                          className="w-4 h-4 text-[#5e255dff] rounded"
+                        />
+                        <span className="text-gray-600">Remember me</span>
+                      </label>
+                      <Link
+                        to="/forgot-password"
+                        className="text-sm text-[#5e255dff] font-medium"
+                      >
+                        Forgot?
+                      </Link>
+                    </div>
+
+                    <button
+                      type="submit"
+                      disabled={isLoading}
+                      className="w-full mt-2 inline-flex items-center justify-center gap-2 bg-gradient-to-r from-[#5e255dff] to-[#a855f7] text-white px-4 py-3 rounded-lg font-semibold shadow hover:scale-[1.01] transition-transform disabled:opacity-60"
+                    >
+                      {isLoading ? "Signing in..." : "Sign in"}
+                    </button>
+
+                    <div className="text-center text-sm text-gray-500 mt-3">
+                      Don’t have an account?{" "}
+                      <button
+                        type="button"
+                        onClick={() => setMode("signup")}
+                        className="text-[#5e255dff] font-medium"
+                      >
+                        Sign up
+                      </button>
+                    </div>
+                  </motion.form>
+
+                  {/* Signup form */}
+                  <motion.form
+                    onSubmit={handleSubmit}
+                    className="space-y-4 absolute inset-0 w-full"
+                    initial={false}
+                    animate={
+                      mode === "signup"
+                        ? { x: 0, opacity: 1 }
+                        : { x: 320, opacity: 0 }
+                    }
+                    transition={{ type: "spring", stiffness: 220, damping: 25 }}
+                    aria-hidden={mode !== "signup"}
                   >
-                    Forgot?
-                  </Link>
-                </div>
+                    {error && (
+                      <div className="text-sm text-red-600 bg-red-50 border border-red-100 p-2 rounded mb-2">
+                        {error}
+                      </div>
+                    )}
+                    <label className="block text-sm text-gray-700">
+                      Full name
+                    </label>
+                    <input
+                      type="text"
+                      value={name}
+                      onChange={(e) => setName(e.target.value)}
+                      placeholder="Your full name"
+                      className="w-full px-4 py-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-[#d9b3ff] focus:border-transparent outline-none"
+                      required
+                    />
 
-                <button
-                  type="submit"
-                  disabled={isLoading}
-                  className="w-full mt-2 inline-flex items-center justify-center gap-2 bg-gradient-to-r from-[#5e255dff] to-[#a855f7] text-white px-4 py-3 rounded-lg font-semibold shadow hover:scale-[1.01] transition-transform disabled:opacity-60"
-                >
-                  {isLoading ? "Signing in..." : "Sign in"}
-                </button>
+                    <label className="block text-sm text-gray-700">Email</label>
+                    <input
+                      type="email"
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
+                      placeholder="you@company.com"
+                      className="w-full px-4 py-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-[#d9b3ff] focus:border-transparent outline-none"
+                      required
+                    />
 
-                <div className="text-center text-sm text-gray-500 mt-3">
-                  Don’t have an account?{" "}
-                  <Link to="/signup" className="text-[#5e255dff] font-medium">
-                    Sign up
-                  </Link>
+                    <label className="block text-sm text-gray-700">
+                      Password
+                    </label>
+                    <div className="relative">
+                      <input
+                        type={showPassword ? "text" : "password"}
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}
+                        placeholder="Create a password"
+                        className="w-full px-4 py-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-[#d9b3ff] focus:border-transparent outline-none"
+                        required
+                      />
+                      <button
+                        type="button"
+                        onClick={() => setShowPassword(!showPassword)}
+                        className="absolute inset-y-0 right-0 pr-3 flex items-center text-gray-500"
+                        aria-label={
+                          showPassword ? "Hide password" : "Show password"
+                        }
+                      >
+                        {showPassword ? (
+                          <svg
+                            className="w-5 h-5"
+                            fill="none"
+                            stroke="currentColor"
+                            viewBox="0 0 24 24"
+                          >
+                            <path
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              strokeWidth={2}
+                              d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029"
+                            />
+                            <path
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              strokeWidth={2}
+                              d="M6.22 6.22A9.959 9.959 0 0112 5c4.478 0 8.268 2.943 9.543 7a9.968 9.968 0 01-4.587 5.544"
+                            />
+                            <path
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              strokeWidth={2}
+                              d="M3 3l18 18"
+                            />
+                          </svg>
+                        ) : (
+                          <svg
+                            className="w-5 h-5"
+                            fill="none"
+                            stroke="currentColor"
+                            viewBox="0 0 24 24"
+                          >
+                            <path
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              strokeWidth={2}
+                              d="M2.458 12C3.732 7.943 7.523 5 12 5s8.268 2.943 9.542 7c-1.274 4.057-5.064 7-9.542 7S3.732 16.057 2.458 12z"
+                            />
+                            <path
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              strokeWidth={2}
+                              d="M12 15a3 3 0 100-6 3 3 0 000 6z"
+                            />
+                          </svg>
+                        )}
+                      </button>
+                    </div>
+
+                    <button
+                      type="submit"
+                      disabled={isLoading}
+                      className="w-full mt-2 inline-flex items-center justify-center gap-2 bg-gradient-to-r from-[#5e255dff] to-[#a855f7] text-white px-4 py-3 rounded-lg font-semibold shadow hover:scale-[1.01] transition-transform disabled:opacity-60"
+                    >
+                      {isLoading ? "Creating..." : "Create account"}
+                    </button>
+
+                    <div className="text-center text-sm text-gray-500 mt-3">
+                      Already have an account?{" "}
+                      <button
+                        type="button"
+                        onClick={() => setMode("login")}
+                        className="text-[#5e255dff] font-medium"
+                      >
+                        Sign in
+                      </button>
+                    </div>
+                  </motion.form>
                 </div>
-              </form>
+              </div>
             </div>
           </div>
         </motion.div>

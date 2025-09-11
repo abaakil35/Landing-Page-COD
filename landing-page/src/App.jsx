@@ -18,6 +18,7 @@ import Contact from "./Components/contact";
 import HelpCenter from "./Components/helpCenter";
 import Documentation from "./Components/Documentation";
 import Login from "./Components/Connexion/Login";
+import { ThemeProvider } from "./Context/ThemeContext";
 // import FAQ from "./Components/FAQ";
 
 function AppContent() {
@@ -64,9 +65,11 @@ function AppContent() {
 
 function App() {
   return (
-    <Router>
-      <AppContent />
-    </Router>
+    <ThemeProvider>
+      <Router>
+        <AppContent />
+      </Router>
+    </ThemeProvider>
   );
 }
 

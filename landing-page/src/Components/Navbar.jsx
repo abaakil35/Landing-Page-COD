@@ -3,6 +3,7 @@ import { Link, useLocation } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { useContext, useState, useEffect } from "react";
 import ThemeContext from "../Context/ThemeContextContext.js";
+import ThemeToggle from "./ThemeToggle";
 
 // navLinks: Navigation items for the main navbar. Each item uses React Router DOM for client-side navigation.
 const navLinks = [
@@ -38,11 +39,19 @@ const Navbar = () => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  const isDark = theme === "dark";
+
   return (
     <motion.nav
-      className={`relative w-full py-4 px-23 sticky top-0 left-0 z-50 bg-white backdrop-blur-md transition-all duration-300 ${
+      className={`relative w-full py-4 px-23 sticky top-0 left-0 z-50 transition-all duration-300 ${
+        isDark
+          ? "bg-[#120913] text-[#e9e7ee]"
+          : "bg-white text-gray-700 backdrop-blur-md"
+      } ${
         isScrolled || isDocPage
-          ? "shadow-[0_4px_24px_0_rgba(94,37,93,0.07)]"
+          ? isDark
+            ? "shadow-[0_4px_24px_0_rgba(0,0,0,0.6)]"
+            : "shadow-[0_4px_24px_0_rgba(94,37,93,0.07)]"
           : ""
       }`}
       initial={{ opacity: 0, y: -20 }}
@@ -83,9 +92,17 @@ const Navbar = () => {
               >
                 <Link
                   to={link.to}
-                  className={`text-gray-700 text-base font-medium px-4 py-2 rounded-lg transition-all duration-200 relative flex items-center justify-center
-                  hover:text-[#5e255dff] focus:text-[#5e255dff] focus:outline-none focus:ring-2 focus:ring-[#5e255dff]/20 focus:ring-offset-2
-                  ${isActive ? "text-[#5e255dff] font-semibold" : ""}`}
+                  className={`text-base font-medium px-4 py-2 rounded-lg transition-all duration-200 relative flex items-center justify-center
+                  focus:outline-none focus:ring-2 focus:ring-[#5e255dff]/20 focus:ring-offset-2
+                  ${
+                    isActive
+                      ? isDark
+                        ? "text-[#b76be0] font-semibold"
+                        : "text-[#5e255dff] font-semibold"
+                      : isDark
+                      ? "text-[#e9e7ee] hover:text-[#b76be0]"
+                      : "text-gray-700 hover:text-[#5e255dff]"
+                  }`}
                 >
                   {link.label}
 
@@ -119,46 +136,7 @@ const Navbar = () => {
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.6, delay: 0.8 }}
         >
-          <motion.button
-            onClick={toggleTheme}
-            aria-label="Toggle dark mode"
-            className="p-2 rounded-lg hover:bg-gray-100 transition-colors"
-            initial={{ opacity: 0, scale: 0.8 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.4, delay: 0.9 }}
-            whileHover={{ scale: 1.1, rotate: 10 }}
-            whileTap={{ scale: 0.9 }}
-          >
-            {theme === "light" ? (
-              // Sun SVG for light mode (default) - COMMENTED OUT
-              /*
-            <svg width="24" height="24" fill="none" viewBox="0 0 24 24">
-              <circle cx="12" cy="12" r="5" fill="#FFD600" />
-              <g stroke="#FFD600" strokeWidth="2">
-                <line x1="12" y1="1" x2="12" y2="3" />
-                <line x1="12" y1="21" x2="12" y2="23" />
-                <line x1="4.22" y1="4.22" x2="5.64" y2="5.64" />
-                <line x1="18.36" y1="18.36" x2="19.78" y2="19.78" />
-                <line x1="1" y1="12" x2="3" y2="12" />
-                <line x1="21" y1="12" x2="23" y2="12" />
-                <line x1="4.22" y1="19.78" x2="5.64" y2="18.36" />
-                <line x1="18.36" y1="5.64" x2="19.78" y2="4.22" />
-              </g>
-            </svg>
-            */
-              <div className="w-6 h-6"></div>
-            ) : (
-              // Moon SVG for dark mode
-              <svg width="24" height="24" fill="none" viewBox="0 0 24 24">
-                <path
-                  d="M21 12.79A9 9 0 1111.21 3a7 7 0 109.79 9.79z"
-                  fill="#232b36"
-                  stroke="#232b36"
-                  strokeWidth="2"
-                />
-              </svg>
-            )}
-          </motion.button>
+          <ThemeToggle className="rounded-lg hover:bg-gray-100" />
           <motion.div
             initial={{ opacity: 0, y: -10 }}
             animate={{ opacity: 1, y: 0 }}

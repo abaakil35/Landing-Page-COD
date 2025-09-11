@@ -1,6 +1,8 @@
 # COD Rocket Landing Page
 
 A modern, responsive landing page for the COD Rocket Shopify app, built with React and Tailwind CSS.
+ 
+ 👉 Live Demo on Vercel: https://landing-page-cod-nu.vercel.app/
 
 ## Features
 

@@ -1,5 +1,7 @@
 import logo from "../assets/logo_white.png";
 import { motion } from "framer-motion";
+import { useContext } from "react";
+import ThemeContext from "../Context/ThemeContextContext.js";
 
 const socialLinks = [
   {
@@ -87,176 +89,160 @@ const footerSections = [
   },
 ];
 
-const Footer = () => (
-  <footer className="w-full bg-gradient-to-br from-[#5e255dff] via-[#4a1d49] to-[#2d1129] text-gray-300 pt-20 pb-8 px-23 relative overflow-hidden z-20">
-    <div className="max-w-7xl mx-auto">
-      {/* Background Decorative Elements */}
-      <div className="absolute top-0 left-0 w-full h-full opacity-5">
-        <div className="absolute top-10 left-10 w-32 h-32 bg-white rounded-full blur-3xl"></div>
-        <div className="absolute bottom-20 right-20 w-40 h-40 bg-white rounded-full blur-3xl"></div>
-        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-60 h-60 bg-white rounded-full blur-3xl opacity-50"></div>
-      </div>
+const Footer = () => {
+  const { theme } = useContext(ThemeContext);
+  const isDark = theme === "dark";
 
-      <div className="max-w-7xl mx-auto relative z-10">
-        {/* Top Section: Logo + Newsletter */}
-        <div className="flex flex-col lg:flex-row justify-between items-start gap-12 mb-16">
-          {/* Left: Logo and Description */}
-          <motion.div
-            className="lg:w-1/2 ml-12"
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            viewport={{ once: true }}
-          >
-            <div className="flex flex-col items-start">
-              <div className="mb-4">
+  return (
+    <footer
+      className={`w-full pt-16 pb-8 relative overflow-hidden ${
+        isDark
+          ? "bg-gradient-to-br from-[#0a0f1c] via-[#0f1419] to-[#1a1f2e] text-gray-300"
+          : "bg-gradient-to-br from-[#5e255dff] via-[#4a1d49] to-[#2d1129] text-gray-300"
+      }`}
+    >
+      <div className="max-w-7xl mx-auto px-6 lg:px-8">
+        {/* Background Decorative Elements */}
+        <div className="absolute inset-0 opacity-5">
+          <div
+            className={`absolute top-10 left-10 w-32 h-32 rounded-full blur-3xl ${
+              isDark ? "bg-slate-400" : "bg-purple-400"
+            }`}
+          ></div>
+          <div
+            className={`absolute bottom-20 right-20 w-40 h-40 rounded-full blur-3xl ${
+              isDark ? "bg-gray-400" : "bg-pink-400"
+            }`}
+          ></div>
+          <div
+            className={`absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-60 h-60 rounded-full blur-3xl opacity-30 ${
+              isDark ? "bg-zinc-400" : "bg-indigo-400"
+            }`}
+          ></div>
+        </div>
+
+        <div className="relative z-10">
+          {/* Main Footer Content */}
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 mb-12">
+            {/* Brand Section */}
+            <motion.div
+              className="lg:col-span-4"
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6 }}
+              viewport={{ once: true }}
+            >
+              <div className="mb-6">
                 <img
                   src={logo}
                   alt="COD Rocket Logo"
-                  className="h-10 object-contain filter brightness-0 invert"
+                  className="h-12 object-contain filter brightness-0 invert mb-4"
                 />
+                <p className="text-gray-300 text-base leading-relaxed max-w-md">
+                  Unify your business back office with COD Rocket—an all-in-one
+                  platform that handles COD Formation, Order Management,
+                  Analytics, and E-commerce Integration.
+                </p>
               </div>
 
-              <p className="text-gray-300 text-base leading-relaxed">
-                Unify your business back office with COD Rocket—an all-in-one
-                platform that handles COD Formation, Order Management,
-                Analytics, and E-commerce Integration. No paperwork. No stress.
-                Just pure growth.
-              </p>
-            </div>
-          </motion.div>
+              {/* Social Media Links */}
+              <div className="flex items-center space-x-4">
+                {socialLinks.map((link, idx) => (
+                  <motion.a
+                    key={idx}
+                    href={link.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label={link.label}
+                    className="w-10 h-10 bg-white/10 hover:bg-white/20 rounded-full flex items-center justify-center text-gray-400 hover:text-white transition-all duration-300"
+                    whileHover={{ scale: 1.1, y: -2 }}
+                    whileTap={{ scale: 0.95 }}
+                  >
+                    {link.svg}
+                  </motion.a>
+                ))}
+              </div>
+            </motion.div>
 
-          {/* Right: Newsletter Subscription */}
+            {/* Navigation Links Grid */}
+            <div className="lg:col-span-8 grid grid-cols-2 md:grid-cols-4 gap-8">
+              {footerSections.map((section, sectionIdx) => (
+                <motion.div
+                  key={section.title}
+                  initial={{ opacity: 0, y: 30 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.6, delay: 0.1 * sectionIdx }}
+                  viewport={{ once: true }}
+                >
+                  <h3 className="text-lg font-semibold text-white mb-4">
+                    {section.title}
+                  </h3>
+                  <ul className="space-y-3">
+                    {section.links.map((link, linkIdx) => (
+                      <motion.li
+                        key={link.label}
+                        initial={{ opacity: 0, x: -10 }}
+                        whileInView={{ opacity: 1, x: 0 }}
+                        transition={{ duration: 0.4, delay: 0.05 * linkIdx }}
+                        viewport={{ once: true }}
+                      >
+                        <a
+                          href={link.href}
+                          className="text-gray-400 hover:text-white transition-colors duration-300 text-sm leading-relaxed"
+                        >
+                          {link.label}
+                        </a>
+                      </motion.li>
+                    ))}
+                  </ul>
+                </motion.div>
+              ))}
+            </div>
+          </div>
+
+          {/* Footer Bottom */}
           <motion.div
-            className="lg:w-1/2 justify-start"
-            initial={{ opacity: 0, y: 30 }}
+            className="pt-8 border-t border-white/10"
+            initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
+            transition={{ duration: 0.6, delay: 0.4 }}
             viewport={{ once: true }}
           >
-            <div className="flex flex-col gap-4 mb-4">
-              <h3 className="text-xl font-bold text-white">
-                Join COD Rocket's monthly newsletter
-              </h3>
+            <div className="flex flex-col md:flex-row justify-between items-center gap-6">
+              <div className="flex flex-col md:flex-row items-center gap-6 text-sm text-gray-400">
+                <div className="flex items-center gap-4">
+                  <a
+                    href="#privacy"
+                    className="hover:text-white transition-colors"
+                  >
+                    Privacy Policy
+                  </a>
+                  <span className="text-gray-500">•</span>
+                  <a
+                    href="#terms"
+                    className="hover:text-white transition-colors"
+                  >
+                    Terms of Service
+                  </a>
+                  <span className="text-gray-500">•</span>
+                  <a
+                    href="#cookies"
+                    className="hover:text-white transition-colors"
+                  >
+                    Cookies
+                  </a>
+                </div>
+              </div>
 
-              <div className="flex gap-3">
-                <input
-                  type="email"
-                  placeholder="Enter your email"
-                  className="w-84 px-4 py-3 bg-white/10 border border-white/20 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-white/40 transition-colors"
-                />
-                <motion.button
-                  className="px-8 py-3 bg-black text-white rounded-lg font-medium hover:bg-gray-800 transition-colors whitespace-nowrap"
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                >
-                  Subscribe →
-                </motion.button>
+              <div className="text-sm text-gray-400">
+                © 2025 CodeRocket. All rights reserved.
               </div>
             </div>
-
-            <p className="text-sm text-gray-400">
-              By subscribing you agree with our{" "}
-              <a href="#privacy" className="text-blue-400 hover:underline">
-                Privacy Policy
-              </a>
-            </p>
           </motion.div>
         </div>
-
-        {/* Bottom Section: Navigation Links */}
-        <div className="flex flex-wrap justify-between gap-8 mb-12">
-          {footerSections.map((section, sectionIdx) => (
-            <motion.div
-              key={section.title}
-              className="flex-1 min-w-[200px] space-y-4"
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.1 * sectionIdx }}
-              viewport={{ once: true }}
-            >
-              <h3 className="text-lg font-bold text-white mb-4">
-                {section.title}
-              </h3>
-
-              <ul className="space-y-3">
-                {section.links.map((link, linkIdx) => (
-                  <motion.li
-                    key={link.label}
-                    initial={{ opacity: 0, x: -10 }}
-                    whileInView={{ opacity: 1, x: 0 }}
-                    transition={{ duration: 0.4, delay: 0.05 * linkIdx }}
-                    viewport={{ once: true }}
-                  >
-                    <a
-                      href={link.href}
-                      className="block text-gray-300 hover:text-white transition-all duration-300 text-sm"
-                    >
-                      {link.label}
-                    </a>
-                  </motion.li>
-                ))}
-              </ul>
-            </motion.div>
-          ))}
-        </div>
-
-        {/* Divider */}
-        <motion.div
-          initial={{ opacity: 0, scaleX: 0 }}
-          whileInView={{ opacity: 1, scaleX: 1 }}
-          transition={{ duration: 0.8 }}
-          viewport={{ once: true }}
-        >
-          <hr className="border-white/20 mb-8" />
-        </motion.div>
-
-        {/* Bottom Section: Copyright and Social */}
-        <motion.div
-          className="flex flex-col lg:flex-row justify-between items-center text-center lg:text-left gap-6"
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          viewport={{ once: true }}
-        >
-          <div className="flex flex-col lg:flex-row items-center gap-6 text-sm text-gray-400">
-            <span>© 2024 COD Rocket. All rights reserved.</span>
-            <div className="flex items-center gap-4">
-              <a href="#privacy" className="hover:text-white transition-colors">
-                Privacy
-              </a>
-              <span className="text-gray-600">•</span>
-              <a href="#terms" className="hover:text-white transition-colors">
-                Terms
-              </a>
-              <span className="text-gray-600">•</span>
-              <a href="#cookies" className="hover:text-white transition-colors">
-                Cookies
-              </a>
-            </div>
-          </div>
-
-          {/* Social Media Links */}
-          <div className="flex items-center space-x-4">
-            {socialLinks.map((link, idx) => (
-              <motion.a
-                key={idx}
-                href={link.href}
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label={link.label}
-                className="text-gray-400 hover:text-white transition-all duration-300"
-                whileHover={{ scale: 1.1, y: -2 }}
-                whileTap={{ scale: 0.95 }}
-              >
-                {link.svg}
-              </motion.a>
-            ))}
-          </div>
-        </motion.div>
       </div>
-    </div>
-  </footer>
-);
+    </footer>
+  );
+};
 
 export default Footer;

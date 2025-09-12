@@ -1,5 +1,7 @@
 import { motion } from "framer-motion";
 import { useLocation } from "react-router-dom";
+import { useContext } from "react";
+import ThemeContext from "../Context/ThemeContextContext.js";
 
 const plans = [
   {
@@ -58,13 +60,27 @@ const plans = [
 const Pricing = () => {
   const location = useLocation();
   const isPricingPage = location.pathname === "/pricing";
+  const { theme } = useContext(ThemeContext);
+  const isDark = theme === "dark";
 
   return (
-    <section className="relative w-full py-23 px-23 bg-[#FCFCFC] overflow-hidden">
+    <section
+      className={`relative w-full py-23 px-23 overflow-hidden ${
+        isDark ? "bg-[#0f0712]" : "bg-[#FCFCFC]"
+      }`}
+    >
       <div className="max-w-7xl mx-auto">
         {/* Decorative blurred circles */}
-        <div className="absolute -top-24 -left-24 w-72 h-72 bg-[#9d3ecb]/20 rounded-full blur-3xl opacity-60 z-0" />
-        <div className="absolute -bottom-24 -right-24 w-72 h-72 bg-[#5affff]/20 rounded-full blur-3xl opacity-60 z-0" />
+        <div
+          className={`absolute -top-24 -left-24 w-72 h-72 rounded-full blur-3xl opacity-60 z-0 ${
+            isDark ? "bg-[#b76be0]/10" : "bg-[#9d3ecb]/20"
+          }`}
+        />
+        <div
+          className={`absolute -bottom-24 -right-24 w-72 h-72 rounded-full blur-3xl opacity-60 z-0 ${
+            isDark ? "bg-[#a855f7]/10" : "bg-[#5affff]/20"
+          }`}
+        />
         <div className="max-w-7xl mx-auto relative z-10">
           <motion.div
             className="flex items-center justify-center mb-4"
@@ -73,12 +89,18 @@ const Pricing = () => {
             transition={{ duration: 0.6, delay: 0.1 }}
           >
             <span className="inline-block w-16 h-2 rounded-full bg-gradient-to-r from-[#9d3ecb] via-[#a259c9] to-[#702c91] opacity-90 shadow-md mr-3" />
-            <span className="uppercase tracking-widest text-xs font-semibold text-[#702c91]">
+            <span
+              className={`uppercase tracking-widest text-xs font-semibold ${
+                isDark ? "text-[#b76be0]" : "text-[#702c91]"
+              }`}
+            >
               Pricing
             </span>
           </motion.div>
           <motion.h2
-            className="text-3xl md:text-4xl font-extrabold text-center mb-4 text-[#2d123a] drop-shadow-sm tracking-tight"
+            className={`text-3xl md:text-4xl font-extrabold text-center mb-4 drop-shadow-sm tracking-tight ${
+              isDark ? "text-[#e9e7ee]" : "text-[#2d123a]"
+            }`}
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.2 }}
@@ -86,7 +108,9 @@ const Pricing = () => {
             Simple, Transparent Pricing
           </motion.h2>
           <motion.p
-            className="text-lg md:text-2xl text-[#3f3f3f] text-center mb-16 max-w-3xl mx-auto"
+            className={`text-lg md:text-2xl text-center mb-16 max-w-3xl mx-auto ${
+              isDark ? "text-[#e9e7ee]/80" : "text-[#3f3f3f]"
+            }`}
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.4 }}
@@ -99,9 +123,15 @@ const Pricing = () => {
             {plans.map((plan, idx) => (
               <motion.div
                 key={idx}
-                className={`bg-white/80 backdrop-blur-xl rounded-2xl shadow-xl border-2 ${
-                  plan.popular ? "border-[#5e255dff]" : "border-[#9d3ecb]/10"
-                } p-10 flex flex-col items-center relative transition-transform hover:-translate-y-2 hover:shadow-2xl lg:flex-1 lg:max-w-sm`}
+                className={`rounded-2xl shadow-xl p-10 flex flex-col items-center relative transition-transform hover:-translate-y-2 hover:shadow-2xl lg:flex-1 lg:max-w-sm ${
+                  isDark
+                    ? "bg-[#1b0f20]/80 backdrop-blur-xl border-2 border-[#b76be0]/20"
+                    : `bg-white/80 backdrop-blur-xl border-2 ${
+                        plan.popular
+                          ? "border-[#5e255dff]"
+                          : "border-[#9d3ecb]/10"
+                      }`
+                }`}
                 initial={{ opacity: 0, y: 50 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: 0.6 + idx * 0.2 }}
@@ -112,14 +142,26 @@ const Pricing = () => {
                     Most Popular
                   </span>
                 )}
-                <h3 className="text-xl md:text-2xl font-bold mb-4 text-[#5e255dff]">
+                <h3
+                  className={`text-xl md:text-2xl font-bold mb-4 ${
+                    isDark ? "text-[#ffffff]" : "text-[#5e255dff]"
+                  }`}
+                >
                   {plan.name}
                 </h3>
                 <div className="flex items-end mb-6">
-                  <span className="text-3xl md:text-4xl font-extrabold mr-2 text-[#2d123a]">
+                  <span
+                    className={`text-3xl md:text-4xl font-extrabold mr-2 ${
+                      isDark ? "text-[#ffffff]" : "text-[#2d123a]"
+                    }`}
+                  >
                     {plan.price}
                   </span>
-                  <span className="text-[#702c91] text-lg md:text-xl">
+                  <span
+                    className={`text-lg md:text-xl ${
+                      isDark ? "text-[#ffffff]" : "text-[#702c91]"
+                    }`}
+                  >
                     {plan.period}
                   </span>
                 </div>
@@ -127,7 +169,9 @@ const Pricing = () => {
                   {plan.features.map((feature, i) => (
                     <li
                       key={i}
-                      className="flex items-center text-base md:text-lg text-[#3f3f3f] mb-3"
+                      className={`flex items-center text-base md:text-lg mb-3 ${
+                        isDark ? "text-[#e9e7ee]/80" : "text-[#3f3f3f]"
+                      }`}
                     >
                       <span className="inline-flex items-center justify-center w-5 h-5 rounded-full bg-[#5e255dff] mr-3 shadow">
                         <svg
@@ -150,7 +194,17 @@ const Pricing = () => {
                   ))}
                 </ul>
                 <motion.button
-                  className={`w-full py-3 rounded-lg mt-auto text-lg ${plan.button.style}`}
+                  className={`w-full py-3 rounded-lg mt-auto text-lg ${
+                    plan.name === "Starter"
+                      ? isDark
+                        ? "text-white border-2 border-[#b76be0]/50"
+                        : "text-black border-2 border-gray-300"
+                      : plan.name === "Enterprise"
+                      ? isDark
+                        ? "border border-[#b76be0]/50 text-white hover:bg-[#b76be0]/10"
+                        : plan.button.style
+                      : plan.button.style
+                  }`}
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.6, delay: 1.0 + idx * 0.2 }}
@@ -173,67 +227,157 @@ const Pricing = () => {
               viewport={{ once: true }}
             >
               <div className="text-center mb-16">
-                <h3 className="text-4xl font-bold text-gray-900 mb-6">
+                <h3
+                  className={`text-4xl font-bold mb-6 ${
+                    isDark ? "text-[#e9e7ee]" : "text-gray-900"
+                  }`}
+                >
                   Compare All Plans
                 </h3>
-                <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+                <p
+                  className={`text-xl max-w-3xl mx-auto ${
+                    isDark ? "text-[#e9e7ee]/80" : "text-gray-600"
+                  }`}
+                >
                   Choose the perfect plan for your business needs with detailed
                   feature comparison
                 </p>
               </div>
 
-              <div className="bg-white rounded-3xl shadow-2xl overflow-hidden border border-gray-200">
+              <div
+                className={`rounded-3xl shadow-2xl overflow-hidden ${
+                  isDark
+                    ? "bg-[#1b0f20]/80 border border-[#b76be0]/20"
+                    : "bg-white border border-gray-200"
+                }`}
+              >
                 <div className="overflow-x-auto">
                   <table className="w-full">
                     {/* Header with Plan Names and Pricing */}
                     <thead>
-                      <tr className="bg-gray-50 border-b border-gray-200">
+                      <tr
+                        className={`${
+                          isDark
+                            ? "bg-[#2d1129]/50 border-[#b76be0]/20"
+                            : "bg-gray-50 border-gray-200"
+                        }`}
+                      >
                         <th className="px-8 py-6 text-left">
-                          <div className="text-xl font-bold text-gray-900">
+                          <div
+                            className={`text-xl font-bold ${
+                              isDark ? "text-[#e9e7ee]" : "text-gray-900"
+                            }`}
+                          >
                             Features
                           </div>
                         </th>
                         <th className="px-8 py-6 text-center border-l border-gray-200">
-                          <div className="text-2xl font-bold text-gray-900 mb-2">
+                          <div
+                            className={`text-2xl font-bold mb-2 ${
+                              isDark ? "text-[#e9e7ee]" : "text-gray-900"
+                            }`}
+                          >
                             Free
                           </div>
-                          <div className="text-3xl font-bold text-gray-900 mb-1">
+                          <div
+                            className={`text-3xl font-bold mb-1 ${
+                              isDark ? "text-[#e9e7ee]" : "text-gray-900"
+                            }`}
+                          >
                             $0
                           </div>
-                          <div className="text-sm text-gray-500">
+                          <div
+                            className={`text-sm ${
+                              isDark ? "text-[#e9e7ee]/80" : "text-gray-500"
+                            }`}
+                          >
                             Forever free
                           </div>
-                          <button className="mt-4 bg-gray-900 text-white px-6 py-3 rounded-full text-sm font-semibold hover:bg-gray-800 transition-all duration-200 transform hover:scale-105">
+                          <button className="mt-4 text-white px-6 py-3 rounded-full text-sm font-semibold hover:shadow-lg transition-all duration-200 transform hover:scale-105">
                             Get Started →
                           </button>
                         </th>
-                        <th className="px-8 py-6 text-center border-l border-[#5e255dff] bg-[#9D14A8]">
-                          <div className="text-2xl font-bold text-white mb-2">
+                        <th
+                          className={`px-8 py-6 text-center ${
+                            isDark
+                              ? "border-[#b76be0]/20"
+                              : "border-[#5e255dff]"
+                          } ${isDark ? "bg-[#fffff]" : "bg-[#9D14A8]"}`}
+                        >
+                          <div
+                            className={`text-2xl font-bold mb-2 ${
+                              isDark ? "text-[#ffffff]" : "text-white"
+                            }`}
+                          >
                             Professional
                           </div>
-                          <div className="text-3xl font-bold text-white mb-1">
+                          <div
+                            className={`text-3xl font-bold mb-1 ${
+                              isDark ? "text-[#e9e7ee]" : "text-white"
+                            }`}
+                          >
                             $19
-                            <span className="text-lg text-white">/month</span>
-                          </div>
-                          <div className="text-sm text-white">Most popular</div>
-                          <button className="mt-4 bg-gradient-to-r from-[#5e255dff] to-[#9d3ecb] text-white px-6 py-3 rounded-full text-sm font-semibold hover:shadow-lg transition-all duration-200 transform hover:scale-105">
-                            Start Free Trial →
-                          </button>
-                        </th>
-                        <th className="px-8 py-6 text-center border-l border-gray-200">
-                          <div className="text-2xl font-bold text-gray-900 mb-2">
-                            Enterprise
-                          </div>
-                          <div className="text-3xl font-bold text-gray-900 mb-1">
-                            $49
-                            <span className="text-lg text-gray-600">
+                            <span
+                              className={`text-lg ${
+                                isDark ? "text-[#e9e7ee]/80" : "text-white"
+                              }`}
+                            >
                               /month
                             </span>
                           </div>
-                          <div className="text-sm text-gray-500">
+                          <div
+                            className={`text-sm ${
+                              isDark ? "text-[#e9e7ee]/80" : "text-white"
+                            }`}
+                          >
+                            Most popular
+                          </div>
+                          <button
+                            className={`mt-4 ${
+                              isDark
+                                ? "bg-[#b76be0] hover:bg-[#a55bc8]"
+                                : "bg-gradient-to-r from-[#5e255dff] to-[#9d3ecb]"
+                            } text-white px-6 py-3 rounded-full text-sm font-semibold hover:shadow-lg transition-all duration-200 transform hover:scale-105`}
+                          >
+                            Start Free Trial →
+                          </button>
+                        </th>
+                        <th
+                          className={`px-8 py-6 text-center ${
+                            isDark ? "border-[#b76be0]/20" : "border-gray-200"
+                          } ${isDark ? "bg-[#2d1129]/50" : ""}`}
+                        >
+                          <div
+                            className={`text-2xl font-bold mb-2 ${
+                              isDark ? "text-[#e9e7ee]" : "text-gray-900"
+                            }`}
+                          >
+                            Enterprise
+                          </div>
+                          <div
+                            className={`text-3xl font-bold mb-1 ${
+                              isDark ? "text-[#e9e7ee]" : "text-gray-900"
+                            }`}
+                          >
+                            $49
+                            <span
+                              className={`text-lg ${
+                                isDark ? "text-[#e9e7ee]/80" : "text-gray-600"
+                              }`}
+                            >
+                              /month
+                            </span>
+                          </div>
+                          <div
+                            className={`text-sm ${
+                              isDark ? "text-[#e9e7ee]/80" : "text-gray-500"
+                            }`}
+                          >
                             Advanced features
                           </div>
-                          <button className="mt-4 bg-gray-900 text-white px-6 py-3 rounded-full text-sm font-semibold hover:bg-gray-800 transition-all duration-200 transform hover:scale-105">
+                          <button
+                            className={`mt-4 text-white px-6 py-3 rounded-full text-sm font-semibold hover:shadow-lg transition-all duration-200 transform hover:scale-105`}
+                          >
                             Get Started →
                           </button>
                         </th>
@@ -313,23 +457,45 @@ const Pricing = () => {
                       ].map((row, index) => (
                         <tr
                           key={index}
-                          className="border-b border-gray-100 hover:bg-gray-50/50 transition-all duration-200"
+                          className={`transition-all duration-200 ${
+                            isDark
+                              ? "border-[#b76be0]/20 hover:bg-[#2d1129]/30"
+                              : "border-gray-100 hover:bg-gray-50/50"
+                          }`}
                         >
                           <td className="px-8 py-6 text-left">
-                            <div className="text-gray-900 font-medium text-lg">
+                            <div
+                              className={`font-medium text-lg ${
+                                isDark ? "text-[#e9e7ee]" : "text-gray-900"
+                              }`}
+                            >
                               {row.feature}
                             </div>
                             {row.subtitle && (
-                              <div className="text-xs text-gray-500 mt-1 font-medium tracking-wide">
+                              <div
+                                className={`text-xs mt-1 font-medium tracking-wide ${
+                                  isDark ? "text-[#e9e7ee]/60" : "text-gray-500"
+                                }`}
+                              >
                                 {row.subtitle}
                               </div>
                             )}
                           </td>
-                          <td className="px-8 py-6 text-center border-l border-gray-100">
+                          <td
+                            className={`px-8 py-6 text-center ${
+                              isDark ? "border-[#b76be0]/20" : "border-gray-100"
+                            }`}
+                          >
                             {row.free ? (
-                              <div className="inline-flex items-center justify-center w-8 h-8 bg-green-100 rounded-full">
+                              <div
+                                className={`inline-flex items-center justify-center w-8 h-8 rounded-full ${
+                                  isDark ? "bg-green-500/20" : "bg-green-100"
+                                }`}
+                              >
                                 <svg
-                                  className="w-5 h-5 text-green-600"
+                                  className={`w-5 h-5 ${
+                                    isDark ? "text-green-400" : "text-green-600"
+                                  }`}
                                   fill="currentColor"
                                   viewBox="0 0 20 20"
                                 >
@@ -341,9 +507,15 @@ const Pricing = () => {
                                 </svg>
                               </div>
                             ) : (
-                              <div className="inline-flex items-center justify-center w-8 h-8 bg-red-100 rounded-full">
+                              <div
+                                className={`inline-flex items-center justify-center w-8 h-8 rounded-full ${
+                                  isDark ? "bg-red-500/20" : "bg-red-100"
+                                }`}
+                              >
                                 <svg
-                                  className="w-5 h-5 text-red-500"
+                                  className={`w-5 h-5 ${
+                                    isDark ? "text-red-400" : "text-red-500"
+                                  }`}
                                   fill="currentColor"
                                   viewBox="0 0 20 20"
                                 >
@@ -356,11 +528,25 @@ const Pricing = () => {
                               </div>
                             )}
                           </td>
-                          <td className="px-8 py-6 text-center border-l border-gray-100 bg-gradient-to-br from-[#5e255dff]/5 to-[#9d3ecb]/5">
+                          <td
+                            className={`px-8 py-6 text-center ${
+                              isDark ? "border-[#b76be0]/20" : "border-gray-100"
+                            } ${
+                              isDark
+                                ? "bg-[#2d1129]/20"
+                                : "bg-gradient-to-br from-[#5e255dff]/5 to-[#9d3ecb]/5"
+                            }`}
+                          >
                             {row.pro ? (
-                              <div className="inline-flex items-center justify-center w-8 h-8 bg-green-100 rounded-full">
+                              <div
+                                className={`inline-flex items-center justify-center w-8 h-8 rounded-full ${
+                                  isDark ? "bg-green-500/20" : "bg-green-100"
+                                }`}
+                              >
                                 <svg
-                                  className="w-5 h-5 text-green-600"
+                                  className={`w-5 h-5 ${
+                                    isDark ? "text-green-400" : "text-green-600"
+                                  }`}
                                   fill="currentColor"
                                   viewBox="0 0 20 20"
                                 >
@@ -372,9 +558,15 @@ const Pricing = () => {
                                 </svg>
                               </div>
                             ) : (
-                              <div className="inline-flex items-center justify-center w-8 h-8 bg-red-100 rounded-full">
+                              <div
+                                className={`inline-flex items-center justify-center w-8 h-8 rounded-full ${
+                                  isDark ? "bg-red-500/20" : "bg-red-100"
+                                }`}
+                              >
                                 <svg
-                                  className="w-5 h-5 text-red-500"
+                                  className={`w-5 h-5 ${
+                                    isDark ? "text-red-400" : "text-red-500"
+                                  }`}
                                   fill="currentColor"
                                   viewBox="0 0 20 20"
                                 >
@@ -387,11 +579,21 @@ const Pricing = () => {
                               </div>
                             )}
                           </td>
-                          <td className="px-8 py-6 text-center border-l border-gray-100">
+                          <td
+                            className={`px-8 py-6 text-center ${
+                              isDark ? "border-[#b76be0]/20" : "border-gray-100"
+                            }`}
+                          >
                             {row.premium ? (
-                              <div className="inline-flex items-center justify-center w-8 h-8 bg-green-100 rounded-full">
+                              <div
+                                className={`inline-flex items-center justify-center w-8 h-8 rounded-full ${
+                                  isDark ? "bg-green-500/20" : "bg-green-100"
+                                }`}
+                              >
                                 <svg
-                                  className="w-5 h-5 text-green-600"
+                                  className={`w-5 h-5 ${
+                                    isDark ? "text-green-400" : "text-green-600"
+                                  }`}
                                   fill="currentColor"
                                   viewBox="0 0 20 20"
                                 >
@@ -403,9 +605,15 @@ const Pricing = () => {
                                 </svg>
                               </div>
                             ) : (
-                              <div className="inline-flex items-center justify-center w-8 h-8 bg-red-100 rounded-full">
+                              <div
+                                className={`inline-flex items-center justify-center w-8 h-8 rounded-full ${
+                                  isDark ? "bg-red-500/20" : "bg-red-100"
+                                }`}
+                              >
                                 <svg
-                                  className="w-5 h-5 text-red-500"
+                                  className={`w-5 h-5 ${
+                                    isDark ? "text-red-400" : "text-red-500"
+                                  }`}
                                   fill="currentColor"
                                   viewBox="0 0 20 20"
                                 >
@@ -436,19 +644,47 @@ const Pricing = () => {
               transition={{ duration: 0.6, delay: 0.2 }}
               viewport={{ once: true }}
             >
-              <div className="bg-gradient-to-br from-[#5e255dff] to-[#9d3ecb] rounded-3xl p-12 text-center relative overflow-hidden">
+              <div
+                className={`rounded-3xl p-12 text-center relative overflow-hidden ${
+                  isDark
+                    ? "bg-[#2d1129]/80 border border-[#b76be0]/20"
+                    : "bg-gradient-to-br from-[#5e255dff] to-[#9d3ecb]"
+                }`}
+              >
                 {/* Background Pattern */}
                 <div className="absolute inset-0 opacity-10">
-                  <div className="absolute top-0 left-0 w-40 h-40 bg-white rounded-full -translate-x-20 -translate-y-20"></div>
-                  <div className="absolute bottom-0 right-0 w-32 h-32 bg-white rounded-full translate-x-16 translate-y-16"></div>
-                  <div className="absolute top-1/2 left-1/4 w-6 h-6 bg-white rounded-full"></div>
-                  <div className="absolute top-1/4 right-1/4 w-4 h-4 bg-white rounded-full"></div>
+                  <div
+                    className={`absolute top-0 left-0 w-40 h-40 rounded-full -translate-x-20 -translate-y-20 ${
+                      isDark ? "bg-[#b76be0]" : "bg-white"
+                    }`}
+                  ></div>
+                  <div
+                    className={`absolute bottom-0 right-0 w-32 h-32 rounded-full translate-x-16 translate-y-16 ${
+                      isDark ? "bg-[#b76be0]" : "bg-white"
+                    }`}
+                  ></div>
+                  <div
+                    className={`absolute top-1/2 left-1/4 w-6 h-6 rounded-full ${
+                      isDark ? "bg-[#b76be0]" : "bg-white"
+                    }`}
+                  ></div>
+                  <div
+                    className={`absolute top-1/4 right-1/4 w-4 h-4 rounded-full ${
+                      isDark ? "bg-[#b76be0]" : "bg-white"
+                    }`}
+                  ></div>
                 </div>
 
                 <div className="relative z-10">
-                  <div className="inline-flex items-center justify-center w-16 h-16 bg-white/20 rounded-full mb-6">
+                  <div
+                    className={`inline-flex items-center justify-center w-16 h-16 rounded-full mb-6 ${
+                      isDark ? "bg-[#b76be0]/20" : "bg-white/20"
+                    }`}
+                  >
                     <svg
-                      className="w-8 h-8 text-white"
+                      className={`w-8 h-8 ${
+                        isDark ? "text-[#b76be0]" : "text-white"
+                      }`}
                       fill="none"
                       stroke="currentColor"
                       viewBox="0 0 24 24"
@@ -462,10 +698,18 @@ const Pricing = () => {
                     </svg>
                   </div>
 
-                  <h3 className="text-3xl font-bold text-white mb-4">
+                  <h3
+                    className={`text-3xl font-bold mb-4 ${
+                      isDark ? "text-[#e9e7ee]" : "text-white"
+                    }`}
+                  >
                     Need Something Custom?
                   </h3>
-                  <p className="text-xl text-white/90 mb-8 max-w-2xl mx-auto">
+                  <p
+                    className={`text-xl mb-8 max-w-2xl mx-auto ${
+                      isDark ? "text-[#e9e7ee]/80" : "text-white/90"
+                    }`}
+                  >
                     Looking for enterprise solutions, custom integrations, or
                     have specific requirements? Our sales team is here to help
                     you find the perfect solution for your business.
@@ -473,7 +717,11 @@ const Pricing = () => {
 
                   <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
                     <motion.button
-                      className="bg-white text-[#5e255dff] px-8 py-4 rounded-full font-semibold text-lg hover:bg-gray-100 transition-all duration-200 flex items-center gap-2 min-w-[200px] justify-center"
+                      className={`px-8 py-4 rounded-full font-semibold text-lg transition-all duration-200 flex items-center gap-2 min-w-[200px] justify-center ${
+                        isDark
+                          ? "bg-[#b76be0] text-[#0f0712] hover:bg-[#a55bc8]"
+                          : "bg-white text-[#5e255dff] hover:bg-gray-100"
+                      }`}
                       whileHover={{ scale: 1.05 }}
                       whileTap={{ scale: 0.95 }}
                     >
@@ -495,7 +743,11 @@ const Pricing = () => {
 
                     <motion.a
                       href="mailto:sales@yourcompany.com"
-                      className="text-white/90 hover:text-white transition-colors duration-200 flex items-center gap-2 text-lg"
+                      className={`transition-colors duration-200 flex items-center gap-2 text-lg ${
+                        isDark
+                          ? "text-[#e9e7ee]/80 hover:text-[#e9e7ee]"
+                          : "text-white/90 hover:text-white"
+                      }`}
                       whileHover={{ scale: 1.05 }}
                     >
                       <svg
@@ -515,29 +767,57 @@ const Pricing = () => {
                     </motion.a>
                   </div>
 
-                  <div className="mt-8 pt-8 border-t border-white/20">
+                  <div
+                    className={`mt-8 pt-8 ${
+                      isDark ? "border-[#b76be0]/20" : "border-white/20"
+                    } border-t`}
+                  >
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-6 text-center">
                       <div>
-                        <div className="text-2xl font-bold text-white mb-1">
+                        <div
+                          className={`text-2xl font-bold mb-1 ${
+                            isDark ? "text-[#e9e7ee]" : "text-white"
+                          }`}
+                        >
                           24/7
                         </div>
-                        <div className="text-white/80 text-sm">
+                        <div
+                          className={`text-sm ${
+                            isDark ? "text-[#e9e7ee]/80" : "text-white/80"
+                          }`}
+                        >
                           Enterprise Support
                         </div>
                       </div>
                       <div>
-                        <div className="text-2xl font-bold text-white mb-1">
+                        <div
+                          className={`text-2xl font-bold mb-1 ${
+                            isDark ? "text-[#e9e7ee]" : "text-white"
+                          }`}
+                        >
                           99.9%
                         </div>
-                        <div className="text-white/80 text-sm">
+                        <div
+                          className={`text-sm ${
+                            isDark ? "text-[#e9e7ee]/80" : "text-white/80"
+                          }`}
+                        >
                           Uptime Guarantee
                         </div>
                       </div>
                       <div>
-                        <div className="text-2xl font-bold text-white mb-1">
+                        <div
+                          className={`text-2xl font-bold mb-1 ${
+                            isDark ? "text-[#e9e7ee]" : "text-white"
+                          }`}
+                        >
                           Custom
                         </div>
-                        <div className="text-white/80 text-sm">
+                        <div
+                          className={`text-sm ${
+                            isDark ? "text-[#e9e7ee]/80" : "text-white/80"
+                          }`}
+                        >
                           Integration Solutions
                         </div>
                       </div>

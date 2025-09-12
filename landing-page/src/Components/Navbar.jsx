@@ -150,7 +150,11 @@ const Navbar = () => {
           >
             <Link
               to="/login"
-              className="px-4 py-2 rounded-lg font-medium text-base text-gray-700 hover:text-[#5e255dff] hover:bg-gray-50 transition-colors"
+              className={`px-4 py-2 rounded-lg font-medium text-base transition-colors ${
+                isDark
+                  ? "text-white hover:text-[#b76be0] hover:bg-[#2d1129]"
+                  : "text-gray-700 hover:text-[#5e255dff] hover:bg-gray-50"
+              }`}
             >
               Login
             </Link>
@@ -285,7 +289,11 @@ const Navbar = () => {
                 >
                   <Link
                     to="/login"
-                    className="w-full px-4 py-3 rounded-lg font-medium text-lg text-gray-700 hover:text-[#5e255dff] hover:bg-gray-50 transition-colors border border-gray-300 block text-center"
+                    className={`w-full px-4 py-3 rounded-lg font-medium text-lg transition-colors border block text-center ${
+                      isDark
+                        ? "text-white hover:text-[#b76be0] hover:bg-[#2d1129] border-[#b76be0]/30"
+                        : "text-gray-700 hover:text-[#5e255dff] hover:bg-gray-50 border-gray-300"
+                    }`}
                     onClick={() => setIsMobileMenuOpen(false)}
                   >
                     Login

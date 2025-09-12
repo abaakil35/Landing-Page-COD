@@ -1,4 +1,5 @@
 import logo from "../assets/logo.png";
+import logoWhite from "../assets/logo_white.png";
 import { Link, useLocation } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { useContext, useState, useEffect } from "react";
@@ -43,7 +44,7 @@ const Navbar = () => {
 
   return (
     <motion.nav
-      className={`relative w-full py-4 px-23 sticky top-0 left-0 z-50 transition-all duration-300 ${
+      className={`relative w-full py-4 px-23 sticky top-0 left-0 z-50 ${
         isDark
           ? "bg-[#120913] text-[#e9e7ee]"
           : "bg-white text-gray-700 backdrop-blur-md"
@@ -57,6 +58,7 @@ const Navbar = () => {
       initial={{ opacity: 0, y: -20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.6, ease: "easeOut" }}
+      layout
     >
       <div className="max-w-7xl mx-auto flex items-center justify-between">
         <motion.div
@@ -65,15 +67,17 @@ const Navbar = () => {
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.6, delay: 0.1 }}
         >
-          <motion.img
-            src={logo}
-            alt="Logo"
-            className="h-6 w-auto mr-4"
-            initial={{ opacity: 0, scale: 0.8 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.5, delay: 0.2 }}
-            whileHover={{ scale: 1.1, rotate: 2 }}
-          />
+          <Link to="/">
+            <motion.img
+              key={isDark ? "dark" : "light"}
+              src={isDark ? logoWhite : logo}
+              alt="Logo"
+              className="h-8 w-40 mr-4 cursor-pointer object-contain"
+              initial={{ opacity: 0, scale: 0.9 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.3, ease: "easeOut" }}
+            />
+          </Link>
         </motion.div>
 
         {/* Desktop Navigation */}
@@ -92,7 +96,7 @@ const Navbar = () => {
               >
                 <Link
                   to={link.to}
-                  className={`text-base font-medium px-4 py-2 rounded-lg transition-all duration-200 relative flex items-center justify-center
+                  className={`text-base font-medium px-4 py-2 rounded-lg transition-all duration-300 relative flex items-center justify-center
                   focus:outline-none focus:ring-2 focus:ring-[#5e255dff]/20 focus:ring-offset-2
                   ${
                     isActive
@@ -199,7 +203,11 @@ const Navbar = () => {
       <AnimatePresence>
         {isMobileMenuOpen && (
           <motion.div
-            className="xl:hidden absolute top-full left-0 right-0 bg-white border-t border-gray-200 shadow-xl z-50"
+            className={`xl:hidden absolute top-full left-0 right-0 ${
+              isDark
+                ? "bg-[#120913] border-gray-700"
+                : "bg-white border-gray-200"
+            } border-t shadow-xl z-50`}
             initial={{ opacity: 0, y: -20, height: 0 }}
             animate={{ opacity: 1, y: 0, height: "auto" }}
             exit={{ opacity: 0, y: -20, height: 0 }}

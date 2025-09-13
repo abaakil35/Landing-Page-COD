@@ -1,9 +1,12 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Link } from "react-router-dom";
+import ThemeContext from "../Context/ThemeContextContext.js";
 
 const HelpCenter = () => {
   const [openFAQ, setOpenFAQ] = useState(null);
+  const { theme } = useContext(ThemeContext);
+  const isDark = theme === "dark";
 
   const toggleFAQ = (index) => {
     setOpenFAQ(openFAQ === index ? null : index);
@@ -43,7 +46,13 @@ const HelpCenter = () => {
   ];
 
   return (
-    <div className="relative w-full py-20 px-23 bg-white">
+    <div
+      className={`relative w-full py-20 px-23 ${
+        isDark
+          ? "bg-gradient-to-br from-[#0a0f1c] via-[#0f1419] to-[#1a1f2e]"
+          : "bg-white"
+      }`}
+    >
       <div className="max-w-7xl mx-auto">
         {/* Header Section */}
         <motion.div
@@ -53,12 +62,18 @@ const HelpCenter = () => {
           transition={{ duration: 0.6 }}
         >
           <h1
-            className="text-4xl md:text-5xl font-bold mb-6"
-            style={{ color: "#5e255dff" }}
+            className={`text-4xl md:text-5xl font-bold mb-6 ${
+              isDark ? "text-white" : ""
+            }`}
+            style={isDark ? {} : { color: "#5e255dff" }}
           >
             COD Form Builder
           </h1>
-          <p className="text-xl text-gray-900 max-w-3xl mx-auto">
+          <p
+            className={`text-xl max-w-3xl mx-auto ${
+              isDark ? "text-gray-300" : "text-gray-900"
+            }`}
+          >
             Complete help center for your Cash on Delivery form building needs
             Rocket
           </p>
@@ -76,9 +91,19 @@ const HelpCenter = () => {
               <input
                 type="text"
                 placeholder="Search for help articles..."
-                className="w-full px-6 py-4 text-lg border-2 border-gray-300 rounded-xl focus:border-[#5e255dff] focus:outline-none transition-colors"
+                className={`w-full px-6 py-4 text-lg border-2 rounded-xl focus:outline-none transition-colors ${
+                  isDark
+                    ? "border-gray-600 bg-gray-800 text-white placeholder-gray-400 focus:border-blue-400"
+                    : "border-gray-300 bg-white text-gray-900 focus:border-[#5e255dff]"
+                }`}
               />
-              <button className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-[#5e255dff] transition-colors">
+              <button
+                className={`absolute right-3 top-1/2 transform -translate-y-1/2 transition-colors ${
+                  isDark
+                    ? "text-gray-400 hover:text-blue-400"
+                    : "text-gray-400 hover:text-[#5e255dff]"
+                }`}
+              >
                 <svg
                   className="w-6 h-6"
                   fill="none"
@@ -125,12 +150,18 @@ const HelpCenter = () => {
         >
           <div className="text-center mb-12">
             <h2
-              className="text-4xl md:text-5xl font-bold mb-4"
-              style={{ color: "#5e255dff" }}
+              className={`text-4xl md:text-5xl font-bold mb-4 ${
+                isDark ? "text-white" : ""
+              }`}
+              style={isDark ? {} : { color: "#5e255dff" }}
             >
               Quick Start Guide
             </h2>
-            <p className="text-xl text-gray-600 max-w-2xl mx-auto">
+            <p
+              className={`text-xl max-w-2xl mx-auto ${
+                isDark ? "text-gray-300" : "text-gray-600"
+              }`}
+            >
               Get up and running with COD Form Builder in minutes
             </p>
           </div>
@@ -146,9 +177,17 @@ const HelpCenter = () => {
             >
               <div className="relative mb-6">
                 {/* Icon Container */}
-                <div className="w-20 h-20 mx-auto bg-gradient-to-br from-[#f3e8ff] to-[#e9d5ff] rounded-xl flex items-center justify-center shadow-md group-hover:shadow-lg transition-all duration-300 group-hover:scale-105">
+                <div
+                  className={`w-20 h-20 mx-auto rounded-xl flex items-center justify-center shadow-md group-hover:shadow-lg transition-all duration-300 group-hover:scale-105 ${
+                    isDark
+                      ? "bg-gradient-to-br from-gray-700 to-gray-600"
+                      : "bg-gradient-to-br from-[#f3e8ff] to-[#e9d5ff]"
+                  }`}
+                >
                   <svg
-                    className="w-10 h-10 text-[#5e255dff]"
+                    className={`w-10 h-10 ${
+                      isDark ? "text-blue-400" : "text-[#5e255dff]"
+                    }`}
                     fill="none"
                     stroke="currentColor"
                     viewBox="0 0 24 24"
@@ -162,15 +201,27 @@ const HelpCenter = () => {
                   </svg>
                 </div>
               </div>
-              <h3 className="text-lg font-bold text-gray-900 mb-3">
+              <h3
+                className={`text-lg font-bold mb-3 ${
+                  isDark ? "text-white" : "text-gray-900"
+                }`}
+              >
                 Install App
               </h3>
-              <p className="text-gray-600 text-sm leading-relaxed mb-4">
+              <p
+                className={`text-sm leading-relaxed mb-4 ${
+                  isDark ? "text-gray-300" : "text-gray-600"
+                }`}
+              >
                 Install COD Form Builder from the Shopify App Store with one
                 click
               </p>
               <motion.button
-                className="px-4 py-2 border-2 border-[#5e255dff] text-[#5e255dff] rounded-lg text-sm font-semibold hover:bg-[#5e255dff] hover:text-white transition-all duration-300"
+                className={`px-4 py-2 border-2 rounded-lg text-sm font-semibold transition-all duration-300 ${
+                  isDark
+                    ? "border-blue-400 text-blue-400 hover:bg-blue-400 hover:text-gray-900"
+                    : "border-[#5e255dff] text-[#5e255dff] hover:bg-[#5e255dff] hover:text-white"
+                }`}
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
               >
@@ -187,9 +238,17 @@ const HelpCenter = () => {
             >
               <div className="relative mb-6">
                 {/* Icon Container */}
-                <div className="w-20 h-20 mx-auto bg-gradient-to-br from-[#e0f2fe] to-[#b3e5fc] rounded-xl flex items-center justify-center shadow-md group-hover:shadow-lg transition-all duration-300 group-hover:scale-105">
+                <div
+                  className={`w-20 h-20 mx-auto rounded-xl flex items-center justify-center shadow-md group-hover:shadow-lg transition-all duration-300 group-hover:scale-105 ${
+                    isDark
+                      ? "bg-gradient-to-br from-gray-700 to-gray-600"
+                      : "bg-gradient-to-br from-[#e0f2fe] to-[#b3e5fc]"
+                  }`}
+                >
                   <svg
-                    className="w-10 h-10 text-[#0288d1]"
+                    className={`w-10 h-10 ${
+                      isDark ? "text-blue-400" : "text-[#0288d1]"
+                    }`}
                     fill="none"
                     stroke="currentColor"
                     viewBox="0 0 24 24"
@@ -203,14 +262,26 @@ const HelpCenter = () => {
                   </svg>
                 </div>
               </div>
-              <h3 className="text-lg font-bold text-gray-900 mb-3">
+              <h3
+                className={`text-lg font-bold mb-3 ${
+                  isDark ? "text-white" : "text-gray-900"
+                }`}
+              >
                 Create Form
               </h3>
-              <p className="text-gray-600 text-sm leading-relaxed mb-4">
+              <p
+                className={`text-sm leading-relaxed mb-4 ${
+                  isDark ? "text-gray-300" : "text-gray-600"
+                }`}
+              >
                 Use our drag-and-drop builder to create your perfect COD form
               </p>
               <motion.button
-                className="px-4 py-2 border-2 border-[#0288d1] text-[#0288d1] rounded-lg text-sm font-semibold hover:bg-[#0288d1] hover:text-white transition-all duration-300"
+                className={`px-4 py-2 border-2 rounded-lg text-sm font-semibold transition-all duration-300 ${
+                  isDark
+                    ? "border-blue-400 text-blue-400 hover:bg-blue-400 hover:text-gray-900"
+                    : "border-[#0288d1] text-[#0288d1] hover:bg-[#0288d1] hover:text-white"
+                }`}
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
               >
@@ -227,9 +298,17 @@ const HelpCenter = () => {
             >
               <div className="relative mb-6">
                 {/* Icon Container */}
-                <div className="w-20 h-20 mx-auto bg-gradient-to-br from-[#e8f5e8] to-[#c8e6c9] rounded-xl flex items-center justify-center shadow-md group-hover:shadow-lg transition-all duration-300 group-hover:scale-105">
+                <div
+                  className={`w-20 h-20 mx-auto rounded-xl flex items-center justify-center shadow-md group-hover:shadow-lg transition-all duration-300 group-hover:scale-105 ${
+                    isDark
+                      ? "bg-gradient-to-br from-gray-700 to-gray-600"
+                      : "bg-gradient-to-br from-[#e8f5e8] to-[#c8e6c9]"
+                  }`}
+                >
                   <svg
-                    className="w-10 h-10 text-[#2e7d32]"
+                    className={`w-10 h-10 ${
+                      isDark ? "text-green-400" : "text-[#2e7d32]"
+                    }`}
                     fill="none"
                     stroke="currentColor"
                     viewBox="0 0 24 24"
@@ -243,14 +322,26 @@ const HelpCenter = () => {
                   </svg>
                 </div>
               </div>
-              <h3 className="text-lg font-bold text-gray-900 mb-3">
+              <h3
+                className={`text-lg font-bold mb-3 ${
+                  isDark ? "text-white" : "text-gray-900"
+                }`}
+              >
                 Customize
               </h3>
-              <p className="text-gray-600 text-sm leading-relaxed mb-4">
+              <p
+                className={`text-sm leading-relaxed mb-4 ${
+                  isDark ? "text-gray-300" : "text-gray-600"
+                }`}
+              >
                 Style your form to match your brand and set up delivery rules
               </p>
               <motion.button
-                className="px-4 py-2 border-2 border-[#2e7d32] text-[#2e7d32] rounded-lg text-sm font-semibold hover:bg-[#2e7d32] hover:text-white transition-all duration-300"
+                className={`px-4 py-2 border-2 rounded-lg text-sm font-semibold transition-all duration-300 ${
+                  isDark
+                    ? "border-green-400 text-green-400 hover:bg-green-400 hover:text-gray-900"
+                    : "border-[#2e7d32] text-[#2e7d32] hover:bg-[#2e7d32] hover:text-white"
+                }`}
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
               >
@@ -269,12 +360,18 @@ const HelpCenter = () => {
         >
           <div className="text-center mb-12">
             <h2
-              className="text-4xl md:text-5xl font-bold mb-4"
-              style={{ color: "#5e255dff" }}
+              className={`text-4xl md:text-5xl font-bold mb-4 ${
+                isDark ? "text-white" : ""
+              }`}
+              style={isDark ? {} : { color: "#5e255dff" }}
             >
               Help Categories
             </h2>
-            <p className="text-xl text-gray-600 max-w-2xl mx-auto">
+            <p
+              className={`text-xl max-w-2xl mx-auto ${
+                isDark ? "text-gray-300" : "text-gray-600"
+              }`}
+            >
               Find detailed guides for every aspect of COD Form Builder
             </p>
           </div>
@@ -283,7 +380,11 @@ const HelpCenter = () => {
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
             {/* Getting Started */}
             <motion.div
-              className="bg-white border border-gray-200 rounded-xl p-6 hover:shadow-lg transition-all duration-300 group"
+              className={`rounded-xl p-6 hover:shadow-lg transition-all duration-300 group ${
+                isDark
+                  ? "bg-gray-800 border border-gray-700 hover:shadow-gray-700/50"
+                  : "bg-white border border-gray-200"
+              }`}
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.5 }}
@@ -304,15 +405,27 @@ const HelpCenter = () => {
                   />
                 </svg>
               </div>
-              <h3 className="text-xl font-bold text-gray-900 mb-3">
+              <h3
+                className={`text-xl font-bold mb-3 ${
+                  isDark ? "text-white" : "text-gray-900"
+                }`}
+              >
                 Getting Started
               </h3>
-              <p className="text-gray-600 mb-4 leading-relaxed">
+              <p
+                className={`mb-4 leading-relaxed ${
+                  isDark ? "text-gray-300" : "text-gray-600"
+                }`}
+              >
                 Learn the basics of setting up and configuring your COD forms
               </p>
               <Link
                 to="/doc?section=introduction"
-                className="text-gray-900 font-semibold hover:text-[#5e255dff] transition-colors inline-flex items-center"
+                className={`font-semibold transition-colors inline-flex items-center ${
+                  isDark
+                    ? "text-gray-300 hover:text-blue-400"
+                    : "text-gray-900 hover:text-[#5e255dff]"
+                }`}
               >
                 <motion.span whileHover={{ x: 5 }}>View Articles →</motion.span>
               </Link>
@@ -320,7 +433,11 @@ const HelpCenter = () => {
 
             {/* Form Builder */}
             <motion.div
-              className="bg-white border border-gray-200 rounded-xl p-6 hover:shadow-lg transition-all duration-300 group"
+              className={`rounded-xl p-6 hover:shadow-lg transition-all duration-300 group ${
+                isDark
+                  ? "bg-gray-800 border border-gray-700 hover:shadow-gray-700/50"
+                  : "bg-white border border-gray-200"
+              }`}
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.6 }}
@@ -341,16 +458,28 @@ const HelpCenter = () => {
                   />
                 </svg>
               </div>
-              <h3 className="text-xl font-bold text-gray-900 mb-3">
+              <h3
+                className={`text-xl font-bold mb-3 ${
+                  isDark ? "text-white" : "text-gray-900"
+                }`}
+              >
                 Form Builder
               </h3>
-              <p className="text-gray-600 mb-4 leading-relaxed">
+              <p
+                className={`mb-4 leading-relaxed ${
+                  isDark ? "text-gray-300" : "text-gray-600"
+                }`}
+              >
                 Master the drag-and-drop form builder with advanced
                 customization options
               </p>
               <Link
                 to="/doc?section=form-builder"
-                className="text-gray-900 font-semibold hover:text-[#5e255dff] transition-colors inline-flex items-center"
+                className={`font-semibold transition-colors inline-flex items-center ${
+                  isDark
+                    ? "text-gray-300 hover:text-blue-400"
+                    : "text-gray-900 hover:text-[#5e255dff]"
+                }`}
               >
                 <motion.span whileHover={{ x: 5 }}>View Articles →</motion.span>
               </Link>
@@ -358,7 +487,11 @@ const HelpCenter = () => {
 
             {/* Order Management */}
             <motion.div
-              className="bg-white border border-gray-200 rounded-xl p-6 hover:shadow-lg transition-all duration-300 group"
+              className={`rounded-xl p-6 hover:shadow-lg transition-all duration-300 group ${
+                isDark
+                  ? "bg-gray-800 border border-gray-700 hover:shadow-gray-700/50"
+                  : "bg-white border border-gray-200"
+              }`}
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.7 }}
@@ -379,16 +512,28 @@ const HelpCenter = () => {
                   />
                 </svg>
               </div>
-              <h3 className="text-xl font-bold text-gray-900 mb-3">
+              <h3
+                className={`text-xl font-bold mb-3 ${
+                  isDark ? "text-white" : "text-gray-900"
+                }`}
+              >
                 Order Management
               </h3>
-              <p className="text-gray-600 mb-4 leading-relaxed">
+              <p
+                className={`mb-4 leading-relaxed ${
+                  isDark ? "text-gray-300" : "text-gray-600"
+                }`}
+              >
                 Handle COD orders, track deliveries, and manage customer
                 communications
               </p>
               <Link
                 to="/doc?section=order-management"
-                className="text-gray-900 font-semibold hover:text-[#5e255dff] transition-colors inline-flex items-center"
+                className={`font-semibold transition-colors inline-flex items-center ${
+                  isDark
+                    ? "text-gray-300 hover:text-blue-400"
+                    : "text-gray-900 hover:text-[#5e255dff]"
+                }`}
               >
                 <motion.span whileHover={{ x: 5 }}>View Articles →</motion.span>
               </Link>
@@ -396,7 +541,11 @@ const HelpCenter = () => {
 
             {/* Customization */}
             <motion.div
-              className="bg-white border border-gray-200 rounded-xl p-6 hover:shadow-lg transition-all duration-300 group"
+              className={`rounded-xl p-6 hover:shadow-lg transition-all duration-300 group ${
+                isDark
+                  ? "bg-gray-800 border border-gray-700 hover:shadow-gray-700/50"
+                  : "bg-white border border-gray-200"
+              }`}
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.8 }}
@@ -417,16 +566,28 @@ const HelpCenter = () => {
                   />
                 </svg>
               </div>
-              <h3 className="text-xl font-bold text-gray-900 mb-3">
+              <h3
+                className={`text-xl font-bold mb-3 ${
+                  isDark ? "text-white" : "text-gray-900"
+                }`}
+              >
                 Customization
               </h3>
-              <p className="text-gray-600 mb-4 leading-relaxed">
+              <p
+                className={`mb-4 leading-relaxed ${
+                  isDark ? "text-gray-300" : "text-gray-600"
+                }`}
+              >
                 Customize form appearance, validation rules, and delivery
                 options
               </p>
               <Link
                 to="/doc?section=customization"
-                className="text-gray-900 font-semibold hover:text-[#5e255dff] transition-colors inline-flex items-center"
+                className={`font-semibold transition-colors inline-flex items-center ${
+                  isDark
+                    ? "text-gray-300 hover:text-blue-400"
+                    : "text-gray-900 hover:text-[#5e255dff]"
+                }`}
               >
                 <motion.span whileHover={{ x: 5 }}>View Articles →</motion.span>
               </Link>
@@ -434,7 +595,11 @@ const HelpCenter = () => {
 
             {/* Shopify Integration */}
             <motion.div
-              className="bg-white border border-gray-200 rounded-xl p-6 hover:shadow-lg transition-all duration-300 group"
+              className={`rounded-xl p-6 hover:shadow-lg transition-all duration-300 group ${
+                isDark
+                  ? "bg-gray-800 border border-gray-700 hover:shadow-gray-700/50"
+                  : "bg-white border border-gray-200"
+              }`}
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.9 }}
@@ -455,15 +620,27 @@ const HelpCenter = () => {
                   />
                 </svg>
               </div>
-              <h3 className="text-xl font-bold text-gray-900 mb-3">
+              <h3
+                className={`text-xl font-bold mb-3 ${
+                  isDark ? "text-white" : "text-gray-900"
+                }`}
+              >
                 Shopify Integration
               </h3>
-              <p className="text-gray-600 mb-4 leading-relaxed">
+              <p
+                className={`mb-4 leading-relaxed ${
+                  isDark ? "text-gray-300" : "text-gray-600"
+                }`}
+              >
                 Seamlessly integrate with your Shopify store and other apps
               </p>
               <Link
                 to="/doc?section=shopify-integration"
-                className="text-gray-900 font-semibold hover:text-[#5e255dff] transition-colors inline-flex items-center"
+                className={`font-semibold transition-colors inline-flex items-center ${
+                  isDark
+                    ? "text-gray-300 hover:text-blue-400"
+                    : "text-gray-900 hover:text-[#5e255dff]"
+                }`}
               >
                 <motion.span whileHover={{ x: 5 }}>View Articles →</motion.span>
               </Link>
@@ -471,7 +648,11 @@ const HelpCenter = () => {
 
             {/* Troubleshooting */}
             <motion.div
-              className="bg-white border border-gray-200 rounded-xl p-6 hover:shadow-lg transition-all duration-300 group"
+              className={`rounded-xl p-6 hover:shadow-lg transition-all duration-300 group ${
+                isDark
+                  ? "bg-gray-800 border border-gray-700 hover:shadow-gray-700/50"
+                  : "bg-white border border-gray-200"
+              }`}
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 1.0 }}
@@ -492,15 +673,27 @@ const HelpCenter = () => {
                   />
                 </svg>
               </div>
-              <h3 className="text-xl font-bold text-gray-900 mb-3">
+              <h3
+                className={`text-xl font-bold mb-3 ${
+                  isDark ? "text-white" : "text-gray-900"
+                }`}
+              >
                 Troubleshooting
               </h3>
-              <p className="text-gray-600 mb-4 leading-relaxed">
+              <p
+                className={`mb-4 leading-relaxed ${
+                  isDark ? "text-gray-300" : "text-gray-600"
+                }`}
+              >
                 Solve common issues and get your forms working perfectly
               </p>
               <Link
                 to="/doc?section=troubleshooting"
-                className="text-gray-900 font-semibold hover:text-[#5e255dff] transition-colors inline-flex items-center"
+                className={`font-semibold transition-colors inline-flex items-center ${
+                  isDark
+                    ? "text-gray-300 hover:text-blue-400"
+                    : "text-gray-900 hover:text-[#5e255dff]"
+                }`}
               >
                 <motion.span whileHover={{ x: 5 }}>View Articles →</motion.span>
               </Link>
@@ -516,12 +709,18 @@ const HelpCenter = () => {
         >
           <div className="text-center mb-12">
             <h2
-              className="text-4xl md:text-5xl font-bold mb-4"
-              style={{ color: "#5e255dff" }}
+              className={`text-4xl md:text-5xl font-bold mb-4 ${
+                isDark ? "text-white" : ""
+              }`}
+              style={isDark ? {} : { color: "#5e255dff" }}
             >
               Frequently Asked Questions
             </h2>
-            <p className="text-xl text-gray-600 max-w-2xl mx-auto">
+            <p
+              className={`text-xl max-w-2xl mx-auto ${
+                isDark ? "text-gray-300" : "text-gray-600"
+              }`}
+            >
               Get quick answers to the most common questions about COD Form
               Builder
             </p>
@@ -530,25 +729,39 @@ const HelpCenter = () => {
             {faqs.map((faq, index) => (
               <motion.div
                 key={index}
-                className="bg-white border border-gray-200 rounded-xl overflow-hidden shadow-sm"
+                className={`rounded-xl overflow-hidden shadow-sm ${
+                  isDark
+                    ? "bg-gray-800 border border-gray-700"
+                    : "bg-white border border-gray-200"
+                }`}
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: 0.1 * index }}
                 whileHover={{
                   y: -2,
-                  boxShadow: "0 10px 25px rgba(0, 0, 0, 0.1)",
+                  boxShadow: isDark
+                    ? "0 10px 25px rgba(0, 0, 0, 0.3)"
+                    : "0 10px 25px rgba(0, 0, 0, 0.1)",
                 }}
               >
                 <motion.button
-                  className="w-full flex justify-between items-center p-6 cursor-pointer hover:bg-gray-50 transition-colors text-left"
+                  className={`w-full flex justify-between items-center p-6 cursor-pointer transition-colors text-left ${
+                    isDark ? "hover:bg-gray-700" : "hover:bg-gray-50"
+                  }`}
                   onClick={() => toggleFAQ(index)}
                   whileTap={{ scale: 0.995 }}
                 >
-                  <h3 className="text-lg font-semibold text-gray-900 pr-4">
+                  <h3
+                    className={`text-lg font-semibold pr-4 ${
+                      isDark ? "text-white" : "text-gray-900"
+                    }`}
+                  >
                     {faq.question}
                   </h3>
                   <motion.svg
-                    className="w-5 h-5 text-gray-500 flex-shrink-0"
+                    className={`w-5 h-5 flex-shrink-0 ${
+                      isDark ? "text-gray-400" : "text-gray-500"
+                    }`}
                     fill="none"
                     stroke="currentColor"
                     viewBox="0 0 24 24"
@@ -590,7 +803,11 @@ const HelpCenter = () => {
                         transition={{ duration: 0.2, delay: 0.1 }}
                         className="px-6 pb-6"
                       >
-                        <p className="text-gray-600 leading-relaxed">
+                        <p
+                          className={`leading-relaxed ${
+                            isDark ? "text-gray-300" : "text-gray-600"
+                          }`}
+                        >
                           {faq.answer}
                         </p>
                       </motion.div>
@@ -609,7 +826,11 @@ const HelpCenter = () => {
             transition={{ duration: 0.6, delay: 0.4 }}
           >
             <motion.button
-              className="px-8 py-4 bg-gradient-to-r from-[#5e255dff] to-[#a855f7] hover:from-[#4a1d49] hover:to-[#9333ea] text-white font-semibold rounded-xl transition-all duration-300 shadow-lg hover:shadow-xl flex items-center gap-3 mx-auto"
+              className={`px-8 py-4 font-semibold rounded-xl transition-all duration-300 shadow-lg hover:shadow-xl flex items-center gap-3 mx-auto ${
+                isDark
+                  ? "bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white"
+                  : "bg-gradient-to-r from-[#5e255dff] to-[#a855f7] hover:from-[#4a1d49] hover:to-[#9333ea] text-white"
+              }`}
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
             >
@@ -628,7 +849,11 @@ const HelpCenter = () => {
               </svg>
               Have More Questions?
             </motion.button>
-            <p className="text-gray-600 mt-3 text-sm">
+            <p
+              className={`mt-3 text-sm ${
+                isDark ? "text-gray-300" : "text-gray-600"
+              }`}
+            >
               Can't find what you're looking for? Contact our support team for
               personalized help.
             </p>
@@ -643,10 +868,18 @@ const HelpCenter = () => {
           transition={{ duration: 0.6, delay: 0.5 }}
         >
           <div className="text-center mb-12">
-            <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
+            <h2
+              className={`text-4xl md:text-5xl font-bold mb-4 ${
+                isDark ? "text-white" : "text-gray-900"
+              }`}
+            >
               Video Tutorials
             </h2>
-            <p className="text-xl text-gray-600 max-w-2xl mx-auto">
+            <p
+              className={`text-xl max-w-2xl mx-auto ${
+                isDark ? "text-gray-300" : "text-gray-600"
+              }`}
+            >
               Learn visually with our step-by-step video guides
             </p>
           </div>
@@ -655,7 +888,11 @@ const HelpCenter = () => {
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
             {/* Getting Started Video */}
             <motion.div
-              className="bg-white border border-gray-200 rounded-xl overflow-hidden hover:shadow-lg transition-all duration-300 group"
+              className={`rounded-xl overflow-hidden hover:shadow-lg transition-all duration-300 group ${
+                isDark
+                  ? "bg-gray-800 border border-gray-700 hover:shadow-gray-700/50"
+                  : "bg-white border border-gray-200"
+              }`}
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.6 }}
@@ -690,13 +927,25 @@ const HelpCenter = () => {
 
               {/* Video Info */}
               <div className="p-6">
-                <h3 className="text-lg font-bold text-gray-900 mb-2">
+                <h3
+                  className={`text-lg font-bold mb-2 ${
+                    isDark ? "text-white" : "text-gray-900"
+                  }`}
+                >
                   Getting Started with COD Forms
                 </h3>
-                <p className="text-gray-600 mb-3 text-sm leading-relaxed">
+                <p
+                  className={`mb-3 text-sm leading-relaxed ${
+                    isDark ? "text-gray-300" : "text-gray-600"
+                  }`}
+                >
                   A complete walkthrough of setting up your first COD form
                 </p>
-                <div className="text-sm text-[#5e255dff] font-medium">
+                <div
+                  className={`text-sm font-medium ${
+                    isDark ? "text-blue-400" : "text-[#5e255dff]"
+                  }`}
+                >
                   Duration: 5:30
                 </div>
               </div>
@@ -704,7 +953,11 @@ const HelpCenter = () => {
 
             {/* Advanced Form Building Video */}
             <motion.div
-              className="bg-white border border-gray-200 rounded-xl overflow-hidden hover:shadow-lg transition-all duration-300 group"
+              className={`rounded-xl overflow-hidden hover:shadow-lg transition-all duration-300 group ${
+                isDark
+                  ? "bg-gray-800 border border-gray-700 hover:shadow-gray-700/50"
+                  : "bg-white border border-gray-200"
+              }`}
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.7 }}
@@ -762,13 +1015,25 @@ const HelpCenter = () => {
 
               {/* Video Info */}
               <div className="p-6">
-                <h3 className="text-lg font-bold text-gray-900 mb-2">
+                <h3
+                  className={`text-lg font-bold mb-2 ${
+                    isDark ? "text-white" : "text-gray-900"
+                  }`}
+                >
                   Advanced Form Building
                 </h3>
-                <p className="text-gray-600 mb-3 text-sm leading-relaxed">
+                <p
+                  className={`mb-3 text-sm leading-relaxed ${
+                    isDark ? "text-gray-300" : "text-gray-600"
+                  }`}
+                >
                   Master the drag-and-drop builder with advanced features
                 </p>
-                <div className="text-sm text-[#5e255dff] font-medium">
+                <div
+                  className={`text-sm font-medium ${
+                    isDark ? "text-blue-400" : "text-[#5e255dff]"
+                  }`}
+                >
                   Duration: 8:15
                 </div>
               </div>
@@ -776,7 +1041,11 @@ const HelpCenter = () => {
 
             {/* Managing COD Orders Video */}
             <motion.div
-              className="bg-white border border-gray-200 rounded-xl overflow-hidden hover:shadow-lg transition-all duration-300 group"
+              className={`rounded-xl overflow-hidden hover:shadow-lg transition-all duration-300 group ${
+                isDark
+                  ? "bg-gray-800 border border-gray-700 hover:shadow-gray-700/50"
+                  : "bg-white border border-gray-200"
+              }`}
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.8 }}
@@ -842,13 +1111,25 @@ const HelpCenter = () => {
 
               {/* Video Info */}
               <div className="p-6">
-                <h3 className="text-lg font-bold text-gray-900 mb-2">
+                <h3
+                  className={`text-lg font-bold mb-2 ${
+                    isDark ? "text-white" : "text-gray-900"
+                  }`}
+                >
                   Managing COD Orders
                 </h3>
-                <p className="text-gray-600 mb-3 text-sm leading-relaxed">
+                <p
+                  className={`mb-3 text-sm leading-relaxed ${
+                    isDark ? "text-gray-300" : "text-gray-600"
+                  }`}
+                >
                   Learn how to process and track your COD orders efficiently
                 </p>
-                <div className="text-sm text-[#5e255dff] font-medium">
+                <div
+                  className={`text-sm font-medium ${
+                    isDark ? "text-blue-400" : "text-[#5e255dff]"
+                  }`}
+                >
                   Duration: 6:45
                 </div>
               </div>
@@ -863,7 +1144,11 @@ const HelpCenter = () => {
             transition={{ duration: 0.6, delay: 0.9 }}
           >
             <motion.button
-              className="px-8 py-4 bg-gradient-to-r from-[#5e255dff] to-[#a855f7] hover:from-[#4a1d49] hover:to-[#9333ea] text-white font-semibold rounded-xl transition-all duration-300 shadow-lg hover:shadow-xl flex items-center gap-3 mx-auto"
+              className={`px-8 py-4 font-semibold rounded-xl transition-all duration-300 shadow-lg hover:shadow-xl flex items-center gap-3 mx-auto ${
+                isDark
+                  ? "bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white"
+                  : "bg-gradient-to-r from-[#5e255dff] to-[#a855f7] hover:from-[#4a1d49] hover:to-[#9333ea] text-white"
+              }`}
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
             >
@@ -882,7 +1167,11 @@ const HelpCenter = () => {
               </svg>
               View More Tutorials
             </motion.button>
-            <p className="text-gray-600 mt-3 text-sm">
+            <p
+              className={`mt-3 text-sm ${
+                isDark ? "text-gray-300" : "text-gray-600"
+              }`}
+            >
               Explore our complete library of video tutorials and learning
               resources.
             </p>
@@ -898,10 +1187,18 @@ const HelpCenter = () => {
         >
           <div className="rounded-2xl p-8 max-w-6xl mx-auto">
             <div className="text-center mb-12">
-              <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
+              <h2
+                className={`text-4xl md:text-5xl font-bold mb-4 ${
+                  isDark ? "text-white" : "text-gray-900"
+                }`}
+              >
                 Need More Help?
               </h2>
-              <p className="text-xl text-gray-600 max-w-2xl mx-auto">
+              <p
+                className={`text-xl max-w-2xl mx-auto ${
+                  isDark ? "text-gray-300" : "text-gray-600"
+                }`}
+              >
                 Our support team is here to help you succeed
               </p>
             </div>
@@ -910,14 +1207,24 @@ const HelpCenter = () => {
             <div className="grid md:grid-cols-2 gap-8 mb-12 max-w-4xl mx-auto">
               {/* Email Support */}
               <motion.div
-                className="bg-white border border-gray-200 rounded-xl p-8 text-center hover:shadow-lg transition-all duration-300 group"
+                className={`rounded-xl p-8 text-center hover:shadow-lg transition-all duration-300 group ${
+                  isDark
+                    ? "bg-gray-800 border border-gray-700 hover:shadow-gray-700/50"
+                    : "bg-white border border-gray-200"
+                }`}
                 initial={{ opacity: 0, y: 30 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: 0.5 }}
                 whileHover={{ y: -5 }}
               >
                 {/* Email Icon */}
-                <div className="w-20 h-20 bg-gradient-to-br from-blue-50 to-blue-100 rounded-xl mx-auto mb-6 flex items-center justify-center group-hover:shadow-lg transition-all duration-300 group-hover:scale-105">
+                <div
+                  className={`w-20 h-20 rounded-xl mx-auto mb-6 flex items-center justify-center group-hover:shadow-lg transition-all duration-300 group-hover:scale-105 ${
+                    isDark
+                      ? "bg-gradient-to-br from-gray-700 to-gray-600"
+                      : "bg-gradient-to-br from-blue-50 to-blue-100"
+                  }`}
+                >
                   <svg
                     className="w-10 h-10 text-blue-600"
                     viewBox="0 0 64 64"
@@ -997,15 +1304,29 @@ const HelpCenter = () => {
                   </svg>
                 </div>
 
-                <h3 className="text-xl font-bold text-gray-900 mb-3 group-hover:text-blue-600 transition-colors">
+                <h3
+                  className={`text-xl font-bold mb-3 transition-colors ${
+                    isDark
+                      ? "text-white group-hover:text-blue-400"
+                      : "text-gray-900 group-hover:text-blue-600"
+                  }`}
+                >
                   Email Support
                 </h3>
-                <p className="text-gray-600 mb-6 text-sm leading-relaxed">
+                <p
+                  className={`mb-6 text-sm leading-relaxed ${
+                    isDark ? "text-gray-300" : "text-gray-600"
+                  }`}
+                >
                   Get detailed help via email. We typically respond within 24
                   hours with comprehensive solutions.
                 </p>
 
-                <div className="flex items-center justify-center space-x-2 text-sm text-gray-500 mb-4">
+                <div
+                  className={`flex items-center justify-center space-x-2 text-sm mb-4 ${
+                    isDark ? "text-gray-400" : "text-gray-500"
+                  }`}
+                >
                   <svg
                     className="w-4 h-4 text-green-500"
                     fill="currentColor"
@@ -1020,7 +1341,11 @@ const HelpCenter = () => {
                 </div>
 
                 <motion.button
-                  className="bg-blue-600 text-white px-6 py-3 rounded-lg font-medium hover:bg-blue-700 transition-all duration-300 shadow-md hover:shadow-lg flex items-center space-x-2 mx-auto"
+                  className={`px-6 py-3 rounded-lg font-medium transition-all duration-300 shadow-md hover:shadow-lg flex items-center space-x-2 mx-auto ${
+                    isDark
+                      ? "bg-blue-600 text-white hover:bg-blue-700"
+                      : "bg-blue-600 text-white hover:bg-blue-700"
+                  }`}
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
                 >
@@ -1043,14 +1368,24 @@ const HelpCenter = () => {
 
               {/* Live Chat */}
               <motion.div
-                className="bg-white border border-gray-200 rounded-xl p-8 text-center hover:shadow-lg transition-all duration-300 group"
+                className={`rounded-xl p-8 text-center hover:shadow-lg transition-all duration-300 group ${
+                  isDark
+                    ? "bg-gray-800 border border-gray-700 hover:shadow-gray-700/50"
+                    : "bg-white border border-gray-200"
+                }`}
                 initial={{ opacity: 0, y: 30 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: 0.6 }}
                 whileHover={{ y: -5 }}
               >
                 {/* Chat Icon */}
-                <div className="w-20 h-20 bg-gradient-to-br from-green-50 to-green-100 rounded-xl mx-auto mb-6 flex items-center justify-center group-hover:shadow-lg transition-all duration-300 group-hover:scale-105">
+                <div
+                  className={`w-20 h-20 rounded-xl mx-auto mb-6 flex items-center justify-center group-hover:shadow-lg transition-all duration-300 group-hover:scale-105 ${
+                    isDark
+                      ? "bg-gradient-to-br from-gray-700 to-gray-600"
+                      : "bg-gradient-to-br from-green-50 to-green-100"
+                  }`}
+                >
                   <svg
                     className="w-10 h-10 text-green-600"
                     viewBox="0 0 64 64"
@@ -1141,21 +1476,39 @@ const HelpCenter = () => {
                   </svg>
                 </div>
 
-                <h3 className="text-xl font-bold text-gray-900 mb-3 group-hover:text-green-600 transition-colors">
+                <h3
+                  className={`text-xl font-bold mb-3 transition-colors ${
+                    isDark
+                      ? "text-white group-hover:text-green-400"
+                      : "text-gray-900 group-hover:text-green-600"
+                  }`}
+                >
                   Live Chat
                 </h3>
-                <p className="text-gray-600 mb-6 text-sm leading-relaxed">
+                <p
+                  className={`mb-6 text-sm leading-relaxed ${
+                    isDark ? "text-gray-300" : "text-gray-600"
+                  }`}
+                >
                   Chat with our support team in real-time during business hours
                   for instant assistance.
                 </p>
 
-                <div className="flex items-center justify-center space-x-2 text-sm text-gray-500 mb-4">
+                <div
+                  className={`flex items-center justify-center space-x-2 text-sm mb-4 ${
+                    isDark ? "text-gray-400" : "text-gray-500"
+                  }`}
+                >
                   <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
                   <span>Available Now</span>
                 </div>
 
                 <motion.button
-                  className="bg-green-600 text-white px-6 py-3 rounded-lg font-medium hover:bg-green-700 transition-all duration-300 shadow-md hover:shadow-lg flex items-center space-x-2 mx-auto"
+                  className={`px-6 py-3 rounded-lg font-medium transition-all duration-300 shadow-md hover:shadow-lg flex items-center space-x-2 mx-auto ${
+                    isDark
+                      ? "bg-green-600 text-white hover:bg-green-700"
+                      : "bg-green-600 text-white hover:bg-green-700"
+                  }`}
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
                 >
@@ -1184,13 +1537,29 @@ const HelpCenter = () => {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.7 }}
             >
-              <div className="bg-white rounded-2xl shadow-lg border border-gray-100 overflow-hidden">
+              <div
+                className={`rounded-2xl shadow-lg overflow-hidden ${
+                  isDark
+                    ? "bg-gray-800 border border-gray-700"
+                    : "bg-white border border-gray-100"
+                }`}
+              >
                 {/* Form Header */}
-                <div className="bg-gradient-to-r from-[#5e255dff] to-[#a855f7] px-8 py-6">
+                <div
+                  className={`px-8 py-6 ${
+                    isDark
+                      ? "bg-gradient-to-r from-[#5e255dff] to-[#a855f7]"
+                      : "bg-gradient-to-r from-[#5e255dff] to-[#a855f7]"
+                  }`}
+                >
                   <h3 className="text-2xl font-bold text-white text-center">
                     Send us a message
                   </h3>
-                  <p className="text-purple-100 text-center mt-2">
+                  <p
+                    className={`text-center mt-2 ${
+                      isDark ? "text-purple-100" : "text-purple-100"
+                    }`}
+                  >
                     We'd love to hear from you. Send us a message and we'll
                     respond as soon as possible.
                   </p>
@@ -1202,14 +1571,22 @@ const HelpCenter = () => {
                     <div className="grid md:grid-cols-2 gap-6">
                       {/* Name Field */}
                       <div className="group">
-                        <label className="block text-sm font-semibold text-gray-700 mb-2">
+                        <label
+                          className={`block text-sm font-semibold mb-2 ${
+                            isDark ? "text-gray-300" : "text-gray-700"
+                          }`}
+                        >
                           Your Name <span className="text-red-500">*</span>
                         </label>
                         <div className="relative">
                           <input
                             type="text"
                             placeholder="Enter your full name"
-                            className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-[#5e255dff] focus:outline-none transition-all duration-300 group-hover:border-gray-300"
+                            className={`w-full px-4 py-3 border-2 rounded-xl focus:outline-none transition-all duration-300 ${
+                              isDark
+                                ? "border-gray-600 bg-gray-700 text-white placeholder-gray-400 focus:border-[#5e255dff] group-hover:border-gray-500"
+                                : "border-gray-200 bg-white text-gray-900 focus:border-[#5e255dff] group-hover:border-gray-300"
+                            }`}
                           />
                           <div className="absolute inset-y-0 right-0 flex items-center pr-3">
                             <svg
@@ -1231,18 +1608,28 @@ const HelpCenter = () => {
 
                       {/* Email Field */}
                       <div className="group">
-                        <label className="block text-sm font-semibold text-gray-700 mb-2">
+                        <label
+                          className={`block text-sm font-semibold mb-2 ${
+                            isDark ? "text-gray-300" : "text-gray-700"
+                          }`}
+                        >
                           Email Address <span className="text-red-500">*</span>
                         </label>
                         <div className="relative">
                           <input
                             type="email"
                             placeholder="Enter your email address"
-                            className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-[#5e255dff] focus:outline-none transition-all duration-300 group-hover:border-gray-300"
+                            className={`w-full px-4 py-3 border-2 rounded-xl focus:outline-none transition-all duration-300 ${
+                              isDark
+                                ? "border-gray-600 bg-gray-700 text-white placeholder-gray-400 focus:border-[#5e255dff] group-hover:border-gray-500"
+                                : "border-gray-200 bg-white text-gray-900 focus:border-[#5e255dff] group-hover:border-gray-300"
+                            }`}
                           />
                           <div className="absolute inset-y-0 right-0 flex items-center pr-3">
                             <svg
-                              className="w-5 h-5 text-gray-400"
+                              className={`w-5 h-5 ${
+                                isDark ? "text-gray-500" : "text-gray-400"
+                              }`}
                               fill="none"
                               stroke="currentColor"
                               viewBox="0 0 24 24"
@@ -1261,11 +1648,21 @@ const HelpCenter = () => {
 
                     {/* Subject Field */}
                     <div className="group">
-                      <label className="block text-sm font-semibold text-gray-700 mb-2">
+                      <label
+                        className={`block text-sm font-semibold mb-2 ${
+                          isDark ? "text-gray-300" : "text-gray-700"
+                        }`}
+                      >
                         Subject <span className="text-red-500">*</span>
                       </label>
                       <div className="relative">
-                        <select className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-[#5e255dff] focus:outline-none transition-all duration-300 group-hover:border-gray-300 bg-white appearance-none">
+                        <select
+                          className={`w-full px-4 py-3 border-2 rounded-xl focus:outline-none transition-all duration-300 appearance-none ${
+                            isDark
+                              ? "border-gray-600 bg-gray-700 text-white focus:border-[#5e255dff] group-hover:border-gray-500"
+                              : "border-gray-200 bg-white text-gray-900 focus:border-[#5e255dff] group-hover:border-gray-300"
+                          }`}
+                        >
                           <option value="">Select a subject</option>
                           <option value="general">General Question</option>
                           <option value="technical">Technical Support</option>
@@ -1293,24 +1690,42 @@ const HelpCenter = () => {
 
                     {/* Message Field */}
                     <div className="group">
-                      <label className="block text-sm font-semibold text-gray-700 mb-2">
+                      <label
+                        className={`block text-sm font-semibold mb-2 ${
+                          isDark ? "text-gray-300" : "text-gray-700"
+                        }`}
+                      >
                         Message <span className="text-red-500">*</span>
                       </label>
                       <div className="relative">
                         <textarea
                           rows={5}
                           placeholder="Describe your question or issue in detail... (minimum 20 characters)"
-                          className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-[#5e255dff] focus:outline-none transition-all duration-300 group-hover:border-gray-300 resize-none"
+                          className={`w-full px-4 py-3 border-2 rounded-xl focus:outline-none transition-all duration-300 resize-none ${
+                            isDark
+                              ? "border-gray-600 bg-gray-700 text-white placeholder-gray-400 focus:border-[#5e255dff] group-hover:border-gray-500"
+                              : "border-gray-200 bg-white text-gray-900 focus:border-[#5e255dff] group-hover:border-gray-300"
+                          }`}
                         ></textarea>
                         <div className="absolute bottom-3 right-3">
-                          <span className="text-xs text-gray-400">0/500</span>
+                          <span
+                            className={`text-xs ${
+                              isDark ? "text-gray-500" : "text-gray-400"
+                            }`}
+                          >
+                            0/500
+                          </span>
                         </div>
                       </div>
                     </div>
 
                     {/* Priority Level */}
                     <div className="group">
-                      <label className="block text-sm font-semibold text-gray-700 mb-3">
+                      <label
+                        className={`block text-sm font-semibold mb-3 ${
+                          isDark ? "text-gray-300" : "text-gray-700"
+                        }`}
+                      >
                         Priority Level
                       </label>
                       <div className="flex space-x-4">
@@ -1324,7 +1739,13 @@ const HelpCenter = () => {
                           <div className="w-4 h-4 border-2 border-green-400 rounded-full mr-2 flex items-center justify-center">
                             <div className="w-2 h-2 bg-green-400 rounded-full opacity-0 transition-opacity"></div>
                           </div>
-                          <span className="text-sm text-gray-600">Low</span>
+                          <span
+                            className={`text-sm ${
+                              isDark ? "text-gray-300" : "text-gray-600"
+                            }`}
+                          >
+                            Low
+                          </span>
                         </label>
                         <label className="flex items-center">
                           <input
@@ -1337,7 +1758,13 @@ const HelpCenter = () => {
                           <div className="w-4 h-4 border-2 border-yellow-400 rounded-full mr-2 flex items-center justify-center">
                             <div className="w-2 h-2 bg-yellow-400 rounded-full"></div>
                           </div>
-                          <span className="text-sm text-gray-600">Medium</span>
+                          <span
+                            className={`text-sm ${
+                              isDark ? "text-gray-300" : "text-gray-600"
+                            }`}
+                          >
+                            Medium
+                          </span>
                         </label>
                         <label className="flex items-center">
                           <input
@@ -1349,7 +1776,13 @@ const HelpCenter = () => {
                           <div className="w-4 h-4 border-2 border-red-400 rounded-full mr-2 flex items-center justify-center">
                             <div className="w-2 h-2 bg-red-400 rounded-full opacity-0 transition-opacity"></div>
                           </div>
-                          <span className="text-sm text-gray-600">High</span>
+                          <span
+                            className={`text-sm ${
+                              isDark ? "text-gray-300" : "text-gray-600"
+                            }`}
+                          >
+                            High
+                          </span>
                         </label>
                       </div>
                     </div>
@@ -1358,7 +1791,11 @@ const HelpCenter = () => {
                     <div className="flex flex-col sm:flex-row gap-4 pt-4">
                       <motion.button
                         type="submit"
-                        className="flex-1 bg-gradient-to-r from-[#5e255dff] to-[#a855f7] hover:from-[#4a1d49] hover:to-[#9333ea] text-white px-8 py-4 rounded-xl font-semibold transition-all duration-300 shadow-lg hover:shadow-xl flex items-center justify-center space-x-2"
+                        className={`flex-1 px-8 py-4 rounded-xl font-semibold transition-all duration-300 shadow-lg hover:shadow-xl flex items-center justify-center space-x-2 ${
+                          isDark
+                            ? "bg-gradient-to-r from-[#5e255dff] to-[#a855f7] hover:from-[#4a1d49] hover:to-[#9333ea] text-white"
+                            : "bg-gradient-to-r from-[#5e255dff] to-[#a855f7] hover:from-[#4a1d49] hover:to-[#9333ea] text-white"
+                        }`}
                         whileHover={{ scale: 1.02 }}
                         whileTap={{ scale: 0.98 }}
                       >
@@ -1379,7 +1816,11 @@ const HelpCenter = () => {
                       </motion.button>
                       <motion.button
                         type="button"
-                        className="sm:w-auto px-6 py-4 border-2 border-gray-300 text-gray-700 rounded-xl font-semibold hover:border-gray-400 hover:bg-gray-50 transition-all duration-300"
+                        className={`sm:w-auto px-6 py-4 border-2 rounded-xl font-semibold transition-all duration-300 ${
+                          isDark
+                            ? "border-gray-600 text-gray-300 hover:border-gray-500 hover:bg-gray-700"
+                            : "border-gray-300 text-gray-700 hover:border-gray-400 hover:bg-gray-50"
+                        }`}
                         whileHover={{ scale: 1.02 }}
                         whileTap={{ scale: 0.98 }}
                       >
@@ -1389,8 +1830,18 @@ const HelpCenter = () => {
                   </form>
 
                   {/* Footer Info */}
-                  <div className="mt-6 pt-6 border-t border-gray-100">
-                    <div className="flex flex-col sm:flex-row items-center justify-between text-sm text-gray-500">
+                  <div
+                    className={`mt-6 pt-6 ${
+                      isDark
+                        ? "border-t border-gray-700"
+                        : "border-t border-gray-100"
+                    }`}
+                  >
+                    <div
+                      className={`flex flex-col sm:flex-row items-center justify-between text-sm ${
+                        isDark ? "text-gray-400" : "text-gray-500"
+                      }`}
+                    >
                       <div className="flex items-center space-x-4">
                         <div className="flex items-center space-x-1">
                           <svg
@@ -1423,7 +1874,9 @@ const HelpCenter = () => {
                         By submitting, you agree to our{" "}
                         <a
                           href="#"
-                          className="text-[#5e255dff] hover:underline"
+                          className={`hover:underline ${
+                            isDark ? "text-blue-400" : "text-[#5e255dff]"
+                          }`}
                         >
                           Privacy Policy
                         </a>

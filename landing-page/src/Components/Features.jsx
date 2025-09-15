@@ -310,8 +310,9 @@ const Features = () => {
               : "bg-gradient-to-br from-[#f7eaf7] to-[#e9d5ff]"
           }`}
         />
+        {/* Moved center circle to center-left for cleaner UI */}
         <div
-          className={`absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-72 h-72 rounded-full opacity-10 blur-3xl z-0 ${
+          className={`absolute top-1/2 left-1/4 transform -translate-y-1/2 w-72 h-72 rounded-full opacity-10 blur-3xl z-0 ${
             theme === "dark"
               ? "bg-[#1b0f20]"
               : "bg-gradient-to-br from-[#ddd6fe] to-[#e9d5ff]"

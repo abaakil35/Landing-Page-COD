@@ -189,15 +189,14 @@ function HowCODWorks() {
           {themeSteps.map((step, idx) => (
             <motion.div
               key={idx}
-              className={`flex flex-col items-center text-center rounded-3xl shadow-xl p-8 transition-all duration-300 hover:shadow-2xl hover:-translate-y-2 group ${
+              className={`group relative rounded-3xl shadow-lg p-8 flex flex-col items-center text-center transition-all duration-500 hover:shadow-2xl hover:shadow-purple-500/30 ${
                 isDark
-                  ? "bg-[#1b0f20]/80 backdrop-blur-xl border border-[#b76be0]/20"
-                  : "bg-white/80 backdrop-blur-xl border border-[#dddddd]"
+                  ? "bg-[#120913]/70 backdrop-blur-xl border border-[#2d1129]/30"
+                  : "bg-white/70 backdrop-blur-xl border border-white/30"
               }`}
               initial={{ opacity: 0, y: 50 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.6 + idx * 0.2 }}
-              whileHover={{ y: -8, scale: 1.02 }}
             >
               <motion.div
                 className="mb-7"
@@ -206,20 +205,20 @@ function HowCODWorks() {
                 transition={{ duration: 0.5, delay: 0.8 + idx * 0.2 }}
               >
                 <span
-                  className={`inline-flex items-center justify-center w-28 h-28 rounded-full shadow-lg group-hover:scale-105 transition-transform duration-300 ${
-                    isDark ? "bg-[#2d1129]" : "bg-white"
+                  className={`inline-flex items-center justify-center w-28 h-28 rounded-full shadow-lg transition-all duration-300 ${
+                    isDark
+                      ? "bg-[#1b0f20] border border-[#2d1129]"
+                      : "bg-gradient-to-br from-white to-gray-50 border border-gray-100"
                   }`}
                 >
-                  <span className="transition-transform duration-300 group-hover:scale-110 group-hover:rotate-6">
+                  <span className="transition-transform duration-300 group-hover:scale-105">
                     {step.icon}
                   </span>
                 </span>
               </motion.div>
               <motion.h3
-                className={`text-2xl font-bold mb-3 transition-colors duration-200 ${
-                  isDark
-                    ? "text-[#e9e7ee] group-hover:text-[#b76be0]"
-                    : "text-[#2d123a] group-hover:text-[#9d3ecb]"
+                className={`text-2xl font-bold mb-3 transition-colors duration-300 ${
+                  isDark ? "text-[#e9e7ee]" : "text-[#2d123a]"
                 }`}
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -228,8 +227,8 @@ function HowCODWorks() {
                 {step.title}
               </motion.h3>
               <motion.p
-                className={`text-lg leading-relaxed ${
-                  isDark ? "text-[#e9e7ee]/70" : "text-[#3f3f3f]"
+                className={`text-lg leading-relaxed transition-colors duration-300 ${
+                  isDark ? "text-[#e9e7ee]/80" : "text-[#3f3f3f]"
                 }`}
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}

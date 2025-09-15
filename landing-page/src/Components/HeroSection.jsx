@@ -65,7 +65,7 @@ const HeroSection = () => {
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
             >
-              See The Doc 
+              See The Doc
             </motion.button>
           </motion.div>
           <motion.div

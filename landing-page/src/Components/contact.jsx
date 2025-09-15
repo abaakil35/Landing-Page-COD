@@ -28,13 +28,22 @@ const Contact = () => {
     >
       {/* Decorative blurred circles */}
       <div
-        className={`absolute -top-24 -left-24 w-72 h-72 rounded-full blur-3xl opacity-60 z-0 ${
+        className={`absolute -bottom-24 -right-24 w-72 h-72 rounded-full blur-3xl opacity-60 z-0 ${
+          isDark ? "bg-[#a855f7]/10" : "bg-[#5affff]/20"
+        }`}
+      />
+      {/* Center-left blurred circle (moved from top-left corner) */}
+      <div
+        className={`absolute top-1/2 left-1/4 transform -translate-y-1/2 w-72 h-72 rounded-full opacity-60 blur-3xl z-0 ${
           isDark ? "bg-[#b76be0]/10" : "bg-[#9d3ecb]/20"
         }`}
       />
+      {/* Center-right blurred circle */}
       <div
-        className={`absolute -bottom-24 -right-24 w-72 h-72 rounded-full blur-3xl opacity-60 z-0 ${
-          isDark ? "bg-[#a855f7]/10" : "bg-[#5affff]/20"
+        className={`absolute top-1/2 right-1/4 transform -translate-y-1/2 w-72 h-72 rounded-full opacity-10 blur-3xl z-0 ${
+          isDark
+            ? "bg-[#1b0f20]"
+            : "bg-gradient-to-br from-[#ddd6fe] to-[#e9d5ff]"
         }`}
       />
       <div className="max-w-2xl mx-auto relative z-10">

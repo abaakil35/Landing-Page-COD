@@ -30,6 +30,22 @@ function SeeAction() {
         viewBox="0 0 160 160"
         fill="none"
       ></svg>
+      {/* Center-left blurred circle */}
+      <div
+        className={`absolute top-1/2 left-1/4 transform -translate-y-1/2 w-72 h-72 rounded-full opacity-10 blur-3xl z-0 ${
+          isDark
+            ? "bg-[#1b0f20]"
+            : "bg-gradient-to-br from-[#ddd6fe] to-[#e9d5ff]"
+        }`}
+      />
+      {/* Center-right blurred circle */}
+      <div
+        className={`absolute top-1/2 right-1/4 transform -translate-y-1/2 w-72 h-72 rounded-full opacity-10 blur-3xl z-0 ${
+          isDark
+            ? "bg-[#1b0f20]"
+            : "bg-gradient-to-br from-[#ddd6fe] to-[#e9d5ff]"
+        }`}
+      />
       <div className="max-w-7xl mx-auto flex flex-col lg:flex-row items-center relative z-10 gap-8 lg:gap-12">
         {/* Left: Text and checklist */}
         <div className="flex-1 w-full text-center lg:text-left px-4 lg:px-0">

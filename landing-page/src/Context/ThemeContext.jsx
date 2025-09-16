@@ -6,11 +6,8 @@ import ThemeContext from "./ThemeContextContext.js";
 // Create the Provider component
 export const ThemeProvider = ({ children }) => {
   // 1. State to hold the current theme.
-  // It checks localStorage for a saved theme, otherwise defaults to 'light'.
-  const [theme, setTheme] = useState(() => {
-    const savedTheme = localStorage.getItem("theme");
-    return savedTheme || "light";
-  });
+  // Defaults to 'light' mode.
+  const [theme, setTheme] = useState("light");
 
   // 2. useEffect to apply the theme to the body and save it.
   // This runs whenever the 'theme' state changes.

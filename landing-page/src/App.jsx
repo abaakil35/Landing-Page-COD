@@ -19,6 +19,7 @@ import HelpCenter from "./Components/helpCenter";
 import Documentation from "./Components/Documentation";
 import Login from "./Components/Connexion/Login";
 import { ThemeProvider } from "./Context/ThemeContext";
+import { Helmet } from "react-helmet-async";
 // import FAQ from "./Components/FAQ";
 
 function AppContent() {
@@ -29,6 +30,30 @@ function AppContent() {
 
   return (
     <>
+      <Helmet>
+        <title>Landing Page COD</title>
+        <meta
+          name="description"
+          content="Default description for Landing Page COD"
+        />
+        <link rel="canonical" href={window.location.href} />
+        <link rel="icon" href="/favicon.ico" />
+        <meta property="og:title" content="Landing Page COD" />
+        <meta
+          property="og:description"
+          content="Default description for Landing Page COD"
+        />
+        <meta property="og:image" content="/logo.png" />
+        <meta property="og:url" content={window.location.href} />
+        <meta property="og:type" content="website" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="Landing Page COD" />
+        <meta
+          name="twitter:description"
+          content="Default description for Landing Page COD"
+        />
+        <meta name="twitter:image" content="/logo.png" />
+      </Helmet>
       {!isLoginPage && <Navbar />}
       <div>
         <Routes>
@@ -36,6 +61,34 @@ function AppContent() {
             path="/"
             element={
               <>
+                <Helmet>
+                  <title>Landing Page COD - Home</title>
+                  <meta
+                    name="description"
+                    content="Welcome to our landing page for COD services."
+                  />
+                  <meta name="keywords" content="COD, landing page, services" />
+                  <link rel="canonical" href={window.location.href} />
+                  <link rel="icon" href="/favicon.ico" />
+                  <meta property="og:title" content="Landing Page COD - Home" />
+                  <meta
+                    property="og:description"
+                    content="Welcome to our landing page for COD services."
+                  />
+                  <meta property="og:image" content="/logo.png" />
+                  <meta property="og:url" content={window.location.href} />
+                  <meta property="og:type" content="website" />
+                  <meta name="twitter:card" content="summary_large_image" />
+                  <meta
+                    name="twitter:title"
+                    content="Landing Page COD - Home"
+                  />
+                  <meta
+                    name="twitter:description"
+                    content="Welcome to our landing page for COD services."
+                  />
+                  <meta name="twitter:image" content="/logo.png" />
+                </Helmet>
                 <HeroSection />
                 <Features />
                 <HowCODWorks />

@@ -309,15 +309,26 @@ const HelpCenter = () => {
                     className={`w-10 h-10 ${
                       isDark ? "text-green-400" : "text-[#2e7d32]"
                     }`}
+                    viewBox="0 0 40 40"
                     fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
+                    aria-hidden="true"
                   >
+                    <g opacity="0.12">
+                      <path
+                        d="M25.0842 15H9.16667C6.86548 15 5 13.1345 5 10.8334C5 8.53217 6.86548 6.66669 9.16667 6.66669H25.0842C24.0037 7.72545 23.3333 9.20111 23.3333 10.8334C23.3333 12.4656 24.0037 13.9413 25.0842 15Z"
+                        fill="currentColor"
+                      />
+                      <path
+                        d="M14.9158 33.3334H30.8333C33.1345 33.3334 35 31.4679 35 29.1667C35 26.8655 33.1345 25 30.8333 25H14.9158C15.9962 26.0588 16.6666 27.5344 16.6666 29.1667C16.6666 30.7989 15.9962 32.2746 14.9158 33.3334Z"
+                        fill="currentColor"
+                      />
+                    </g>
                     <path
+                      d="M25.0842 15H9.16667C6.86548 15 5 13.1345 5 10.8333C5 8.53215 6.86548 6.66667 9.16667 6.66667H25.0842M14.9158 33.3333H30.8333C33.1345 33.3333 35 31.4679 35 29.1667C35 26.8655 33.1345 25 30.8333 25H14.9158M5 29.1667C5 32.3883 7.61167 35 10.8333 35C14.055 35 16.6667 32.3883 16.6667 29.1667C16.6667 25.945 14.055 23.3333 10.8333 23.3333C7.61167 23.3333 5 25.945 5 29.1667ZM35 10.8333C35 14.055 32.3883 16.6667 29.1667 16.6667C25.945 16.6667 23.3333 14.055 23.3333 10.8333C23.3333 7.61167 25.945 5 29.1667 5C32.3883 5 35 7.61167 35 10.8333Z"
+                      stroke="currentColor"
+                      strokeWidth="3.33333"
                       strokeLinecap="round"
                       strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zM21 5a2 2 0 00-2-2h-4a2 2 0 00-2 2v12a4 4 0 004 4h4a2 2 0 002-2V5z"
                     />
                   </svg>
                 </div>
@@ -554,15 +565,26 @@ const HelpCenter = () => {
               <div className="w-16 h-16 bg-gradient-to-br from-purple-500 to-purple-600 rounded-lg mb-6 flex items-center justify-center shadow-lg">
                 <svg
                   className="w-8 h-8 text-white"
+                  viewBox="0 0 40 40"
                   fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
+                  aria-hidden="true"
                 >
+                  <g opacity="0.12">
+                    <path
+                      d="M25.0842 15H9.16667C6.86548 15 5 13.1345 5 10.8334C5 8.53217 6.86548 6.66669 9.16667 6.66669H25.0842C24.0037 7.72545 23.3333 9.20111 23.3333 10.8334C23.3333 12.4656 24.0037 13.9413 25.0842 15Z"
+                      fill="currentColor"
+                    />
+                    <path
+                      d="M14.9158 33.3334H30.8333C33.1345 33.3334 35 31.4679 35 29.1667C35 26.8655 33.1345 25 30.8333 25H14.9158C15.9962 26.0588 16.6666 27.5344 16.6666 29.1667C16.6666 30.7989 15.9962 32.2746 14.9158 33.3334Z"
+                      fill="currentColor"
+                    />
+                  </g>
                   <path
+                    d="M25.0842 15H9.16667C6.86548 15 5 13.1345 5 10.8333C5 8.53215 6.86548 6.66667 9.16667 6.66667H25.0842M14.9158 33.3333H30.8333C33.1345 33.3333 35 31.4679 35 29.1667C35 26.8655 33.1345 25 30.8333 25H14.9158M5 29.1667C5 32.3883 7.61167 35 10.8333 35C14.055 35 16.6667 32.3883 16.6667 29.1667C16.6667 25.945 14.055 23.3333 10.8333 23.3333C7.61167 23.3333 5 25.945 5 29.1667ZM35 10.8333C35 14.055 32.3883 16.6667 29.1667 16.6667C25.945 16.6667 23.3333 14.055 23.3333 10.8333C23.3333 7.61167 25.945 5 29.1667 5C32.3883 5 35 7.61167 35 10.8333Z"
+                    stroke="currentColor"
+                    strokeWidth="3.33333"
                     strokeLinecap="round"
                     strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zM7 21h10a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a4 4 0 004 4z"
                   />
                 </svg>
               </div>
@@ -828,7 +850,7 @@ const HelpCenter = () => {
             <motion.button
               className={`px-8 py-4 font-semibold rounded-xl transition-all duration-300 shadow-lg hover:shadow-xl flex items-center gap-3 mx-auto ${
                 isDark
-                  ? "bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white"
+                  ? "bg-gradient-to-r from-[#5e255dff] to-[#a855f7] hover:from-[#4a1d49] hover:to-[#9333ea] text-white"
                   : "bg-gradient-to-r from-[#5e255dff] to-[#a855f7] hover:from-[#4a1d49] hover:to-[#9333ea] text-white"
               }`}
               whileHover={{ scale: 1.05 }}
@@ -1146,7 +1168,7 @@ const HelpCenter = () => {
             <motion.button
               className={`px-8 py-4 font-semibold rounded-xl transition-all duration-300 shadow-lg hover:shadow-xl flex items-center gap-3 mx-auto ${
                 isDark
-                  ? "bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white"
+                  ? "bg-gradient-to-r from-[#5e255dff] to-[#a855f7] hover:from-[#4a1d49] hover:to-[#9333ea] text-white"
                   : "bg-gradient-to-r from-[#5e255dff] to-[#a855f7] hover:from-[#4a1d49] hover:to-[#9333ea] text-white"
               }`}
               whileHover={{ scale: 1.05 }}

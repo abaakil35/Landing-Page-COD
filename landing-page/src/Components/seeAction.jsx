@@ -17,35 +17,40 @@ function SeeAction() {
         isDark ? "bg-[#0f0712]" : "bg-[#FCFCFC]"
       }`}
     >
-      {/* Decorative SVG background shapes, rotated 180° */}
-      <svg
-        className="absolute -bottom-24 -left-24 w-96 h-96 opacity-20 z-0 rotate-180 hidden lg:block"
-        viewBox="0 0 200 200"
-        fill="none"
+      <div
+        className="absolute inset-0 pointer-events-none z-0"
+        aria-hidden="true"
       >
-        {/* <ellipse cx="100" cy="100" rx="100" ry="100" fill="#9d3ecb" /> */}
-      </svg>
-      <svg
-        className="absolute top-0 right-0 w-80 h-80 opacity-30 z-0 rotate-180 hidden lg:block"
-        viewBox="0 0 160 160"
-        fill="none"
-      ></svg>
-      {/* Center-left blurred circle */}
-      <div
-        className={`absolute top-1/2 left-1/4 transform -translate-y-1/2 w-72 h-72 rounded-full opacity-10 blur-3xl z-0 ${
-          isDark
-            ? "bg-[#1b0f20]"
-            : "bg-gradient-to-br from-[#ddd6fe] to-[#e9d5ff]"
-        }`}
-      />
-      {/* Center-right blurred circle */}
-      <div
-        className={`absolute top-1/2 right-1/4 transform -translate-y-1/2 w-72 h-72 rounded-full opacity-10 blur-3xl z-0 ${
-          isDark
-            ? "bg-[#1b0f20]"
-            : "bg-gradient-to-br from-[#ddd6fe] to-[#e9d5ff]"
-        }`}
-      />
+        {/* Decorative SVG background shapes, rotated 180° */}
+        <svg
+          className="absolute -bottom-24 -left-24 w-96 h-96 opacity-20 rotate-180 hidden lg:block"
+          viewBox="0 0 200 200"
+          fill="none"
+        >
+          {/* <ellipse cx="100" cy="100" rx="100" ry="100" fill="#9d3ecb" /> */}
+        </svg>
+        <svg
+          className="absolute top-0 right-0 w-80 h-80 opacity-30 rotate-180 hidden lg:block"
+          viewBox="0 0 160 160"
+          fill="none"
+        ></svg>
+        {/* Center-left blurred circle */}
+        <div
+          className={`absolute top-1/2 left-1/4 transform -translate-y-1/2 w-72 h-72 rounded-full opacity-10 blur-3xl ${
+            isDark
+              ? "bg-[#1b0f20]"
+              : "bg-gradient-to-br from-[#ddd6fe] to-[#e9d5ff]"
+          }`}
+        />
+        {/* Center-right blurred circle */}
+        <div
+          className={`absolute top-1/2 right-1/4 transform -translate-y-1/2 w-72 h-72 rounded-full opacity-10 blur-3xl ${
+            isDark
+              ? "bg-[#1b0f20]"
+              : "bg-gradient-to-br from-[#ddd6fe] to-[#e9d5ff]"
+          }`}
+        />
+      </div>
       <div className="max-w-7xl mx-auto flex flex-col lg:flex-row items-center relative z-10 gap-8 lg:gap-12">
         {/* Left: Text and checklist */}
         <div className="flex-1 w-full text-center lg:text-left px-4 lg:px-0">
@@ -75,35 +80,51 @@ function SeeAction() {
             Watch how easy it is to set up and manage cash on delivery orders
             with COD Rocket's intuitive interface.
           </p>
-          <ul className="space-y-4 lg:space-y-6 max-w-2xl mx-auto lg:mx-0">
-            {checklist.map((item, idx) => (
-              <li
-                key={idx}
-                className={`flex items-center text-base md:text-lg justify-center lg:justify-start ${
-                  isDark ? "text-[#e9e7ee]" : "text-[#2d123a]"
-                }`}
-              >
-                <span className="inline-flex items-center justify-center w-6 h-6 md:w-8 md:h-8 rounded-full bg-[#9d3ecb] mr-3 md:mr-4 shadow-md flex-shrink-0">
-                  <svg
-                    width="14"
-                    height="14"
-                    className="md:w-[18px] md:h-[18px]"
-                    fill="none"
-                    viewBox="0 0 18 18"
-                  >
-                    <polyline
-                      points="4,10 8,14 14,6"
-                      stroke="#fff"
-                      strokeWidth="2.2"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    />
-                  </svg>
-                </span>
-                {item}
-              </li>
-            ))}
-          </ul>
+          <div className="items-center justify-center lg:justify-start mb-4">
+            <ul
+              className="space-y-4 lg:space-y-6 max-w-2xl mx-auto lg:mx-0 text-center lg:text-left"
+              role="list"
+              aria-label="Feature checklist"
+            >
+              {checklist.map((item, idx) => (
+                <li
+                  key={idx}
+                  className={`flex justify-center lg:justify-start ${
+                    isDark ? "text-[#e9e7ee]" : "text-[#2d123a]"
+                  }`}
+                >
+                  <div className="flex items-center justify-center lg:justify-start max-w-2xl w-full px-4 md:px-0 text-base md:text-lg text-left">
+                    {/* fixed-width icon column so icons align vertically */}
+                    <span
+                      className={`flex-none inline-flex items-center justify-center w-8 h-8 md:w-8 md:h-8 rounded-full shadow-md ${
+                        isDark ? "bg-[#b76be0]" : "bg-[#9d3ecb]"
+                      }`}
+                    >
+                      <svg
+                        width="14"
+                        height="14"
+                        className="md:w-[18px] md:h-[18px]"
+                        fill="none"
+                        viewBox="0 0 18 18"
+                        role="img"
+                        aria-hidden="true"
+                        focusable="false"
+                      >
+                        <polyline
+                          points="4,10 8,14 14,6"
+                          stroke="#fff"
+                          strokeWidth="2.2"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                        />
+                      </svg>
+                    </span>
+                    <span className="flex-1 ml-4">{item}</span>
+                  </div>
+                </li>
+              ))}
+            </ul>
+          </div>
         </div>
         {/* Right: Demo Video */}
         <div className="flex-1 w-full flex justify-center items-center">

@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
-import { useLocation } from "react-router-dom";
-import { useContext } from "react";
+import { useLocation, Link } from "react-router-dom";
+import { useContext, useEffect } from "react";
 import ThemeContext from "../Context/ThemeContextContext.js";
 
 const plans = [
@@ -62,6 +62,37 @@ const Pricing = () => {
   const isPricingPage = location.pathname === "/pricing";
   const { theme } = useContext(ThemeContext);
   const isDark = theme === "dark";
+
+  // If user navigates to /pricing#compare, ensure the heading with id="compare" is scrolled into view
+  useEffect(() => {
+    try {
+      if (isPricingPage && typeof window !== "undefined") {
+        const hash = window.location.hash || "";
+        if (hash === "#compare") {
+          // Delay slightly so the element is mounted and layout is stable
+          setTimeout(() => {
+            const el = document.getElementById("compare");
+            if (el) {
+              // Find navbar height (sticky top) and offset the scroll so the heading is visible
+              const nav =
+                document.querySelector("nav[role='navigation']") ||
+                document.querySelector("nav") ||
+                null;
+              const navHeight = nav ? nav.getBoundingClientRect().height : 0;
+              const extra = 12; // small gap below navbar
+              const top =
+                el.getBoundingClientRect().top +
+                window.scrollY -
+                (navHeight + extra);
+              window.scrollTo({ top, behavior: "smooth" });
+            }
+          }, 80);
+        }
+      }
+    } catch {
+      // silent fail - scrolling is non-critical
+    }
+  }, [isPricingPage]);
 
   return (
     <section
@@ -226,6 +257,30 @@ const Pricing = () => {
             ))}
           </div>
 
+          {/* CTA: Compare pricing plans (show only when NOT on /pricing page) */}
+          {!isPricingPage && (
+            <motion.div
+              className="text-center mt-10"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.6 }}
+            >
+              <Link
+                to="/pricing#compare"
+                className="inline-flex items-center justify-center bg-[#5e255dff] text-white font-semibold py-4 px-8 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1"
+              >
+                Compare Pricing Plans
+              </Link>
+              <p
+                className={`text-sm mt-3 ${
+                  isDark ? "text-[#e9e7ee]/70" : "text-gray-600"
+                }`}
+              >
+                Compare all pricing plans to find the best fit for your business
+              </p>
+            </motion.div>
+          )}
+
           {/* Comparison Table - Only show on /pricing page */}
           {isPricingPage && (
             <motion.div
@@ -237,6 +292,7 @@ const Pricing = () => {
             >
               <div className="text-center mb-16">
                 <h3
+                  id="compare"
                   className={`text-4xl font-bold mb-6 ${
                     isDark ? "text-[#e9e7ee]" : "text-gray-900"
                   }`}

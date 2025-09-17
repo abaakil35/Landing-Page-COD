@@ -1,6 +1,9 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { motion } from "framer-motion";
 import { useSearchParams } from "react-router-dom";
+import ThemeContext from "../Context/ThemeContextContext.js";
+import ThemeToggle from "./ThemeToggle";
+// import MiniFooter from "./MiniFooter";
 
 const Documentation = () => {
   const [searchParams] = useSearchParams();
@@ -66,15 +69,52 @@ const Documentation = () => {
     },
   ];
 
+  const { theme } = useContext(ThemeContext);
+
+  // paragraph text class: lighter in dark mode for better readability
+  const pClass = theme === "dark" ? "text-gray-400" : "text-gray-600";
+
   return (
-    <div className="bg-gray-50">
+    <div
+      className={
+        theme === "dark"
+          ? "bg-[#0f0712] text-[#e9e7ee] min-h-screen"
+          : "bg-gray-50 text-gray-900"
+      }
+    >
       <div className="flex">
         {/* Sidebar */}
-        <div className="w-64 bg-white border-r border-gray-200 fixed left-0 top-0 pt-20 z-10 overflow-y-auto scrollbar-hide h-screen">
-          <div className="p-6">
+        <div
+          className={`w-64 border-r fixed left-0 top-0 pt-6 z-10 overflow-y-auto h-screen ${
+            theme === "dark"
+              ? "bg-[#120913] border-[#2d1129] text-[#e9e7ee]"
+              : "bg-white border-gray-200 text-gray-700"
+          }`}
+          style={{ scrollbarWidth: "none" }}
+        >
+          <div className="p-4">
+            {/* Top controls: toggle */}
+            <div className="flex items-center justify-between mb-4">
+              <div
+                className={`text-sm font-semibold ${
+                  theme === "dark" ? "text-[#EAE6F2]" : "text-gray-700"
+                }`}
+              >
+                Docs
+              </div>
+              <ThemeToggle
+                className={
+                  theme === "dark" ? "hover:bg-[#1b0f20]" : "hover:bg-gray-100"
+                }
+              />
+            </div>
             {sidebarSections.map((section, sectionIndex) => (
-              <div key={sectionIndex} className="mb-8">
-                <h3 className="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-3">
+              <div key={sectionIndex} className="mb-6">
+                <h3
+                  className={`text-xs font-semibold uppercase tracking-wider mb-3 ${
+                    theme === "dark" ? "text-[#EAE6F2]" : "text-gray-500"
+                  }`}
+                >
                   {section.title}
                 </h3>
                 <ul className="space-y-1">
@@ -84,8 +124,12 @@ const Documentation = () => {
                         onClick={() => setActiveSection(item.id)}
                         className={`w-full text-left px-3 py-2 rounded-md text-sm transition-colors ${
                           activeSection === item.id
-                            ? "bg-purple-50 text-purple-600 font-medium"
-                            : "text-gray-700 hover:bg-gray-50 hover:text-gray-900"
+                            ? theme === "dark"
+                              ? "bg-[#2d1129] text-[#EAE6F2] font-medium"
+                              : "bg-purple-50 text-purple-600 font-medium"
+                            : theme === "dark"
+                            ? "text-[#9b8fa2] hover:bg-[#1b0f20] hover:text-[#e9e7ee]"
+                            : "text-gray-500 hover:bg-gray-50 hover:text-gray-900"
                         }`}
                       >
                         {item.label}
@@ -99,15 +143,22 @@ const Documentation = () => {
         </div>
 
         {/* Main Content */}
-        <div className="flex-1 ml-64 pt-5">
-          <div className="max-w-4xl mx-14 px-8 py-12 mb-9">
+        <div
+          className="flex-1 ml-64 pt-6"
+          style={{ color: theme === "dark" ? "#e9e7ee" : undefined }}
+        >
+          <div
+            className={`max-w-4xl mx-8 px-6 py-8 mb-6 ${
+              theme === "dark" ? "bg-transparent" : "bg-transparent"
+            }`}
+          >
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6 }}
             >
               {/* Breadcrumb */}
-              <div className="flex items-center text-sm text-gray-500 mb-6">
+              <div className="flex items-center text-sm text-gray-500 mb-4">
                 <span className="text-[#5e255dff] font-medium">
                   {activeSection === "introduction" ||
                   activeSection === "navigation" ||
@@ -137,21 +188,29 @@ const Documentation = () => {
               {activeSection === "introduction" ? (
                 <>
                   {/* Introduction Section */}
-                  <h1 className="text-4xl font-bold text-gray-900 mb-6">
+                  <h1
+                    className={`text-4xl font-bold mb-4 ${
+                      theme === "dark" ? "text-gray-300" : "text-gray-900"
+                    }`}
+                  >
                     Introduction
                   </h1>
-                  <p className="text-lg text-gray-600 mb-8 leading-relaxed">
+                  <p className={`text-lg mb-6 leading-relaxed ${pClass}`}>
                     Get started with COD Rocket - the most powerful
                     cash-on-delivery form builder designed to maximize your
                     conversion rates and streamline your order management
                     process.
                   </p>
-                  <div className="space-y-8">
-                    <div className="bg-purple-50 p-6 rounded-lg">
-                      <h3 className="font-semibold text-gray-900 mb-2">
+                  <div className="space-y-6">
+                    <div className=" p-4 rounded-lg">
+                      <h3
+                        className={`font-semibold mb-2 ${
+                          theme === "dark" ? "text-gray-200" : "text-gray-900"
+                        }`}
+                      >
                         What is COD Rocket?
                       </h3>
-                      <p className="text-gray-600">
+                      <p className={pClass}>
                         A comprehensive platform that transforms how businesses
                         handle cash-on-delivery operations.
                       </p>
@@ -161,29 +220,41 @@ const Documentation = () => {
               ) : activeSection === "form-builder" ? (
                 <>
                   {/* Form Builder Section */}
-                  <h1 className="text-4xl font-bold text-gray-900 mb-6">
+                  <h1
+                    className={`text-4xl font-bold mb-6 ${
+                      theme === "dark" ? "text-gray-300" : "text-gray-900"
+                    }`}
+                  >
                     Form Builder
                   </h1>
-                  <p className="text-lg text-gray-600 mb-8 leading-relaxed">
+                  <p className={`text-lg mb-8 leading-relaxed ${pClass}`}>
                     Master our intuitive drag-and-drop form builder to create
                     high-converting COD forms with advanced customization
                     options.
                   </p>
                   <div className="space-y-8">
-                    <div className="bg-blue-50 p-6 rounded-lg">
-                      <h3 className="font-semibold text-gray-900 mb-2">
+                    <div className=" p-6 rounded-lg">
+                      <h3
+                        className={`font-semibold mb-2 ${
+                          theme === "dark" ? "text-gray-200" : "text-gray-900"
+                        }`}
+                      >
                         Drag & Drop Interface
                       </h3>
-                      <p className="text-gray-600">
+                      <p className={pClass}>
                         Build forms visually with our intuitive drag-and-drop
                         interface. No coding required.
                       </p>
                     </div>
-                    <div className="bg-blue-50 p-6 rounded-lg">
-                      <h3 className="font-semibold text-gray-900 mb-2">
+                    <div className=" p-6 rounded-lg">
+                      <h3
+                        className={`font-semibold mb-2 ${
+                          theme === "dark" ? "text-gray-200" : "text-gray-900"
+                        }`}
+                      >
                         Pre-built Templates
                       </h3>
-                      <p className="text-gray-600">
+                      <p className={pClass}>
                         Start with industry-optimized templates and customize
                         them to match your brand.
                       </p>
@@ -193,29 +264,41 @@ const Documentation = () => {
               ) : activeSection === "order-management" ? (
                 <>
                   {/* Order Management Section */}
-                  <h1 className="text-4xl font-bold text-gray-900 mb-6">
+                  <h1
+                    className={`text-4xl font-bold mb-6 ${
+                      theme === "dark" ? "text-gray-300" : "text-gray-900"
+                    }`}
+                  >
                     Order Management
                   </h1>
-                  <p className="text-lg text-gray-600 mb-8 leading-relaxed">
+                  <p className={`text-lg mb-8 leading-relaxed ${pClass}`}>
                     Efficiently handle COD orders, track deliveries, and manage
                     customer communications with our comprehensive order
                     management system.
                   </p>
                   <div className="space-y-8">
-                    <div className="bg-green-50 p-6 rounded-lg">
-                      <h3 className="font-semibold text-gray-900 mb-2">
+                    <div className=" p-6 rounded-lg">
+                      <h3
+                        className={`font-semibold mb-2 ${
+                          theme === "dark" ? "text-gray-200" : "text-gray-900"
+                        }`}
+                      >
                         Real-time Tracking
                       </h3>
-                      <p className="text-gray-600">
+                      <p className={pClass}>
                         Monitor orders from submission to delivery with
                         real-time status updates.
                       </p>
                     </div>
-                    <div className="bg-green-50 p-6 rounded-lg">
-                      <h3 className="font-semibold text-gray-900 mb-2">
+                    <div className=" p-6 rounded-lg">
+                      <h3
+                        className={`font-semibold mb-2 ${
+                          theme === "dark" ? "text-gray-200" : "text-gray-900"
+                        }`}
+                      >
                         Automated Notifications
                       </h3>
-                      <p className="text-gray-600">
+                      <p className={pClass}>
                         Keep customers informed with automated SMS and email
                         notifications.
                       </p>
@@ -225,28 +308,40 @@ const Documentation = () => {
               ) : activeSection === "shopify-integration" ? (
                 <>
                   {/* Shopify Integration Section */}
-                  <h1 className="text-4xl font-bold text-gray-900 mb-6">
+                  <h1
+                    className={`text-4xl font-bold mb-6 ${
+                      theme === "dark" ? "text-gray-300" : "text-gray-900"
+                    }`}
+                  >
                     Shopify Integration
                   </h1>
-                  <p className="text-lg text-gray-600 mb-8 leading-relaxed">
+                  <p className={`text-lg mb-8 leading-relaxed ${pClass}`}>
                     Seamlessly integrate COD Rocket with your Shopify store to
                     enable cash-on-delivery options for your customers.
                   </p>
                   <div className="space-y-8">
-                    <div className="bg-orange-50 p-6 rounded-lg">
-                      <h3 className="font-semibold text-gray-900 mb-2">
+                    <div className=" p-6 rounded-lg">
+                      <h3
+                        className={`font-semibold mb-2 ${
+                          theme === "dark" ? "text-gray-200" : "text-gray-900"
+                        }`}
+                      >
                         One-Click Installation
                       </h3>
-                      <p className="text-gray-600">
+                      <p className={pClass}>
                         Install COD Rocket directly from the Shopify App Store
                         with just one click.
                       </p>
                     </div>
-                    <div className="bg-orange-50 p-6 rounded-lg">
-                      <h3 className="font-semibold text-gray-900 mb-2">
+                    <div className=" p-6 rounded-lg">
+                      <h3
+                        className={`font-semibold mb-2 ${
+                          theme === "dark" ? "text-gray-200" : "text-gray-900"
+                        }`}
+                      >
                         Sync with Shopify Orders
                       </h3>
-                      <p className="text-gray-600">
+                      <p className={pClass}>
                         Automatically sync COD orders with your Shopify
                         dashboard for unified management.
                       </p>
@@ -256,28 +351,40 @@ const Documentation = () => {
               ) : activeSection === "customization" ? (
                 <>
                   {/* Customization Section */}
-                  <h1 className="text-4xl font-bold text-gray-900 mb-6">
+                  <h1
+                    className={`text-4xl font-bold mb-6 ${
+                      theme === "dark" ? "text-gray-300" : "text-gray-900"
+                    }`}
+                  >
                     Customization
                   </h1>
-                  <p className="text-lg text-gray-600 mb-8 leading-relaxed">
+                  <p className={`text-lg mb-8 leading-relaxed ${pClass}`}>
                     Customize form appearance, validation rules, and delivery
                     options to match your brand and business requirements.
                   </p>
                   <div className="space-y-8">
-                    <div className="bg-pink-50 p-6 rounded-lg">
-                      <h3 className="font-semibold text-gray-900 mb-2">
+                    <div className=" p-6 rounded-lg">
+                      <h3
+                        className={`font-semibold mb-2 ${
+                          theme === "dark" ? "text-gray-200" : "text-gray-900"
+                        }`}
+                      >
                         Brand Customization
                       </h3>
-                      <p className="text-gray-600">
+                      <p className={pClass}>
                         Apply your brand colors, fonts, and styling to create a
                         seamless user experience.
                       </p>
                     </div>
-                    <div className="bg-pink-50 p-6 rounded-lg">
-                      <h3 className="font-semibold text-gray-900 mb-2">
+                    <div className=" p-6 rounded-lg">
+                      <h3
+                        className={`font-semibold mb-2 ${
+                          theme === "dark" ? "text-gray-200" : "text-gray-900"
+                        }`}
+                      >
                         Validation Rules
                       </h3>
-                      <p className="text-gray-600">
+                      <p className={pClass}>
                         Set up custom validation rules to ensure data quality
                         and reduce fake orders.
                       </p>
@@ -287,28 +394,40 @@ const Documentation = () => {
               ) : activeSection === "troubleshooting" ? (
                 <>
                   {/* Troubleshooting Section */}
-                  <h1 className="text-4xl font-bold text-gray-900 mb-6">
+                  <h1
+                    className={`text-4xl font-bold mb-6 ${
+                      theme === "dark" ? "text-gray-300" : "text-gray-900"
+                    }`}
+                  >
                     Troubleshooting
                   </h1>
-                  <p className="text-lg text-gray-600 mb-8 leading-relaxed">
+                  <p className={`text-lg mb-8 leading-relaxed ${pClass}`}>
                     Solve common issues and get your COD forms working perfectly
                     with our comprehensive troubleshooting guide.
                   </p>
                   <div className="space-y-8">
-                    <div className="bg-red-50 p-6 rounded-lg">
-                      <h3 className="font-semibold text-gray-900 mb-2">
+                    <div className=" p-6 rounded-lg">
+                      <h3
+                        className={`font-semibold mb-2 ${
+                          theme === "dark" ? "text-gray-200" : "text-gray-900"
+                        }`}
+                      >
                         Common Issues
                       </h3>
-                      <p className="text-gray-600">
+                      <p className={pClass}>
                         Find solutions to the most frequently encountered
                         problems and issues.
                       </p>
                     </div>
-                    <div className="bg-red-50 p-6 rounded-lg">
-                      <h3 className="font-semibold text-gray-900 mb-2">
+                    <div className=" p-6 rounded-lg">
+                      <h3
+                        className={`font-semibold mb-2 ${
+                          theme === "dark" ? "text-gray-200" : "text-gray-900"
+                        }`}
+                      >
                         Debug Mode
                       </h3>
-                      <p className="text-gray-600">
+                      <p className={pClass}>
                         Enable debug mode to identify and resolve technical
                         issues quickly.
                       </p>
@@ -318,10 +437,14 @@ const Documentation = () => {
               ) : activeSection === "documentation" ? (
                 <>
                   {/* Documentation Section */}
-                  <h1 className="text-4xl font-bold text-gray-900 mb-6">
+                  <h1
+                    className={`text-4xl font-bold mb-6 ${
+                      theme === "dark" ? "text-gray-300" : "text-gray-500"
+                    }`}
+                  >
                     Documentation
                   </h1>
-                  <p className="text-lg text-gray-600 mb-8 leading-relaxed">
+                  <p className={`text-lg mb-8 leading-relaxed ${pClass}`}>
                     Comprehensive documentation for COD Rocket platform,
                     covering all features, APIs, and integration guides. Our
                     documentation is designed to provide developers, business
@@ -334,10 +457,14 @@ const Documentation = () => {
                   </p>
                   <div className="space-y-6">
                     <div>
-                      <h3 className="font-semibold text-gray-900 mb-2">
+                      <h3
+                        className={`font-semibold mb-2 ${
+                          theme === "dark" ? "text-gray-200" : "text-gray-900"
+                        }`}
+                      >
                         API Documentation
                       </h3>
-                      <p className="text-gray-600">
+                      <p className={pClass}>
                         Complete reference for all API endpoints, authentication
                         methods, request/response formats, and data structures.
                         Includes detailed examples for REST API calls, webhook
@@ -351,10 +478,14 @@ const Documentation = () => {
                       </p>
                     </div>
                     <div>
-                      <h3 className="font-semibold text-gray-900 mb-2">
+                      <h3
+                        className={`font-semibold mb-2 ${
+                          theme === "dark" ? "text-gray-200" : "text-gray-900"
+                        }`}
+                      >
                         Integration Guides
                       </h3>
-                      <p className="text-gray-600">
+                      <p className={pClass}>
                         Step-by-step guides for integrating with popular
                         platforms and services including Shopify, WooCommerce,
                         Magento, BigCommerce, and custom e-commerce solutions.
@@ -370,10 +501,14 @@ const Documentation = () => {
                       </p>
                     </div>
                     <div>
-                      <h3 className="font-semibold text-gray-900 mb-2">
+                      <h3
+                        className={`font-semibold mb-2 ${
+                          theme === "dark" ? "text-gray-200" : "text-gray-900"
+                        }`}
+                      >
                         Code Examples
                       </h3>
-                      <p className="text-gray-600">
+                      <p className={pClass}>
                         Ready-to-use code snippets and examples for common use
                         cases, implementation patterns, and integration
                         scenarios. Includes examples in multiple programming
@@ -387,10 +522,14 @@ const Documentation = () => {
                       </p>
                     </div>
                     <div>
-                      <h3 className="font-semibold text-gray-900 mb-2">
+                      <h3
+                        className={`font-semibold mb-2 ${
+                          theme === "dark" ? "text-gray-200" : "text-gray-900"
+                        }`}
+                      >
                         SDK & Libraries
                       </h3>
-                      <p className="text-gray-600">
+                      <p className={pClass}>
                         Official software development kits and libraries for
                         popular programming languages and frameworks including
                         React, Vue.js, Angular, Laravel, Django, and more. Our
@@ -404,10 +543,14 @@ const Documentation = () => {
                       </p>
                     </div>
                     <div>
-                      <h3 className="font-semibold text-gray-900 mb-2">
+                      <h3
+                        className={`font-semibold mb-2 ${
+                          theme === "dark" ? "text-gray-200" : "text-gray-900"
+                        }`}
+                      >
                         Testing & Debugging
                       </h3>
-                      <p className="text-gray-600">
+                      <p className={pClass}>
                         Comprehensive testing tools and debugging utilities to
                         help you validate your integration and troubleshoot
                         issues effectively. Access sandbox environments, mock
@@ -419,10 +562,14 @@ const Documentation = () => {
                       </p>
                     </div>
                     <div>
-                      <h3 className="font-semibold text-gray-900 mb-2">
+                      <h3
+                        className={`font-semibold mb-2 ${
+                          theme === "dark" ? "text-gray-200" : "text-gray-900"
+                        }`}
+                      >
                         Version Control & Updates
                       </h3>
-                      <p className="text-gray-600">
+                      <p className={pClass}>
                         Stay up-to-date with API versioning, changelog
                         notifications, migration guides, and backward
                         compatibility information. Our documentation includes
@@ -438,10 +585,14 @@ const Documentation = () => {
               ) : activeSection === "onboarding" ? (
                 <>
                   {/* Onboarding Section */}
-                  <h1 className="text-4xl font-bold text-gray-900 mb-6">
+                  <h1
+                    className={`text-4xl font-bold mb-6 ${
+                      theme === "dark" ? "text-gray-300" : "text-gray-900"
+                    }`}
+                  >
                     Onboarding
                   </h1>
-                  <p className="text-lg text-gray-600 mb-8 leading-relaxed">
+                  <p className={`text-lg mb-8 leading-relaxed ${pClass}`}>
                     Welcome to COD Rocket! This comprehensive onboarding guide
                     will help you get started and make the most of our platform.
                     Whether you're new to cash-on-delivery operations or
@@ -454,10 +605,14 @@ const Documentation = () => {
                   </p>
                   <div className="space-y-6">
                     <div>
-                      <h3 className="font-semibold text-gray-900 mb-2">
+                      <h3
+                        className={`font-semibold mb-2 ${
+                          theme === "dark" ? "text-gray-200" : "text-gray-900"
+                        }`}
+                      >
                         Account Setup
                       </h3>
-                      <p className="text-gray-600">
+                      <p className={pClass}>
                         Create your account, verify your email, and configure
                         your initial settings including business profile,
                         payment preferences, notification settings, and security
@@ -475,7 +630,7 @@ const Documentation = () => {
                       <h3 className="font-semibold text-gray-900 mb-2">
                         First Form Creation
                       </h3>
-                      <p className="text-gray-600">
+                      <p className={pClass}>
                         Build your first COD form using our intuitive
                         drag-and-drop builder, complete with pre-designed
                         templates, custom field options, validation rules, and
@@ -492,7 +647,7 @@ const Documentation = () => {
                       <h3 className="font-semibold text-gray-900 mb-2">
                         Integration Setup
                       </h3>
-                      <p className="text-gray-600">
+                      <p className={pClass}>
                         Connect with your website, e-commerce platform, or
                         existing tools through our comprehensive integration
                         options including API connections, webhook
@@ -509,7 +664,7 @@ const Documentation = () => {
                       <h3 className="font-semibold text-gray-900 mb-2">
                         Go Live
                       </h3>
-                      <p className="text-gray-600">
+                      <p className={pClass}>
                         Deploy your forms and start accepting cash-on-delivery
                         orders with confidence through our guided launch
                         process, including final testing, performance
@@ -527,7 +682,7 @@ const Documentation = () => {
                       <h3 className="font-semibold text-gray-900 mb-2">
                         Team Training
                       </h3>
-                      <p className="text-gray-600">
+                      <p className={pClass}>
                         Comprehensive training programs for your team members
                         including customer service representatives, order
                         managers, and technical staff. Access video tutorials,
@@ -544,7 +699,7 @@ const Documentation = () => {
                       <h3 className="font-semibold text-gray-900 mb-2">
                         Success Metrics
                       </h3>
-                      <p className="text-gray-600">
+                      <p className={pClass}>
                         Establish key performance indicators and success metrics
                         to measure the effectiveness of your COD implementation.
                         Learn how to track conversion rates, order completion
@@ -559,7 +714,7 @@ const Documentation = () => {
                       <h3 className="font-semibold text-gray-900 mb-2">
                         Ongoing Support
                       </h3>
-                      <p className="text-gray-600">
+                      <p className={pClass}>
                         Access to dedicated support channels, community forums,
                         knowledge base, and expert consultation services to
                         ensure your continued success with COD Rocket. Our
@@ -574,10 +729,14 @@ const Documentation = () => {
               ) : activeSection === "toolkit-features" ? (
                 <>
                   {/* Toolkit Features Section */}
-                  <h1 className="text-4xl font-bold text-gray-900 mb-6">
+                  <h1
+                    className={`text-4xl font-bold mb-6 ${
+                      theme === "dark" ? "text-gray-300" : "text-gray-900"
+                    }`}
+                  >
                     Toolkit Features
                   </h1>
-                  <p className="text-lg text-gray-600 mb-8 leading-relaxed">
+                  <p className={`text-lg mb-8 leading-relaxed ${pClass}`}>
                     Explore the comprehensive toolkit features that make COD
                     Rocket the most powerful solution for cash-on-delivery
                     operations. Our feature-rich platform combines cutting-edge
@@ -590,10 +749,14 @@ const Documentation = () => {
                   </p>
                   <div className="space-y-6">
                     <div>
-                      <h3 className="font-semibold text-gray-900 mb-2">
+                      <h3
+                        className={`font-semibold mb-2 ${
+                          theme === "dark" ? "text-gray-200" : "text-gray-900"
+                        }`}
+                      >
                         Form Builder Tools
                       </h3>
-                      <p className="text-gray-600">
+                      <p className={pClass}>
                         Drag-and-drop interface, pre-built templates, and
                         advanced customization options including responsive
                         design capabilities, conditional logic, multi-step
@@ -609,10 +772,14 @@ const Documentation = () => {
                       </p>
                     </div>
                     <div>
-                      <h3 className="font-semibold text-gray-900 mb-2">
+                      <h3
+                        className={`font-semibold mb-2 ${
+                          theme === "dark" ? "text-gray-200" : "text-gray-900"
+                        }`}
+                      >
                         Analytics Dashboard
                       </h3>
-                      <p className="text-gray-600">
+                      <p className={pClass}>
                         Real-time insights, conversion tracking, and performance
                         metrics with comprehensive reporting capabilities,
                         custom KPI monitoring, trend analysis, and predictive
@@ -626,10 +793,14 @@ const Documentation = () => {
                       </p>
                     </div>
                     <div>
-                      <h3 className="font-semibold text-gray-900 mb-2">
+                      <h3
+                        className={`font-semibold mb-2 ${
+                          theme === "dark" ? "text-gray-200" : "text-gray-900"
+                        }`}
+                      >
                         Order Management
                       </h3>
-                      <p className="text-gray-600">
+                      <p className={pClass}>
                         Automated workflows, status tracking, and customer
                         communication tools with advanced order processing
                         capabilities, inventory management, shipping
@@ -643,10 +814,14 @@ const Documentation = () => {
                       </p>
                     </div>
                     <div>
-                      <h3 className="font-semibold text-gray-900 mb-2">
+                      <h3
+                        className={`font-semibold mb-2 ${
+                          theme === "dark" ? "text-gray-200" : "text-gray-900"
+                        }`}
+                      >
                         Fraud Prevention
                       </h3>
-                      <p className="text-gray-600">
+                      <p className={pClass}>
                         Advanced algorithms to detect and prevent fake orders
                         automatically using machine learning, behavioral
                         analysis, and risk scoring systems. Our fraud prevention
@@ -662,10 +837,14 @@ const Documentation = () => {
                       </p>
                     </div>
                     <div>
-                      <h3 className="font-semibold text-gray-900 mb-2">
+                      <h3
+                        className={`font-semibold mb-2 ${
+                          theme === "dark" ? "text-gray-200" : "text-gray-900"
+                        }`}
+                      >
                         Customer Communication Hub
                       </h3>
-                      <p className="text-gray-600">
+                      <p className={pClass}>
                         Centralized communication platform for managing customer
                         interactions through multiple channels including email,
                         SMS, WhatsApp, and in-app messaging. Automate
@@ -678,10 +857,14 @@ const Documentation = () => {
                       </p>
                     </div>
                     <div>
-                      <h3 className="font-semibold text-gray-900 mb-2">
+                      <h3
+                        className={`font-semibold mb-2 ${
+                          theme === "dark" ? "text-gray-200" : "text-gray-900"
+                        }`}
+                      >
                         Mobile App & Notifications
                       </h3>
-                      <p className="text-gray-600">
+                      <p className={pClass}>
                         Native mobile applications for iOS and Android that
                         allow you to manage orders, monitor performance, and
                         receive real-time notifications on the go. The mobile
@@ -694,10 +877,14 @@ const Documentation = () => {
                       </p>
                     </div>
                     <div>
-                      <h3 className="font-semibold text-gray-900 mb-2">
+                      <h3
+                        className={`font-semibold mb-2 ${
+                          theme === "dark" ? "text-gray-200" : "text-gray-900"
+                        }`}
+                      >
                         Advanced Customization
                       </h3>
-                      <p className="text-gray-600">
+                      <p className={pClass}>
                         Extensive customization options including custom CSS,
                         JavaScript injections, white-label solutions, and API
                         extensions to match your unique business requirements.
@@ -710,10 +897,14 @@ const Documentation = () => {
                       </p>
                     </div>
                     <div>
-                      <h3 className="font-semibold text-gray-900 mb-2">
+                      <h3
+                        className={`font-semibold mb-2 ${
+                          theme === "dark" ? "text-gray-200" : "text-gray-900"
+                        }`}
+                      >
                         Enterprise Features
                       </h3>
-                      <p className="text-gray-600">
+                      <p className={pClass}>
                         Enterprise-grade features designed for large-scale
                         operations including multi-tenant architecture, advanced
                         user management, SSO integration, compliance tools, and
@@ -730,11 +921,15 @@ const Documentation = () => {
               ) : (
                 <>
                   {/* Default Content */}
-                  <h1 className="text-4xl font-bold text-gray-900 mb-6">
+                  <h1
+                    className={`text-4xl font-bold mb-6 ${
+                      theme === "dark" ? "text-gray-300" : "text-gray-900"
+                    }`}
+                  >
                     Onboarding
                   </h1>
 
-                  <p className="text-lg text-gray-600 mb-8 leading-relaxed">
+                  <p className={`text-lg mb-8 leading-relaxed ${pClass}`}>
                     Welcome to COD Rocket — your complete toolkit for building
                     high-converting cash-on-delivery forms, fast. This
                     comprehensive platform streamlines the entire COD process,
@@ -758,7 +953,7 @@ const Documentation = () => {
                       <h2 className="text-2xl font-semibold text-gray-900 mb-4">
                         Platform Overview
                       </h2>
-                      <p className="text-gray-600 leading-relaxed mb-4">
+                      <p className={`leading-relaxed mb-4 ${pClass}`}>
                         COD Rocket revolutionizes cash-on-delivery operations by
                         integrating form creation, order management, payment
                         processing, and analytics into one powerful platform.
@@ -783,7 +978,7 @@ const Documentation = () => {
                       <h2 className="text-2xl font-semibold text-gray-900 mb-4">
                         Account Setup
                       </h2>
-                      <p className="text-gray-600 leading-relaxed mb-4">
+                      <p className={`leading-relaxed mb-4 ${pClass}`}>
                         Begin your journey by creating a secure COD Rocket
                         account with enterprise-grade encryption and two-factor
                         authentication. During setup, you'll configure your
@@ -808,7 +1003,7 @@ const Documentation = () => {
                       <h2 className="text-2xl font-semibold text-gray-900 mb-4">
                         Using the Command Line
                       </h2>
-                      <p className="text-gray-600 leading-relaxed mb-4">
+                      <p className={`leading-relaxed mb-4 ${pClass}`}>
                         Accelerate your development workflow with our powerful
                         CLI tool. Install globally with 'npm install -g
                         codrocket-cli' and unlock advanced automation
@@ -825,13 +1020,11 @@ const Documentation = () => {
                       <ul className="space-y-2 ml-4">
                         <li className="flex items-start">
                           <span className="w-2 h-2 bg-[#5e255dff] rounded-full mt-2 mr-3 flex-shrink-0"></span>
-                          <span className="text-gray-600">Deploy models</span>
+                          <span className={pClass}>Deploy models</span>
                         </li>
                         <li className="flex items-start">
                           <span className="w-2 h-2 bg-[#5e255dff] rounded-full mt-2 mr-3 flex-shrink-0"></span>
-                          <span className="text-gray-600">
-                            Run test requests
-                          </span>
+                          <span className={pClass}>Run test requests</span>
                         </li>
                       </ul>
                     </motion.section>
@@ -844,7 +1037,7 @@ const Documentation = () => {
                       <h2 className="text-2xl font-semibold text-gray-900 mb-4">
                         Your First COD Form
                       </h2>
-                      <p className="text-gray-600 leading-relaxed mb-4">
+                      <p className={`leading-relaxed mb-4 ${pClass}`}>
                         Create your first high-converting COD form using our
                         intuitive drag-and-drop builder. Start with pre-designed
                         templates optimized for different industries, then
@@ -870,7 +1063,7 @@ const Documentation = () => {
                       <h2 className="text-2xl font-semibold text-gray-900 mb-4">
                         Order Management
                       </h2>
-                      <p className="text-gray-600 leading-relaxed mb-4">
+                      <p className={`leading-relaxed mb-4 ${pClass}`}>
                         Transform your order processing with our comprehensive
                         management system that handles the entire order
                         lifecycle. Track orders in real-time from submission to
@@ -897,7 +1090,7 @@ const Documentation = () => {
                       <h2 className="text-2xl font-semibold text-gray-900 mb-4">
                         Analytics Dashboard
                       </h2>
-                      <p className="text-gray-600 leading-relaxed mb-4">
+                      <p className={`leading-relaxed mb-4 ${pClass}`}>
                         Unlock deep business insights with our advanced
                         analytics engine that transforms raw data into
                         actionable intelligence. Monitor key performance
@@ -924,7 +1117,13 @@ const Documentation = () => {
 
         {/* Table of Contents */}
         <div className="hidden xl:block fixed right-8 top-32 w-64">
-          <div className="bg-white border border-gray-200 rounded-lg p-4 shadow-sm">
+          <div
+            className={
+              theme === "dark"
+                ? "bg-transparent border-[#2d1129] rounded-lg p-4 shadow-sm text-[#e9e7ee]"
+                : "bg-white border border-gray-200 rounded-lg p-4 shadow-sm"
+            }
+          >
             <div className="flex items-center mb-3">
               <svg
                 className="w-4 h-4 mr-2"
@@ -945,7 +1144,11 @@ const Documentation = () => {
               <li>
                 <a
                   href="#platform-overview"
-                  className="text-gray-600 hover:text-[#5e255dff] transition-colors"
+                  className={`${
+                    theme === "dark"
+                      ? "text-gray-300 hover:text-[#c48fbf]"
+                      : "text-gray-600 hover:text-[#5e255dff]"
+                  } transition-colors`}
                 >
                   Platform Overview
                 </a>
@@ -953,7 +1156,11 @@ const Documentation = () => {
               <li>
                 <a
                   href="#account-setup"
-                  className="text-gray-600 hover:text-[#5e255dff] transition-colors"
+                  className={`${
+                    theme === "dark"
+                      ? "text-gray-300 hover:text-[#c48fbf]"
+                      : "text-gray-600 hover:text-[#5e255dff]"
+                  } transition-colors`}
                 >
                   Account Setup
                 </a>
@@ -961,7 +1168,11 @@ const Documentation = () => {
               <li>
                 <a
                   href="#using-command-line"
-                  className="text-gray-600 hover:text-[#5e255dff] transition-colors"
+                  className={`${
+                    theme === "dark"
+                      ? "text-gray-300 hover:text-[#c48fbf]"
+                      : "text-gray-600 hover:text-[#5e255dff]"
+                  } transition-colors`}
                 >
                   Using the Command Line
                 </a>
@@ -969,7 +1180,11 @@ const Documentation = () => {
               <li>
                 <a
                   href="#first-cod-form"
-                  className="text-gray-600 hover:text-[#5e255dff] transition-colors"
+                  className={`${
+                    theme === "dark"
+                      ? "text-gray-300 hover:text-[#c48fbf]"
+                      : "text-gray-600 hover:text-[#5e255dff]"
+                  } transition-colors`}
                 >
                   Your First COD Form
                 </a>
@@ -977,7 +1192,11 @@ const Documentation = () => {
               <li>
                 <a
                   href="#order-management"
-                  className="text-gray-600 hover:text-[#5e255dff] transition-colors"
+                  className={`${
+                    theme === "dark"
+                      ? "text-gray-300 hover:text-[#c48fbf]"
+                      : "text-gray-600 hover:text-[#5e255dff]"
+                  } transition-colors`}
                 >
                   Order Management
                 </a>
@@ -985,7 +1204,11 @@ const Documentation = () => {
               <li>
                 <a
                   href="#analytics-dashboard"
-                  className="text-gray-600 hover:text-[#5e255dff] transition-colors"
+                  className={`${
+                    theme === "dark"
+                      ? "text-gray-300 hover:text-[#c48fbf]"
+                      : "text-gray-600 hover:text-[#5e255dff]"
+                  } transition-colors`}
                 >
                   Analytics Dashboard
                 </a>
@@ -994,6 +1217,7 @@ const Documentation = () => {
           </div>
         </div>
       </div>
+      {/* <MiniFooter /> */}
     </div>
   );
 };

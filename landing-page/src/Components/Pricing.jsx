@@ -1,57 +1,80 @@
 import { motion } from "framer-motion";
 import { useLocation, Link } from "react-router-dom";
-import { useContext, useEffect } from "react";
+import { useContext, useEffect, useState } from "react";
 import ThemeContext from "../Context/ThemeContextContext.js";
 
 const plans = [
   {
-    name: "Starter",
-    price: "Free",
+    name: "Basic",
+    price: "$0",
+    yearlyPrice: "Free",
     period: "/month",
+    yearlyPeriod: "/year",
     features: [
-      "Up to 50 COD orders/month",
-      "Basic form customization",
-      "Order management dashboard",
+      "Up to 60 orders /month",
+      "1-Click Upsells",
+      "Quantity offers",
+      "Google Sheets",
+      "Abandoned carts",
+      "Discount codes",
+      "Shipping rates",
+      "Google Autocomplete",
+      "Multi-Pixels",
+      "Multi-Language",
       "Email support",
     ],
     button: {
-      text: "Get Started",
+      text: "Downgrade",
       style: "border border-gray-300 text-black hover:bg-gray-100",
     },
   },
   {
-    name: "Professional",
-    price: "$19",
+    name: "Grow",
+    price: "$9.98",
+    yearlyPrice: "$119.76",
     period: "/month",
+    yearlyPeriod: "/year",
     features: [
-      "Up to 500 COD orders/month",
-      "Advanced form builder",
-      "SMS notifications",
-      "Order verification",
-      "Analytics & reports",
-      "Priority support",
+      "Up to 490 orders /month",
+      "1-Click Upsells",
+      "Quantity offers",
+      "Google Sheets",
+      "Abandoned carts",
+      "Discount codes",
+      "Shipping rates",
+      "Google Autocomplete",
+      "Multi-Pixels",
+      "Multi-Language",
+      "Email & WhatsApp support",
     ],
     button: {
-      text: "Start Free Trial",
+      text: "current plan",
       style:
         "border-2 border-transparent text-white font-bold bg-[#5e255dff] hover:bg-[#4a1d49] transition-all shadow-lg hover:shadow-xl",
     },
     popular: true,
   },
   {
-    name: "Enterprise",
-    price: "$49",
+    name: "Advanced",
+    price: "$21.98",
+    yearlyPrice: "$263.76",
     period: "/month",
+    yearlyPeriod: "/year",
     features: [
-      "Unlimited COD orders",
-      "White-label options",
-      "Advanced automation",
-      "API access",
-      "Custom integrations",
-      "Dedicated support",
+      "Unlimited orders / month",
+      "1-Click Upsells",
+      "Quantity offers",
+      "Google Sheets",
+      "Abandoned carts",
+      "Discount codes",
+      "Shipping rates",
+      "Google Autocomplete",
+      "Multi-Pixels",
+      "Multi-Language",
+      "Email & WhatsApp support",
     ],
     button: {
-      text: "Contact Sales",
+      text: "Upgrade",
       style: "border border-gray-300 text-black hover:bg-gray-100",
     },
   },
@@ -62,6 +85,7 @@ const Pricing = () => {
   const isPricingPage = location.pathname === "/pricing";
   const { theme } = useContext(ThemeContext);
   const isDark = theme === "dark";
+  const [billingPeriod, setBillingPeriod] = useState("monthly");
 
   // If user navigates to /pricing#compare, ensure the heading with id="compare" is scrolled into view
   useEffect(() => {
@@ -100,6 +124,13 @@ const Pricing = () => {
         isDark ? "bg-[#0f0712]" : "bg-[#FCFCFC]"
       }`}
     >
+      {/* Inline styles: hide table scrollbar for the pricing comparison area */}
+      <style>{`
+        /* Hide scrollbar (WebKit) */
+        .pricing-scroll::-webkit-scrollbar { display: none; }
+        /* Hide scrollbar (Firefox) */
+        .pricing-scroll { scrollbar-width: none; -ms-overflow-style: none; }
+      `}</style>
       <div className="max-w-7xl mx-auto">
         {/* Decorative blurred circles */}
         <div
@@ -158,6 +189,57 @@ const Pricing = () => {
             Start free and scale as you grow. No hidden fees, no lo ng-term
             contracts.
           </motion.p>
+
+          {/* Billing Period Toggle */}
+          <motion.div
+            className="flex items-center justify-center mb-12"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.5 }}
+          >
+            <div
+              className={`relative flex items-center p-1 rounded-full ${
+                isDark ? "bg-[#1b0f20]/80" : "bg-gray-100"
+              } border-2 ${isDark ? "border-[#b76be0]/20" : "border-gray-200"}`}
+            >
+              <button
+                onClick={() => setBillingPeriod("monthly")}
+                className={`relative px-6 py-2 text-sm font-medium rounded-full transition-all duration-300 ${
+                  billingPeriod === "monthly"
+                    ? `text-white shadow-lg ${
+                        isDark ? "bg-[#b76be0]" : "bg-[#5e255dff]"
+                      }`
+                    : `text-gray-500 ${isDark ? "text-[#e9e7ee]/60" : ""}`
+                }`}
+              >
+                Monthly
+              </button>
+              <button
+                onClick={() => setBillingPeriod("yearly")}
+                className={`relative px-6 py-2 text-sm font-medium rounded-full transition-all duration-300 ${
+                  billingPeriod === "yearly"
+                    ? `text-white shadow-lg ${
+                        isDark ? "bg-[#b76be0]" : "bg-[#5e255dff]"
+                      }`
+                    : `text-gray-500 ${isDark ? "text-[#e9e7ee]/60" : ""}`
+                }`}
+              >
+                Yearly
+                <span
+                  className={`ml-2 px-2 py-0.5 text-xs rounded-full ${
+                    billingPeriod === "yearly"
+                      ? "bg-white/20 text-white"
+                      : `text-white ${
+                          isDark ? "bg-[#b76be0]/20" : "bg-[#5e255dff]/20"
+                        }`
+                  }`}
+                >
+                  Save 20%
+                </span>
+              </button>
+            </div>
+          </motion.div>
+
           {/* All 3 pricing cards in one line on desktop, stacked on mobile */}
           <div className="flex flex-col lg:flex-row gap-8 max-w-7xl mx-auto justify-center items-stretch">
             {plans.map((plan, idx) => (
@@ -195,14 +277,16 @@ const Pricing = () => {
                       isDark ? "text-[#ffffff]" : "text-[#2d123a]"
                     }`}
                   >
-                    {plan.price}
+                    {billingPeriod === "yearly" ? plan.yearlyPrice : plan.price}
                   </span>
                   <span
                     className={`text-lg md:text-xl ${
                       isDark ? "text-[#ffffff]" : "text-[#702c91]"
                     }`}
                   >
-                    {plan.period}
+                    {billingPeriod === "yearly"
+                      ? plan.yearlyPeriod
+                      : plan.period}
                   </span>
                 </div>
                 <ul className="mb-8 w-full flex-grow">
@@ -233,26 +317,7 @@ const Pricing = () => {
                     </li>
                   ))}
                 </ul>
-                <motion.button
-                  className={`w-full py-3 rounded-lg mt-auto text-lg ${
-                    plan.name === "Starter"
-                      ? isDark
-                        ? "text-white border-2 border-[#b76be0]/50"
-                        : "text-black border-2 border-gray-300"
-                      : plan.name === "Enterprise"
-                      ? isDark
-                        ? "border border-[#b76be0]/50 text-white hover:bg-[#b76be0]/10"
-                        : plan.button.style
-                      : plan.button.style
-                  }`}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.6, delay: 1.0 + idx * 0.2 }}
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                >
-                  {plan.button.text}
-                </motion.button>
+                {/* No per-card CTA on the home pricing display per request */}
               </motion.div>
             ))}
           </div>
@@ -316,212 +381,168 @@ const Pricing = () => {
                     : "bg-white border border-gray-200"
                 }`}
               >
+                {/* Make header sticky: wrap table in a vertically-scrollable container */}
                 <div className="overflow-x-auto">
-                  <table className="w-full">
-                    {/* Header with Plan Names and Pricing */}
-                    <thead>
-                      <tr
-                        className={`${
-                          isDark
-                            ? "bg-[#2d1129]/50 border-[#b76be0]/20"
-                            : "bg-gray-50 border-gray-200"
-                        }`}
-                      >
-                        <th className="px-8 py-6 text-left">
-                          <div
-                            className={`text-xl font-bold ${
-                              isDark ? "text-[#e9e7ee]" : "text-gray-900"
-                            }`}
-                          >
-                            Features
-                          </div>
-                        </th>
-                        <th className="px-8 py-6 text-center border-l border-gray-200">
-                          <div
-                            className={`text-2xl font-bold mb-2 ${
-                              isDark ? "text-[#e9e7ee]" : "text-gray-900"
-                            }`}
-                          >
-                            Free
-                          </div>
-                          <div
-                            className={`text-3xl font-bold mb-1 ${
-                              isDark ? "text-[#e9e7ee]" : "text-gray-900"
-                            }`}
-                          >
-                            $0
-                          </div>
-                          <div
-                            className={`text-sm ${
-                              isDark ? "text-[#e9e7ee]/80" : "text-gray-500"
-                            }`}
-                          >
-                            Forever free
-                          </div>
-                          <button className="mt-4 text-white px-6 py-3 rounded-full text-sm font-semibold hover:shadow-lg transition-all duration-200 transform hover:scale-105">
-                            Get Started →
-                          </button>
-                        </th>
-                        <th
-                          className={`px-8 py-6 text-center ${
+                  {/* pricing-table wrapper: force light table text in dark mode */}
+                  <div
+                    className={`max-h-[520px] overflow-y-auto pricing-scroll ${
+                      isDark ? "text-white" : ""
+                    }`}
+                  >
+                    <table className="w-full">
+                      {/* Header with Plan Names and Pricing */}
+                      <thead>
+                        <tr
+                          className={`${
                             isDark
-                              ? "border-[#b76be0]/20"
-                              : "border-[#5e255dff]"
-                          } ${isDark ? "bg-[#fffff]" : "bg-[#9D14A8]"}`}
+                              ? "bg-[#2d1129] border-[#b76be0]/20"
+                              : "bg-gray-50 border-gray-200"
+                          }`}
                         >
-                          <div
-                            className={`text-2xl font-bold mb-2 ${
-                              isDark ? "text-[#ffffff]" : "text-white"
+                          <th
+                            className={`px-8 py-6 text-left sticky top-0 z-20 ${
+                              isDark ? "bg-[#2d1129]" : "bg-gray-50"
                             }`}
                           >
-                            Professional
-                          </div>
-                          <div
-                            className={`text-3xl font-bold mb-1 ${
-                              isDark ? "text-[#e9e7ee]" : "text-white"
+                            <div
+                              className={`text-xl font-bold ${
+                                isDark ? "text-[#e9e7ee]" : "text-gray-900"
+                              }`}
+                            >
+                              Features
+                            </div>
+                          </th>
+                          <th
+                            className={`px-8 py-6 text-center sticky top-0 z-20 ${
+                              isDark
+                                ? "bg-[#2d1129] border-[#2d1129]"
+                                : "border-l border-gray-200 bg-gray-50"
                             }`}
                           >
-                            $19
-                            <span
-                              className={`text-lg ${
+                            <div
+                              className={`text-2xl font-bold mb-2 ${
+                                isDark ? "text-[#e9e7ee]" : "text-gray-900"
+                              }`}
+                            >
+                              Basic
+                            </div>
+                            <div
+                              className={`text-3xl font-bold mb-1 ${
+                                isDark ? "text-[#e9e7ee]" : "text-gray-900"
+                              }`}
+                            >
+                              {billingPeriod === "yearly" ? "Free" : "$0"}
+                            </div>
+                            <div
+                              className={`text-sm ${
+                                isDark ? "text-[#e9e7ee]/80" : "text-gray-500"
+                              }`}
+                            >
+                              {billingPeriod === "yearly"
+                                ? "Forever free"
+                                : "USD/month"}
+                            </div>
+                            {/* Downgrade button removed per request */}
+                          </th>
+                          <th
+                            className={`px-8 py-6 text-center sticky top-0 z-20 ${
+                              isDark
+                                ? "bg-[#2d1129] border-[#2d1129]"
+                                : "border-[#5e255dff] bg-[#9D14A8]"
+                            }`}
+                          >
+                            <div
+                              className={`text-2xl font-bold mb-2 ${
+                                isDark ? "text-[#ffffff]" : "text-white"
+                              }`}
+                            >
+                              Grow
+                            </div>
+                            <div
+                              className={`text-3xl font-bold mb-1 ${
+                                isDark ? "text-[#e9e7ee]" : "text-white"
+                              }`}
+                            >
+                              {billingPeriod === "yearly" ? "$119.76" : "$9.98"}
+                              <span
+                                className={`text-lg ${
+                                  isDark ? "text-[#e9e7ee]/80" : "text-white"
+                                }`}
+                              >
+                                {billingPeriod === "yearly"
+                                  ? "/year"
+                                  : " USD/month"}
+                              </span>
+                            </div>
+                            <div
+                              className={`text-sm ${
                                 isDark ? "text-[#e9e7ee]/80" : "text-white"
                               }`}
                             >
-                              /month
-                            </span>
-                          </div>
-                          <div
-                            className={`text-sm ${
-                              isDark ? "text-[#e9e7ee]/80" : "text-white"
-                            }`}
-                          >
-                            Most popular
-                          </div>
-                          <button
-                            className={`mt-4 ${
+                              grow features
+                            </div>
+                            {/* current plan button intentionally omitted */}
+                          </th>
+                          <th
+                            className={`px-8 py-6 text-center sticky top-0 z-20 ${
                               isDark
-                                ? "bg-[#b76be0] hover:bg-[#a55bc8]"
-                                : "bg-gradient-to-r from-[#5e255dff] to-[#9d3ecb]"
-                            } text-white px-6 py-3 rounded-full text-sm font-semibold hover:shadow-lg transition-all duration-200 transform hover:scale-105`}
-                          >
-                            Start Free Trial →
-                          </button>
-                        </th>
-                        <th
-                          className={`px-8 py-6 text-center ${
-                            isDark ? "border-[#b76be0]/20" : "border-gray-200"
-                          } ${isDark ? "bg-[#2d1129]/50" : ""}`}
-                        >
-                          <div
-                            className={`text-2xl font-bold mb-2 ${
-                              isDark ? "text-[#e9e7ee]" : "text-gray-900"
+                                ? "bg-[#2d1129] border-[#2d1129]"
+                                : "border-gray-200 bg-gray-50"
                             }`}
                           >
-                            Enterprise
-                          </div>
-                          <div
-                            className={`text-3xl font-bold mb-1 ${
-                              isDark ? "text-[#e9e7ee]" : "text-gray-900"
-                            }`}
-                          >
-                            $49
-                            <span
-                              className={`text-lg ${
-                                isDark ? "text-[#e9e7ee]/80" : "text-gray-600"
+                            <div
+                              className={`text-2xl font-bold mb-2 ${
+                                isDark ? "text-[#e9e7ee]" : "text-gray-900"
                               }`}
                             >
-                              /month
-                            </span>
-                          </div>
-                          <div
-                            className={`text-sm ${
-                              isDark ? "text-[#e9e7ee]/80" : "text-gray-500"
+                              Advanced
+                            </div>
+                            <div
+                              className={`text-3xl font-bold mb-1 ${
+                                isDark ? "text-[#e9e7ee]" : "text-gray-900"
+                              }`}
+                            >
+                              {billingPeriod === "yearly"
+                                ? "$263.76"
+                                : "$21.98"}
+                              <span
+                                className={`text-lg ${
+                                  isDark ? "text-[#e9e7ee]/80" : "text-gray-600"
+                                }`}
+                              >
+                                {billingPeriod === "yearly"
+                                  ? "/year"
+                                  : " USD/month"}
+                              </span>
+                            </div>
+                            <div
+                              className={`text-sm ${
+                                isDark ? "text-[#e9e7ee]/80" : "text-gray-500"
+                              }`}
+                            >
+                              Advanced features
+                            </div>
+                            {/* Upgrade button removed per request */}
+                          </th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {/* Section title */}
+                        <tr>
+                          <td
+                            colSpan={4}
+                            className={`px-8 py-4 text-left font-semibold ${
+                              isDark
+                                ? "text-[#e9e7ee] bg-[#f8f5fb]/0"
+                                : "text-gray-700 bg-gray-50"
                             }`}
                           >
-                            Advanced features
-                          </div>
-                          <button
-                            className={`mt-4 text-white px-6 py-3 rounded-full text-sm font-semibold hover:shadow-lg transition-all duration-200 transform hover:scale-105`}
-                          >
-                            Get Started →
-                          </button>
-                        </th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {[
-                        {
-                          feature: "COD Orders per Month",
-                          subtitle: "UP TO 50 ORDERS",
-                          free: true,
-                          pro: true,
-                          premium: true,
-                        },
-                        {
-                          feature: "Form Customization",
-                          subtitle: "BASIC CUSTOMIZATION",
-                          free: true,
-                          pro: true,
-                          premium: true,
-                        },
-                        {
-                          feature: "Order Management Dashboard",
-                          free: true,
-                          pro: true,
-                          premium: true,
-                        },
-                        {
-                          feature: "Advanced Form Builder",
-                          subtitle: "UP TO 500 ORDERS",
-                          free: false,
-                          pro: true,
-                          premium: true,
-                        },
-                        {
-                          feature: "SMS Notifications",
-                          subtitle: "REAL-TIME ALERTS",
-                          free: false,
-                          pro: true,
-                          premium: true,
-                        },
-                        {
-                          feature: "Order Verification",
-                          subtitle: "AUTOMATED VERIFICATION",
-                          free: false,
-                          pro: true,
-                          premium: true,
-                        },
-                        {
-                          feature: "Analytics & Reports",
-                          subtitle: "DETAILED INSIGHTS",
-                          free: false,
-                          pro: true,
-                          premium: true,
-                        },
-                        {
-                          feature: "Unlimited COD Orders",
-                          subtitle: "NO LIMITS",
-                          free: false,
-                          pro: false,
-                          premium: true,
-                        },
-                        {
-                          feature: "White-label Options",
-                          subtitle: "CUSTOM BRANDING",
-                          free: false,
-                          pro: false,
-                          premium: true,
-                        },
-                        {
-                          feature: "API Access & Custom Integrations",
-                          subtitle: "DEVELOPER TOOLS",
-                          free: false,
-                          pro: false,
-                          premium: true,
-                        },
-                      ].map((row, index) => (
+                            Core Features
+                          </td>
+                        </tr>
+
+                        {/* Orders row */}
                         <tr
-                          key={index}
                           className={`transition-all duration-200 ${
                             isDark
                               ? "border-[#b76be0]/20 hover:bg-[#2d1129]/30"
@@ -534,24 +555,165 @@ const Pricing = () => {
                                 isDark ? "text-[#e9e7ee]" : "text-gray-900"
                               }`}
                             >
-                              {row.feature}
+                              Orders / month
                             </div>
-                            {row.subtitle && (
-                              <div
-                                className={`text-xs mt-1 font-medium tracking-wide ${
-                                  isDark ? "text-[#e9e7ee]/60" : "text-gray-500"
-                                }`}
-                              >
-                                {row.subtitle}
-                              </div>
-                            )}
                           </td>
                           <td
                             className={`px-8 py-6 text-center ${
                               isDark ? "border-[#b76be0]/20" : "border-gray-100"
                             }`}
                           >
-                            {row.free ? (
+                            Up to 60 orders /month
+                          </td>
+                          <td
+                            className={`px-8 py-6 text-center ${
+                              isDark
+                                ? "border-[#b76be0]/20 bg-[#2d1129]/20"
+                                : "border-gray-100 bg-gradient-to-br from-[#5e255dff]/5 to-[#9d3ecb]/5"
+                            }`}
+                          >
+                            Up to 490 orders /month
+                          </td>
+                          <td
+                            className={`px-8 py-6 text-center ${
+                              isDark ? "border-[#b76be0]/20" : "border-gray-100"
+                            }`}
+                          >
+                            Unlimited orders / month
+                          </td>
+                        </tr>
+
+                        {/* Feature checklist rows */}
+                        <tr
+                          className={`transition-all duration-200 ${
+                            isDark
+                              ? "border-[#b76be0]/20 hover:bg-[#2d1129]/30"
+                              : "border-gray-100 hover:bg-gray-50/50"
+                          }`}
+                        >
+                          <td className="px-8 py-6 text-left">
+                            <div
+                              className={`font-medium text-lg ${
+                                isDark ? "text-[#e9e7ee]" : "text-gray-900"
+                              }`}
+                            >
+                              1-Click Upsells
+                            </div>
+                          </td>
+                          <td
+                            className={`px-8 py-6 text-center ${
+                              isDark ? "border-[#b76be0]/20" : "border-gray-100"
+                            }`}
+                          >
+                            <div
+                              className={`inline-flex items-center justify-center w-8 h-8 rounded-full ${
+                                isDark ? "bg-green-500/20" : "bg-green-100"
+                              }`}
+                            >
+                              <svg
+                                className={`w-5 h-5 ${
+                                  isDark ? "text-green-400" : "text-green-600"
+                                }`}
+                                fill="currentColor"
+                                viewBox="0 0 20 20"
+                              >
+                                <path
+                                  fillRule="evenodd"
+                                  d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                                  clipRule="evenodd"
+                                />
+                              </svg>
+                            </div>
+                          </td>
+                          <td
+                            className={`px-8 py-6 text-center ${
+                              isDark
+                                ? "border-[#b76be0]/20 bg-[#2d1129]/20"
+                                : "border-gray-100 bg-gradient-to-br from-[#5e255dff]/5 to-[#9d3ecb]/5"
+                            }`}
+                          >
+                            <div
+                              className={`inline-flex items-center justify-center w-8 h-8 rounded-full ${
+                                isDark ? "bg-green-500/20" : "bg-green-100"
+                              }`}
+                            >
+                              <svg
+                                className={`w-5 h-5 ${
+                                  isDark ? "text-green-400" : "text-green-600"
+                                }`}
+                                fill="currentColor"
+                                viewBox="0 0 20 20"
+                              >
+                                <path
+                                  fillRule="evenodd"
+                                  d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                                  clipRule="evenodd"
+                                />
+                              </svg>
+                            </div>
+                          </td>
+                          <td
+                            className={`px-8 py-6 text-center ${
+                              isDark ? "border-[#b76be0]/20" : "border-gray-100"
+                            }`}
+                          >
+                            <div
+                              className={`inline-flex items-center justify-center w-8 h-8 rounded-full ${
+                                isDark ? "bg-green-500/20" : "bg-green-100"
+                              }`}
+                            >
+                              <svg
+                                className={`w-5 h-5 ${
+                                  isDark ? "text-green-400" : "text-green-600"
+                                }`}
+                                fill="currentColor"
+                                viewBox="0 0 20 20"
+                              >
+                                <path
+                                  fillRule="evenodd"
+                                  d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                                  clipRule="evenodd"
+                                />
+                              </svg>
+                            </div>
+                          </td>
+                        </tr>
+
+                        {/* Reuse same structure for the remaining simple feature rows */}
+                        {[
+                          "Quantity offers",
+                          "Google Sheets",
+                          "Abandoned carts",
+                          "Discount codes",
+                          "Shipping rates",
+                          "Google Autocomplete",
+                          "Multi-Pixels",
+                          "Multi-Language",
+                        ].map((feat, i) => (
+                          <tr
+                            key={i}
+                            className={`transition-all duration-200 ${
+                              isDark
+                                ? "border-[#b76be0]/20 hover:bg-[#2d1129]/30"
+                                : "border-gray-100 hover:bg-gray-50/50"
+                            }`}
+                          >
+                            <td className="px-8 py-6 text-left">
+                              <div
+                                className={`font-medium text-lg ${
+                                  isDark ? "text-[#e9e7ee]" : "text-gray-900"
+                                }`}
+                              >
+                                {feat}
+                              </div>
+                            </td>
+                            <td
+                              className={`px-8 py-6 text-center ${
+                                isDark
+                                  ? "border-[#b76be0]/20"
+                                  : "border-gray-100"
+                              }`}
+                            >
                               <div
                                 className={`inline-flex items-center justify-center w-8 h-8 rounded-full ${
                                   isDark ? "bg-green-500/20" : "bg-green-100"
@@ -571,130 +733,108 @@ const Pricing = () => {
                                   />
                                 </svg>
                               </div>
-                            ) : (
+                            </td>
+                            <td
+                              className={`px-8 py-6 text-center ${
+                                isDark
+                                  ? "border-[#b76be0]/20 bg-[#2d1129]/20"
+                                  : "border-gray-100 bg-gradient-to-br from-[#5e255dff]/5 to-[#9d3ecb]/5"
+                              }`}
+                            >
                               <div
                                 className={`inline-flex items-center justify-center w-8 h-8 rounded-full ${
-                                  isDark ? "bg-red-500/20" : "bg-red-100"
+                                  isDark ? "bg-green-500/20" : "bg-green-100"
                                 }`}
                               >
                                 <svg
                                   className={`w-5 h-5 ${
-                                    isDark ? "text-red-400" : "text-red-500"
+                                    isDark ? "text-green-400" : "text-green-600"
                                   }`}
                                   fill="currentColor"
                                   viewBox="0 0 20 20"
                                 >
                                   <path
                                     fillRule="evenodd"
-                                    d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+                                    d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
                                     clipRule="evenodd"
                                   />
                                 </svg>
                               </div>
-                            )}
+                            </td>
+                            <td
+                              className={`px-8 py-6 text-center ${
+                                isDark
+                                  ? "border-[#b76be0]/20"
+                                  : "border-gray-100"
+                              }`}
+                            >
+                              <div
+                                className={`inline-flex items-center justify-center w-8 h-8 rounded-full ${
+                                  isDark ? "bg-green-500/20" : "bg-green-100"
+                                }`}
+                              >
+                                <svg
+                                  className={`w-5 h-5 ${
+                                    isDark ? "text-green-400" : "text-green-600"
+                                  }`}
+                                  fill="currentColor"
+                                  viewBox="0 0 20 20"
+                                >
+                                  <path
+                                    fillRule="evenodd"
+                                    d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                                    clipRule="evenodd"
+                                  />
+                                </svg>
+                              </div>
+                            </td>
+                          </tr>
+                        ))}
+
+                        {/* Support row */}
+                        <tr
+                          className={`transition-all duration-200 ${
+                            isDark
+                              ? "border-[#b76be0]/20 hover:bg-[#2d1129]/30"
+                              : "border-gray-100 hover:bg-gray-50/50"
+                          }`}
+                        >
+                          <td className="px-8 py-6 text-left">
+                            <div
+                              className={`font-medium text-lg ${
+                                isDark ? "text-[#e9e7ee]" : "text-gray-900"
+                              }`}
+                            >
+                              Support
+                            </div>
                           </td>
                           <td
                             className={`px-8 py-6 text-center ${
-                              isDark ? "border-[#b76be0]/20" : "border-gray-100"
-                            } ${
+                              isDark ? "text-[#e9e7ee]" : ""
+                            }`}
+                          >
+                            Email support
+                          </td>
+                          <td
+                            className={`px-8 py-6 text-center ${
                               isDark
-                                ? "bg-[#2d1129]/20"
+                                ? "text-[#e9e7ee]"
                                 : "bg-gradient-to-br from-[#5e255dff]/5 to-[#9d3ecb]/5"
                             }`}
                           >
-                            {row.pro ? (
-                              <div
-                                className={`inline-flex items-center justify-center w-8 h-8 rounded-full ${
-                                  isDark ? "bg-green-500/20" : "bg-green-100"
-                                }`}
-                              >
-                                <svg
-                                  className={`w-5 h-5 ${
-                                    isDark ? "text-green-400" : "text-green-600"
-                                  }`}
-                                  fill="currentColor"
-                                  viewBox="0 0 20 20"
-                                >
-                                  <path
-                                    fillRule="evenodd"
-                                    d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-                                    clipRule="evenodd"
-                                  />
-                                </svg>
-                              </div>
-                            ) : (
-                              <div
-                                className={`inline-flex items-center justify-center w-8 h-8 rounded-full ${
-                                  isDark ? "bg-red-500/20" : "bg-red-100"
-                                }`}
-                              >
-                                <svg
-                                  className={`w-5 h-5 ${
-                                    isDark ? "text-red-400" : "text-red-500"
-                                  }`}
-                                  fill="currentColor"
-                                  viewBox="0 0 20 20"
-                                >
-                                  <path
-                                    fillRule="evenodd"
-                                    d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
-                                    clipRule="evenodd"
-                                  />
-                                </svg>
-                              </div>
-                            )}
+                            Email & WhatsApp support
                           </td>
                           <td
                             className={`px-8 py-6 text-center ${
-                              isDark ? "border-[#b76be0]/20" : "border-gray-100"
+                              isDark ? "text-[#e9e7ee]" : ""
                             }`}
                           >
-                            {row.premium ? (
-                              <div
-                                className={`inline-flex items-center justify-center w-8 h-8 rounded-full ${
-                                  isDark ? "bg-green-500/20" : "bg-green-100"
-                                }`}
-                              >
-                                <svg
-                                  className={`w-5 h-5 ${
-                                    isDark ? "text-green-400" : "text-green-600"
-                                  }`}
-                                  fill="currentColor"
-                                  viewBox="0 0 20 20"
-                                >
-                                  <path
-                                    fillRule="evenodd"
-                                    d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-                                    clipRule="evenodd"
-                                  />
-                                </svg>
-                              </div>
-                            ) : (
-                              <div
-                                className={`inline-flex items-center justify-center w-8 h-8 rounded-full ${
-                                  isDark ? "bg-red-500/20" : "bg-red-100"
-                                }`}
-                              >
-                                <svg
-                                  className={`w-5 h-5 ${
-                                    isDark ? "text-red-400" : "text-red-500"
-                                  }`}
-                                  fill="currentColor"
-                                  viewBox="0 0 20 20"
-                                >
-                                  <path
-                                    fillRule="evenodd"
-                                    d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
-                                    clipRule="evenodd"
-                                  />
-                                </svg>
-                              </div>
-                            )}
+                            Email & WhatsApp support
                           </td>
                         </tr>
-                      ))}
-                    </tbody>
-                  </table>
+                      </tbody>
+                    </table>
+                  </div>
                 </div>
               </div>
             </motion.div>
@@ -784,7 +924,7 @@ const Pricing = () => {
                     <motion.button
                       className={`px-8 py-4 rounded-full font-semibold text-lg transition-all duration-200 flex items-center gap-2 min-w-[200px] justify-center ${
                         isDark
-                          ? "bg-[#b76be0] text-[#0f0712] hover:bg-[#a55bc8]"
+                          ? "bg-[#b76be0] text-gray-300 hover:bg-[#a55bc8]"
                           : "bg-white text-[#5e255dff] hover:bg-gray-100"
                       }`}
                       whileHover={{ scale: 1.05 }}

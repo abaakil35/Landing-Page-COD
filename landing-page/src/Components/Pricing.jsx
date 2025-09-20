@@ -2,6 +2,7 @@ import { motion } from "framer-motion";
 import { useLocation, Link } from "react-router-dom";
 import { useContext, useEffect, useState } from "react";
 import ThemeContext from "../Context/ThemeContextContext.js";
+import Ready from "./ready";
 
 const plans = [
   {
@@ -810,7 +811,7 @@ const Pricing = () => {
                           </td>
                           <td
                             className={`px-8 py-6 text-center ${
-                              isDark ? "text-[#e9e7ee]" : ""
+                              isDark ? "text-white" : ""
                             }`}
                           >
                             Email support
@@ -818,7 +819,7 @@ const Pricing = () => {
                           <td
                             className={`px-8 py-6 text-center ${
                               isDark
-                                ? "text-[#e9e7ee]"
+                                ? "text-white"
                                 : "bg-gradient-to-br from-[#5e255dff]/5 to-[#9d3ecb]/5"
                             }`}
                           >
@@ -826,7 +827,7 @@ const Pricing = () => {
                           </td>
                           <td
                             className={`px-8 py-6 text-center ${
-                              isDark ? "text-[#e9e7ee]" : ""
+                              isDark ? "text-white" : ""
                             }`}
                           >
                             Email & WhatsApp support
@@ -1032,6 +1033,8 @@ const Pricing = () => {
               </div>
             </motion.div>
           )}
+          {/* Ready card at bottom of pricing page */}
+          {isPricingPage && <Ready />}
         </div>
       </div>
     </section>

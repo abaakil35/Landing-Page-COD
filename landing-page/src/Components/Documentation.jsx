@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect, useContext, useRef } from "react";
 import { motion } from "framer-motion";
 import { useSearchParams } from "react-router-dom";
 import ThemeContext from "../Context/ThemeContextContext.js";
@@ -8,6 +8,21 @@ import ThemeToggle from "./ThemeToggle";
 const Documentation = () => {
   const [searchParams] = useSearchParams();
   const [activeSection, setActiveSection] = useState("onboarding");
+
+  // Click handler for right-hand TOC: prevent default anchor jump,
+  // switch the rendered section, then scroll to the target anchor
+  // after React has rendered the new content.
+  const handleTocClick = (e, sectionId, anchorId) => {
+    if (e && e.preventDefault) e.preventDefault();
+    setActiveSection(sectionId);
+    // small delay to allow React to render the target section
+    setTimeout(() => {
+      const el = document.getElementById(anchorId);
+      if (el) {
+        el.scrollIntoView({ behavior: "smooth", block: "start" });
+      }
+    }, 60);
+  };
 
   // Handle URL parameters to set active section
   useEffect(() => {
@@ -73,6 +88,34 @@ const Documentation = () => {
 
   // paragraph text class: lighter in dark mode for better readability
   const pClass = theme === "dark" ? "text-gray-400" : "text-gray-600";
+
+  // Right-hand dynamic Table of Contents (scanned from rendered content)
+  const contentRef = useRef(null);
+  const [tocItems, setTocItems] = useState([]);
+
+  useEffect(() => {
+    if (!contentRef.current) return;
+    // find h2 and h3 with ids inside the content area
+    const nodes = Array.from(
+      contentRef.current.querySelectorAll("h2[id], h3[id]")
+    );
+    const items = [];
+    nodes.forEach((node) => {
+      const id = node.id;
+      const text = node.textContent || node.innerText || id;
+      if (node.tagName.toLowerCase() === "h2") {
+        items.push({ id, text, children: [] });
+      } else if (node.tagName.toLowerCase() === "h3") {
+        if (items.length === 0) {
+          // orphan h3, push as a top-level entry
+          items.push({ id, text, children: [] });
+        } else {
+          items[items.length - 1].children.push({ id, text });
+        }
+      }
+    });
+    setTocItems(items);
+  }, [activeSection, theme]);
 
   return (
     <div
@@ -144,9 +187,14 @@ const Documentation = () => {
 
         {/* Main Content */}
         <div
-          className="flex-1 ml-64 pt-6"
+          ref={contentRef}
+          className={`flex-1 ml-64 pt-6 ${theme === "dark" ? "doc-dark" : ""}`}
           style={{ color: theme === "dark" ? "#e9e7ee" : undefined }}
         >
+          {/* Scoped rule: make content h3 headings pure white in dark mode (keeps sidebar untouched) */}
+          {theme === "dark" && (
+            <style>{`.doc-dark h3{ color: #ffffff !important; }`}</style>
+          )}
           <div
             className={`max-w-4xl mx-8 px-6 py-8 mb-6 ${
               theme === "dark" ? "bg-transparent" : "bg-transparent"
@@ -190,7 +238,7 @@ const Documentation = () => {
                   {/* Introduction Section */}
                   <h1
                     className={`text-4xl font-bold mb-4 ${
-                      theme === "dark" ? "text-gray-300" : "text-gray-900"
+                      theme === "dark" ? "text-white" : "text-gray-900"
                     }`}
                   >
                     Introduction
@@ -205,7 +253,7 @@ const Documentation = () => {
                     <div className=" p-4 rounded-lg">
                       <h3
                         className={`font-semibold mb-2 ${
-                          theme === "dark" ? "text-gray-200" : "text-gray-900"
+                          theme === "dark" ? "text-white" : "text-gray-900"
                         }`}
                       >
                         What is COD Rocket?
@@ -220,13 +268,13 @@ const Documentation = () => {
               ) : activeSection === "form-builder" ? (
                 <>
                   {/* Form Builder Section */}
-                  <h1
+                  <h2
                     className={`text-4xl font-bold mb-6 ${
-                      theme === "dark" ? "text-gray-300" : "text-gray-900"
+                      theme === "dark" ? "text-white" : "text-gray-900"
                     }`}
                   >
                     Form Builder
-                  </h1>
+                  </h2>
                   <p className={`text-lg mb-8 leading-relaxed ${pClass}`}>
                     Master our intuitive drag-and-drop form builder to create
                     high-converting COD forms with advanced customization
@@ -236,7 +284,7 @@ const Documentation = () => {
                     <div className=" p-6 rounded-lg">
                       <h3
                         className={`font-semibold mb-2 ${
-                          theme === "dark" ? "text-gray-200" : "text-gray-900"
+                          theme === "dark" ? "text-white" : "text-gray-900"
                         }`}
                       >
                         Drag & Drop Interface
@@ -249,7 +297,7 @@ const Documentation = () => {
                     <div className=" p-6 rounded-lg">
                       <h3
                         className={`font-semibold mb-2 ${
-                          theme === "dark" ? "text-gray-200" : "text-gray-900"
+                          theme === "dark" ? "text-white" : "text-gray-900"
                         }`}
                       >
                         Pre-built Templates
@@ -266,7 +314,7 @@ const Documentation = () => {
                   {/* Order Management Section */}
                   <h1
                     className={`text-4xl font-bold mb-6 ${
-                      theme === "dark" ? "text-gray-300" : "text-gray-900"
+                      theme === "dark" ? "text-white" : "text-gray-900"
                     }`}
                   >
                     Order Management
@@ -310,7 +358,7 @@ const Documentation = () => {
                   {/* Shopify Integration Section */}
                   <h1
                     className={`text-4xl font-bold mb-6 ${
-                      theme === "dark" ? "text-gray-300" : "text-gray-900"
+                      theme === "dark" ? "text-white" : "text-gray-900"
                     }`}
                   >
                     Shopify Integration
@@ -353,7 +401,7 @@ const Documentation = () => {
                   {/* Customization Section */}
                   <h1
                     className={`text-4xl font-bold mb-6 ${
-                      theme === "dark" ? "text-gray-300" : "text-gray-900"
+                      theme === "dark" ? "text-white" : "text-gray-900"
                     }`}
                   >
                     Customization
@@ -396,7 +444,7 @@ const Documentation = () => {
                   {/* Troubleshooting Section */}
                   <h1
                     className={`text-4xl font-bold mb-6 ${
-                      theme === "dark" ? "text-gray-300" : "text-gray-900"
+                      theme === "dark" ? "text-[#e9e7ee]" : "text-gray-900"
                     }`}
                   >
                     Troubleshooting
@@ -587,7 +635,7 @@ const Documentation = () => {
                   {/* Onboarding Section */}
                   <h1
                     className={`text-4xl font-bold mb-6 ${
-                      theme === "dark" ? "text-gray-300" : "text-gray-900"
+                      theme === "dark" ? "text-[#e9e7ee]" : "text-gray-900"
                     }`}
                   >
                     Onboarding
@@ -679,7 +727,11 @@ const Documentation = () => {
                       </p>
                     </div>
                     <div>
-                      <h3 className="font-semibold text-gray-900 mb-2">
+                      <h3
+                        className={`font-semibold mb-2 ${
+                          theme === "dark" ? "text-white" : "text-gray-900"
+                        }`}
+                      >
                         Team Training
                       </h3>
                       <p className={pClass}>
@@ -696,7 +748,11 @@ const Documentation = () => {
                       </p>
                     </div>
                     <div>
-                      <h3 className="font-semibold text-gray-900 mb-2">
+                      <h3
+                        className={`font-semibold mb-2 ${
+                          theme === "dark" ? "text-white" : "text-gray-900"
+                        }`}
+                      >
                         Success Metrics
                       </h3>
                       <p className={pClass}>
@@ -711,7 +767,11 @@ const Documentation = () => {
                       </p>
                     </div>
                     <div>
-                      <h3 className="font-semibold text-gray-900 mb-2">
+                      <h3
+                        className={`font-semibold mb-2 ${
+                          theme === "dark" ? "text-white" : "text-gray-900"
+                        }`}
+                      >
                         Ongoing Support
                       </h3>
                       <p className={pClass}>
@@ -731,7 +791,7 @@ const Documentation = () => {
                   {/* Toolkit Features Section */}
                   <h1
                     className={`text-4xl font-bold mb-6 ${
-                      theme === "dark" ? "text-gray-300" : "text-gray-900"
+                      theme === "dark" ? "text-[#e9e7ee]" : "text-gray-900"
                     }`}
                   >
                     Toolkit Features
@@ -923,7 +983,7 @@ const Documentation = () => {
                   {/* Default Content */}
                   <h1
                     className={`text-4xl font-bold mb-6 ${
-                      theme === "dark" ? "text-gray-300" : "text-gray-900"
+                      theme === "dark" ? "text-[#e9e7ee]" : "text-gray-900"
                     }`}
                   >
                     Onboarding
@@ -950,7 +1010,10 @@ const Documentation = () => {
                       animate={{ opacity: 1, y: 0 }}
                       transition={{ duration: 0.4 }}
                     >
-                      <h2 className="text-2xl font-semibold text-gray-900 mb-4">
+                      <h2
+                        id="platform-overview"
+                        className="text-2xl font-semibold text-gray-900 mb-4"
+                      >
                         Platform Overview
                       </h2>
                       <p className={`leading-relaxed mb-4 ${pClass}`}>
@@ -975,7 +1038,10 @@ const Documentation = () => {
                       animate={{ opacity: 1, y: 0 }}
                       transition={{ duration: 0.4, delay: 0.1 }}
                     >
-                      <h2 className="text-2xl font-semibold text-gray-900 mb-4">
+                      <h2
+                        id="account-setup"
+                        className="text-2xl font-semibold text-gray-900 mb-4"
+                      >
                         Account Setup
                       </h2>
                       <p className={`leading-relaxed mb-4 ${pClass}`}>
@@ -1000,7 +1066,10 @@ const Documentation = () => {
                       animate={{ opacity: 1, y: 0 }}
                       transition={{ duration: 0.4, delay: 0.2 }}
                     >
-                      <h2 className="text-2xl font-semibold text-gray-900 mb-4">
+                      <h2
+                        id="using-command-line"
+                        className="text-2xl font-semibold text-gray-900 mb-4"
+                      >
                         Using the Command Line
                       </h2>
                       <p className={`leading-relaxed mb-4 ${pClass}`}>
@@ -1034,7 +1103,10 @@ const Documentation = () => {
                       animate={{ opacity: 1, y: 0 }}
                       transition={{ duration: 0.4, delay: 0.3 }}
                     >
-                      <h2 className="text-2xl font-semibold text-gray-900 mb-4">
+                      <h2
+                        id="first-cod-form"
+                        className="text-2xl font-semibold text-gray-900 mb-4"
+                      >
                         Your First COD Form
                       </h2>
                       <p className={`leading-relaxed mb-4 ${pClass}`}>
@@ -1060,7 +1132,10 @@ const Documentation = () => {
                       animate={{ opacity: 1, y: 0 }}
                       transition={{ duration: 0.4, delay: 0.4 }}
                     >
-                      <h2 className="text-2xl font-semibold text-gray-900 mb-4">
+                      <h2
+                        id="order-management"
+                        className="text-2xl font-semibold text-gray-900 mb-4"
+                      >
                         Order Management
                       </h2>
                       <p className={`leading-relaxed mb-4 ${pClass}`}>
@@ -1087,7 +1162,10 @@ const Documentation = () => {
                       animate={{ opacity: 1, y: 0 }}
                       transition={{ duration: 0.4, delay: 0.5 }}
                     >
-                      <h2 className="text-2xl font-semibold text-gray-900 mb-4">
+                      <h2
+                        id="analytics-dashboard"
+                        className="text-2xl font-semibold text-gray-900 mb-4"
+                      >
                         Analytics Dashboard
                       </h2>
                       <p className={`leading-relaxed mb-4 ${pClass}`}>
@@ -1141,78 +1219,59 @@ const Documentation = () => {
               <span className="font-semibold text-sm">On this page</span>
             </div>
             <ul className="space-y-2 text-sm">
-              <li>
-                <a
-                  href="#platform-overview"
+              {tocItems.length === 0 ? (
+                <li
                   className={`${
-                    theme === "dark"
-                      ? "text-gray-300 hover:text-[#c48fbf]"
-                      : "text-gray-600 hover:text-[#5e255dff]"
-                  } transition-colors`}
+                    theme === "dark" ? "text-gray-400" : "text-gray-500"
+                  }`}
                 >
-                  Platform Overview
-                </a>
-              </li>
-              <li>
-                <a
-                  href="#account-setup"
-                  className={`${
-                    theme === "dark"
-                      ? "text-gray-300 hover:text-[#c48fbf]"
-                      : "text-gray-600 hover:text-[#5e255dff]"
-                  } transition-colors`}
-                >
-                  Account Setup
-                </a>
-              </li>
-              <li>
-                <a
-                  href="#using-command-line"
-                  className={`${
-                    theme === "dark"
-                      ? "text-gray-300 hover:text-[#c48fbf]"
-                      : "text-gray-600 hover:text-[#5e255dff]"
-                  } transition-colors`}
-                >
-                  Using the Command Line
-                </a>
-              </li>
-              <li>
-                <a
-                  href="#first-cod-form"
-                  className={`${
-                    theme === "dark"
-                      ? "text-gray-300 hover:text-[#c48fbf]"
-                      : "text-gray-600 hover:text-[#5e255dff]"
-                  } transition-colors`}
-                >
-                  Your First COD Form
-                </a>
-              </li>
-              <li>
-                <a
-                  href="#order-management"
-                  className={`${
-                    theme === "dark"
-                      ? "text-gray-300 hover:text-[#c48fbf]"
-                      : "text-gray-600 hover:text-[#5e255dff]"
-                  } transition-colors`}
-                >
-                  Order Management
-                </a>
-              </li>
-              <li>
-                <a
-                  href="#analytics-dashboard"
-                  className={`${
-                    theme === "dark"
-                      ? "text-gray-300 hover:text-[#c48fbf]"
-                      : "text-gray-600 hover:text-[#5e255dff]"
-                  } transition-colors`}
-                >
-                  Analytics Dashboard
-                </a>
-              </li>
+                  No headings found
+                </li>
+              ) : (
+                tocItems.map((item) => (
+                  <li key={item.id}>
+                    <div
+                      className={`font-medium ${
+                        theme === "dark" ? "text-gray-300" : "text-gray-700"
+                      }`}
+                    >
+                      <a
+                        href={`#${item.id}`}
+                        onClick={(e) =>
+                          handleTocClick(e, activeSection, item.id)
+                        }
+                        className="hover:text-[#c48fbf]"
+                      >
+                        {item.text}
+                      </a>
+                    </div>
+                    {item.children && item.children.length > 0 && (
+                      <ul className="ml-4 mt-2 space-y-1 text-sm">
+                        {item.children.map((child) => (
+                          <li
+                            key={child.id}
+                            className={`${
+                              theme === "dark"
+                                ? "text-gray-300"
+                                : "text-gray-600"
+                            }`}
+                          >
+                            <a
+                              href={`#${child.id}`}
+                              onClick={(e) =>
+                                handleTocClick(e, activeSection, child.id)
+                              }
+                              className="hover:text-[#c48fbf]"
+                            >
+                              {child.text}
+                            </a>
+                          </li>
+                        ))}
+                      </ul>
+                    )}
+                  </li>
+                ))
+              )}
             </ul>
           </div>
         </div>

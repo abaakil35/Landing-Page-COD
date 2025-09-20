@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
 import { useContext } from "react";
 import ThemeContext from "../Context/ThemeContextContext.js";
-import image from "./../assets/Adobe Express - file.png";
+import image from "./../assets/heropics.png";
 
 const HeroSection = () => {
   const { theme } = useContext(ThemeContext);
@@ -234,6 +234,58 @@ const HeroSection = () => {
               loading="eager"
               decoding="async"
             />
+            {/* bottom-right features card removed per request */}
+
+            {/* Floating card - top-left */}
+            <motion.div
+              initial={{ y: 0, scale: 0.95 }}
+              animate={{ y: [0, -4, 0], scale: [0.95, 1, 0.95] }}
+              transition={{ duration: 2.6, repeat: Infinity }}
+              className={`absolute top-2 left-2 rounded-xl p-2 shadow-lg flex items-center gap-2 ${
+                theme === "dark"
+                  ? "bg-[#0f0810] text-[#e9e7ee]"
+                  : "bg-white text-gray-800"
+              }`}
+            >
+              <div className="w-8 h-8 rounded-md bg-gradient-to-tr from-[#7c3aed] to-[#a78bfa] flex items-center justify-center text-white">
+                A
+              </div>
+              <div className="text-xs font-medium">Analytics</div>
+            </motion.div>
+
+            {/* Floating card - top-right */}
+            <motion.div
+              initial={{ y: 0, scale: 0.95 }}
+              animate={{ y: [0, -4, 0], scale: [0.95, 1, 0.95] }}
+              transition={{ duration: 2.8, repeat: Infinity }}
+              className={`absolute top-8 right-8 rounded-xl px-3 py-1 shadow-lg flex items-center gap-2 ${
+                theme === "dark"
+                  ? "bg-[#0f0810] text-[#e9e7ee]"
+                  : "bg-white text-gray-800"
+              }`}
+            >
+              <div className="w-6 h-6 rounded-md bg-gradient-to-tr from-[#5e255dff] to-[#a78bfa] flex items-center justify-center text-white">
+                U
+              </div>
+              <div className="text-xs font-medium">UX Tools</div>
+            </motion.div>
+
+            {/* Floating card - bottom-left */}
+            <motion.div
+              initial={{ y: 0, scale: 0.95 }}
+              animate={{ y: [0, -4, 0], scale: [0.95, 1, 0.95] }}
+              transition={{ duration: 2.4, repeat: Infinity }}
+              className={`absolute bottom-10 left-6 rounded-xl px-3 py-1 shadow-lg flex items-center gap-2 ${
+                theme === "dark"
+                  ? "bg-[#0f0810] text-[#e9e7ee]"
+                  : "bg-white text-gray-800"
+              }`}
+            >
+              <div className="w-6 h-6 rounded-md bg-gradient-to-tr from-[#5e255dff] to-[#a78bfa] flex items-center justify-center text-white">
+                T
+              </div>
+              <div className="text-xs font-medium">Trusted by 50K+</div>
+            </motion.div>
           </motion.div>
         </motion.div>
       </div>

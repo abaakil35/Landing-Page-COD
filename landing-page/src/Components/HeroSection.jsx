@@ -32,7 +32,7 @@ const HeroSection = () => {
             with Smart Forms
           </motion.h1>
           <motion.p
-            className={`mb-8 text-lg md:text-xl font-medium ${
+            className={`mb-6 text-lg md:text-xl font-medium ${
               theme === "dark" ? "text-[#e9e7ee]/90" : "text-gray-700"
             }`}
             initial={{ opacity: 0, y: 20 }}
@@ -44,19 +44,22 @@ const HeroSection = () => {
             completion rates with COD Rocket.
           </motion.p>
           <motion.div
-            className="flex gap-4 w-full md:w-auto"
+            className="mb-2 flex gap-4 w-full md:w-auto "
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.6 }}
           >
-            <motion.button
-              className="px-7 py-3 rounded-lg font-semibold text-lg text-white bg-[#5e255dff] hover:bg-[#4a1d49] transition-transform duration-200 transform hover:scale-105 shadow-md focus:outline-none focus:ring-2 focus:ring-[#5e255d] focus:ring-offset-2"
+            <motion.a
+              href="https://apps.shopify.com/codrocket"
+              target="_blank"
+              rel="noopener noreferrer"
+              className=" px-7 py-3 rounded-lg font-semibold text-lg text-white bg-[#5e255dff] hover:bg-[#4a1d49] transition-transform duration-200 transform hover:scale-105 shadow-md focus:outline-none focus:ring-2 focus:ring-[#5e255d] focus:ring-offset-2 inline-block"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
             >
-              Install Free App
-            </motion.button>
-            <motion.button
+              Install App From Shopify
+            </motion.a>
+            {/* <motion.button
               className={`px-7 py-3 rounded-lg font-semibold text-lg border-2 transition-transform duration-200 transform hover:scale-105 shadow focus:outline-none focus:ring-2 focus:ring-offset-2 ${
                 theme === "dark"
                   ? "text-[#e9e7ee] border-[#2d1129] bg-[#1b0f20] hover:bg-[#2d1129] focus:ring-[#b76be0]"
@@ -66,7 +69,7 @@ const HeroSection = () => {
               whileTap={{ scale: 0.95 }}
             >
               See The Doc
-            </motion.button>
+            </motion.button> */}
           </motion.div>
           <motion.div
             className={`flex flex-wrap items-center gap-x-6 gap-y-2 mt-4 text-sm font-medium ${
@@ -90,7 +93,7 @@ const HeroSection = () => {
                   clipRule="evenodd"
                 />
               </svg>
-              <span>14-day free trial</span>
+              <span> Free Plan Available </span>
             </div>
             <div className="flex items-center gap-2">
               <svg
@@ -125,70 +128,7 @@ const HeroSection = () => {
               <span>Easy installation</span>
             </div>
           </motion.div>
-          {/* Stats Bar */}
-          <motion.div
-            className="flex flex-col sm:flex-row items-center gap-5 mt-3 px-2 py-2 w-full md:w-auto"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 1.0 }}
-          >
-            <div className="flex items-center gap-1.5">
-              {/* User Icon */}
-              <svg width="20" height="20" fill="none" viewBox="0 0 24 24">
-                <path
-                  d="M12 12c2.761 0 5-2.239 5-5s-2.239-5-5-5-5 2.239-5 5 2.239 5 5 5zm0 2c-3.314 0-10 1.657-10 5v2c0 .553.447 1 1 1h18c.553 0 1-.447 1-1v-2c0-3.343-6.686-5-10-5z"
-                  fill={`${theme === "dark" ? "#b76be0" : "#a78bfa"}`}
-                />
-                <path
-                  d="M12 12c2.761 0 5-2.239 5-5s-2.239-5-5-5-5 2.239-5 5 2.239 5 5 5zm0 2c-3.314 0-10 1.657-10 5v2c0 .553.447 1 1 1h18c.553 0 1-.447 1-1v-2c0-3.343-6.686-5-10-5z"
-                  fill={`${theme === "dark" ? "#b76be0" : "#a78bfa"}`}
-                  fillOpacity=".2"
-                />
-              </svg>
-              <span
-                className={`font-bold text-lg ${
-                  theme === "dark" ? "text-[#e9e7ee]" : "text-gray-800"
-                }`}
-              >
-                50K
-                <span
-                  className={`font-normal text-sm ${
-                    theme === "dark" ? "text-[#e9e7ee]/70" : ""
-                  }`}
-                >
-                  + stores
-                </span>
-              </span>
-            </div>
-            <div className="flex items-center gap-1">
-              {/* 5 yellow stars */}
-              {[...Array(5)].map((_, i) => (
-                <svg
-                  key={i}
-                  width="16"
-                  height="16"
-                  fill="#FFD600"
-                  viewBox="0 0 24 24"
-                >
-                  <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" />
-                </svg>
-              ))}
-              <span
-                className={`font-bold text-lg ml-1 ${
-                  theme === "dark" ? "text-[#e9e7ee]" : "text-gray-800"
-                }`}
-              >
-                4.9
-              </span>
-              <span
-                className={`text-sm ml-1 ${
-                  theme === "dark" ? "text-[#e9e7ee]/70" : "text-gray-600"
-                }`}
-              >
-                rating
-              </span>
-            </div>
-          </motion.div>
+
         </motion.div>
 
         <motion.div
@@ -248,9 +188,21 @@ const HeroSection = () => {
               }`}
             >
               <div className="w-8 h-8 rounded-md bg-gradient-to-tr from-[#7c3aed] to-[#a78bfa] flex items-center justify-center text-white">
-                A
+                  <svg
+                className={`w-4 h-4 ${
+                  theme === "dark" ? "text-[#b76be0]" : "text-white"
+                }`}
+                fill="currentColor"
+                viewBox="0 0 20 20"
+              >
+                <path
+                  fillRule="evenodd"
+                  d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                  clipRule="evenodd"
+                />
+              </svg>
               </div>
-              <div className="text-xs font-medium">Analytics</div>
+              <div className="text-xs font-medium">Free Plan Available </div>
             </motion.div>
 
             {/* Floating card - top-right */}
@@ -265,9 +217,21 @@ const HeroSection = () => {
               }`}
             >
               <div className="w-6 h-6 rounded-md bg-gradient-to-tr from-[#5e255dff] to-[#a78bfa] flex items-center justify-center text-white">
-                U
+                  <svg
+                className={`w-4 h-4 ${
+                  theme === "dark" ? "text-[#b76be0]" : "text-white"
+                }`}
+                fill="currentColor"
+                viewBox="0 0 20 20"
+              >
+                <path
+                  fillRule="evenodd"
+                  d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                  clipRule="evenodd"
+                />
+              </svg>
               </div>
-              <div className="text-xs font-medium">UX Tools</div>
+              <div className="text-xs font-medium">No Setup Fees</div>
             </motion.div>
 
             {/* Floating card - bottom-left */}
@@ -282,9 +246,21 @@ const HeroSection = () => {
               }`}
             >
               <div className="w-6 h-6 rounded-md bg-gradient-to-tr from-[#5e255dff] to-[#a78bfa] flex items-center justify-center text-white">
-                T
+                <svg
+                className={`w-4 h-4 ${
+                  theme === "dark" ? "text-[#b76be0]" : "text-white"
+                }`}
+                fill="currentColor"
+                viewBox="0 0 20 20"
+              >
+                <path
+                  fillRule="evenodd"
+                  d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                  clipRule="evenodd"
+                />
+              </svg>
               </div>
-              <div className="text-xs font-medium">Trusted by 50K+</div>
+              <div className="text-xs font-medium">Easy Installation </div>
             </motion.div>
           </motion.div>
         </motion.div>

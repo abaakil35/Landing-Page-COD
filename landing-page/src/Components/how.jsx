@@ -21,19 +21,43 @@ function HowCODWorks() {
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
         >
-          <circle
-            cx="32"
-            cy="32"
-            r="30"
-            fill={isDark ? "#b76be0" : "#9d3ecb"}
+          <circle cx="32" cy="32" r="30" fill="url(#installGradient)" />
+          <rect
+            x="18"
+            y="20"
+            width="28"
+            height="24"
+            rx="4"
+            fill="#fff"
+            stroke="#e5e7eb"
+            strokeWidth="1"
           />
           <path
-            d="M20 44V24a4 4 0 0 1 4-4h16"
-            stroke={isDark ? "#e9e7ee" : "#ffff6f"}
-            strokeWidth="4"
+            d="M26 28h12M26 34h8M26 40h10"
+            stroke="#10b981"
+            strokeWidth="2"
             strokeLinecap="round"
           />
-          <circle cx="44" cy="20" r="6" fill={isDark ? "#a855f7" : "#5affff"} />
+          <circle cx="44" cy="24" r="4" fill="#f59e0b" />
+          <path
+            d="M42 24l2 2 4-4"
+            stroke="#fff"
+            strokeWidth="1.5"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          />
+          <defs>
+            <linearGradient
+              id="installGradient"
+              x1="0%"
+              y1="0%"
+              x2="100%"
+              y2="100%"
+            >
+              <stop offset="0%" stopColor="#f3e8ff" />
+              <stop offset="100%" stopColor="#e9d5ff" />
+            </linearGradient>
+          </defs>
         </svg>
       ),
     },
@@ -51,32 +75,35 @@ function HowCODWorks() {
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
         >
-          <circle
-            cx="32"
-            cy="32"
-            r="30"
-            fill={isDark ? "#58336cff" : "#59346eff"}
-          />
+          <circle cx="32" cy="32" r="30" fill="url(#customizeGradient)" />
           <rect
             x="18"
-            y="22"
+            y="20"
             width="28"
-            height="20"
+            height="24"
             rx="4"
-            fill={isDark ? "#ffffffff" : "#fff"}
+            fill="#fff"
+            stroke="#e5e7eb"
+            strokeWidth="1"
           />
-          <path
-            d="M24 32h16"
-            stroke={isDark ? "#1e1d1dff" : "#3f3f3f"}
-            strokeWidth="3"
-            strokeLinecap="round"
-          />
-          <path
-            d="M24 38h10"
-            stroke={isDark ? "#272728ff" : "#3f3f3f"}
-            strokeWidth="3"
-            strokeLinecap="round"
-          />
+          <circle cx="24" cy="28" r="2" fill="#ef4444" />
+          <circle cx="32" cy="28" r="2" fill="#f59e0b" />
+          <circle cx="40" cy="28" r="2" fill="#10b981" />
+          <rect x="22" y="36" width="20" height="2" rx="1" fill="#9d3ecb" />
+          <rect x="22" y="40" width="16" height="2" rx="1" fill="#a855f7" />
+          <path d="M48 16l-4 4 2 2 4-4-2-2z" fill="#6366f1" />
+          <defs>
+            <linearGradient
+              id="customizeGradient"
+              x1="0%"
+              y1="0%"
+              x2="100%"
+              y2="100%"
+            >
+              <stop offset="0%" stopColor="#fefbff" />
+              <stop offset="100%" stopColor="#f3e8ff" />
+            </linearGradient>
+          </defs>
         </svg>
       ),
     },
@@ -94,33 +121,41 @@ function HowCODWorks() {
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
         >
-          <circle
-            cx="32"
-            cy="32"
-            r="30"
-            fill={isDark ? "#673a7eff" : "#c946f8ff"}
-          />
+          <circle cx="32" cy="32" r="30" fill="url(#manageGradient)" />
           <rect
-            x="20"
-            y="24"
-            width="24"
-            height="16"
+            x="18"
+            y="16"
+            width="28"
+            height="32"
             rx="4"
-            fill={isDark ? "#f5f3f6ff" : "#fff"}
+            fill="#fff"
+            stroke="#e5e7eb"
+            strokeWidth="1"
           />
+          <rect x="22" y="22" width="20" height="2" rx="1" fill="#10b981" />
+          <rect x="22" y="26" width="16" height="2" rx="1" fill="#3b82f6" />
+          <rect x="22" y="30" width="18" height="2" rx="1" fill="#8b5cf6" />
+          <circle cx="24" cy="36" r="1.5" fill="#10b981" />
+          <rect x="28" y="34.5" width="10" height="3" rx="1.5" fill="#f59e0b" />
           <path
-            d="M28 32h8"
-            stroke={isDark ? "#29292aff" : "#08151bff"}
-            strokeWidth="3"
-            strokeLinecap="round"
-          />
-          <circle
-            cx="32"
-            cy="32"
-            r="12"
-            stroke={isDark ? "#fafafaff" : "#5affff"}
+            d="M20 40l3 3 6-6"
+            stroke="#10b981"
             strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
           />
+          <defs>
+            <linearGradient
+              id="manageGradient"
+              x1="0%"
+              y1="0%"
+              x2="100%"
+              y2="100%"
+            >
+              <stop offset="0%" stopColor="#f9f5ff" />
+              <stop offset="100%" stopColor="#f3e8ff" />
+            </linearGradient>
+          </defs>
         </svg>
       ),
     },

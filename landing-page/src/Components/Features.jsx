@@ -31,8 +31,8 @@ const features = [
     ),
   },
   {
-    title: "Real-time Validation",
-    desc: "Validate customer information instantly to reduce failed deliveries and ensure accurate order processing.",
+    title: "Order Management",
+    desc: "Easily manage and track COD orders directly from your Shopify admin with real-time updates and notifications.",
     icon: (
       <svg
         width="64"
@@ -41,33 +41,32 @@ const features = [
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
       >
-        <circle cx="32" cy="32" r="30" fill="url(#validationGradient)" />
-        <circle
-          cx="32"
-          cy="32"
-          r="16"
-          stroke="#10b981"
-          strokeWidth="3"
-          fill="#dcfce7"
+        <circle cx="32" cy="32" r="30" fill="url(#orderGradient)" />
+        <rect
+          x="18"
+          y="16"
+          width="28"
+          height="32"
+          rx="4"
+          fill="#fff"
+          stroke="#e5e7eb"
+          strokeWidth="1"
         />
+        <rect x="22" y="22" width="20" height="2" rx="1" fill="#10b981" />
+        <rect x="22" y="26" width="16" height="2" rx="1" fill="#3b82f6" />
+        <rect x="22" y="30" width="18" height="2" rx="1" fill="#8b5cf6" />
+        <circle cx="24" cy="36" r="1.5" fill="#10b981" />
+        <rect x="28" y="34.5" width="10" height="3" rx="1.5" fill="#f59e0b" />
         <path
-          d="M26 32l4 4 8-8"
+          d="M20 40l3 3 6-6"
           stroke="#10b981"
-          strokeWidth="3"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        />
-        <circle cx="48" cy="16" r="6" fill="#f59e0b" />
-        <path
-          d="M45 16l2 2 4-4"
-          stroke="#fff"
           strokeWidth="2"
           strokeLinecap="round"
           strokeLinejoin="round"
         />
         <defs>
           <linearGradient
-            id="validationGradient"
+            id="orderGradient"
             x1="0%"
             y1="0%"
             x2="100%"
@@ -436,8 +435,11 @@ const Features = () => {
             transition={{ duration: 0.8, delay: 0.5 }}
             viewport={{ once: true }}
           >
-            <motion.button
-              className="inline-flex items-center gap-3 px-8 py-4 bg-gradient-to-r from-[#5e255dff] to-[#a855f7] text-white font-semibold text-lg rounded-xl hover:from-[#4a1d49] hover:to-[#9333ea] transform hover:scale-105 transition-all duration-300 shadow-lg hover:shadow-xl focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2"
+            <motion.a
+              href="https://apps.shopify.com/codrocket"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-3 px-8 py-4 bg-gradient-to-r from-[#5e255dff] to-[#a855f7] text-white font-semibold text-lg rounded-xl hover:from-[#4a1d49] hover:to-[#9333ea] transform hover:scale-105 transition-all duration-300 shadow-lg hover:shadow-xl focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2 inline-block"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
             >
@@ -457,7 +459,7 @@ const Features = () => {
                   strokeLinejoin="round"
                 />
               </svg>
-            </motion.button>
+            </motion.a>
           </motion.div>
         </div>
       </div>

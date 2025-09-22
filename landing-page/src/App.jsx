@@ -96,7 +96,7 @@ function AppContent() {
                 {/* <FAQ /> */}
                 <Customers />
                 <Pricing />
-                <Contact />
+                {/* <Contact /> */}
                 <Ready />
               </>
             }
@@ -104,6 +104,7 @@ function AppContent() {
           <Route path="/features" element={<Features />} />
           <Route path="/how-it-works" element={<HowCODWorks />} />
           <Route path="/pricing" element={<Pricing />} />
+          <Route path="/contact" element={<Contact />} />
           <Route path="/doc" element={<Documentation />} />
           <Route path="/help-center" element={<HelpCenter />} />
           <Route path="/help-center/doc" element={<Documentation />} />

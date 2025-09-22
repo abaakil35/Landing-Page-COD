@@ -12,16 +12,7 @@ const Ready = () => {
       }`}
     >
       {/* Decorative blurred circles */}
-      <div
-        className={`absolute top-1/2 -translate-y-1/2 -left-12 lg:-left-24 w-48 lg:w-72 h-48 lg:h-72 rounded-full blur-3xl opacity-60 z-0 ${
-          isDark ? "bg-[#b76be0]/10" : "bg-[#9d3ecb]/20"
-        }`}
-      />
-      <div
-        className={`absolute top-1/2 -translate-y-1/2 -right-12 lg:-right-24 w-48 lg:w-72 h-48 lg:h-72 rounded-full blur-3xl opacity-60 z-0 ${
-          isDark ? "bg-[#a855f7]/10" : "bg-[#5affff]/20"
-        }`}
-      />
+    
       <div className="max-w-7xl mx-auto relative z-10 px-4">
         <div
           className={`mx-auto w-full backdrop-blur-md rounded-2xl py-12 md:py-16 px-8 flex flex-col items-center shadow-lg ${
@@ -57,7 +48,7 @@ const Ready = () => {
           </p>
           <div className="flex flex-col md:flex-row justify-center gap-4 lg:gap-6 mb-6 lg:mb-8 px-2">
             <a
-              href="#"
+              href="https://apps.shopify.com/codrocket"
               className={`w-full md:w-auto px-6 lg:px-10 py-4 lg:py-5 rounded-lg font-bold text-base lg:text-lg shadow-md hover:shadow-xl transition-all text-center ${
                 isDark
                   ? "bg-[#b76be0] text-[#0f0712] hover:bg-[#a55bc8]"
@@ -82,8 +73,7 @@ const Ready = () => {
               isDark ? "text-[#e9e7ee]/80" : "text-[#702c91]"
             }`}
           >
-            14-day free trial &bull; No credit card required &bull; Cancel
-            anytime
+            Free Plan Available &bull; Cancel anytime
           </div>
         </div>
       </div>

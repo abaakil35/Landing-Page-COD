@@ -88,6 +88,25 @@ const Pricing = () => {
   const isDark = theme === "dark";
   const [billingPeriod, setBillingPeriod] = useState("monthly");
 
+  // small helper: parse a price string like "$119.76" into a number (119.76)
+  const parsePrice = (priceStr) => {
+    if (!priceStr || typeof priceStr !== "string") return null;
+    const n = parseFloat(priceStr.replace(/[^0-9.]/g, ""));
+    return Number.isFinite(n) ? n : null;
+  };
+
+  // currency formatter
+  const currencyFormatter = new Intl.NumberFormat(undefined, {
+    style: "currency",
+    currency: "USD",
+    minimumFractionDigits: 2,
+  });
+
+  const formatCurrency = (v) => {
+    if (v === null || typeof v === "undefined" || Number.isNaN(v)) return null;
+    return currencyFormatter.format(v);
+  };
+
   // If user navigates to /pricing#compare, ensure the heading with id="compare" is scrolled into view
   useEffect(() => {
     try {
@@ -272,24 +291,97 @@ const Pricing = () => {
                 >
                   {plan.name}
                 </h3>
-                <div className="flex items-end mb-6">
-                  <span
-                    className={`text-3xl md:text-4xl font-extrabold mr-2 ${
-                      isDark ? "text-[#ffffff]" : "text-[#2d123a]"
-                    }`}
+                <div className="flex items-end mb-2">
+                  <button
+                    onClick={() =>
+                      setBillingPeriod(
+                        billingPeriod === "monthly" ? "yearly" : "monthly"
+                      )
+                    }
+                    aria-pressed={billingPeriod === "yearly"}
+                    className={`text-left focus:outline-none focus:ring-2 focus:ring-offset-2 rounded ${
+                      isDark ? "focus:ring-[#b76be0]" : "focus:ring-[#5e255dff]"
+                    } cursor-pointer hover:opacity-95 transition-all duration-150`}
+                    title="Toggle billing period"
                   >
-                    {billingPeriod === "yearly" ? plan.yearlyPrice : plan.price}
-                  </span>
-                  <span
-                    className={`text-lg md:text-xl ${
-                      isDark ? "text-[#ffffff]" : "text-[#702c91]"
-                    }`}
-                  >
-                    {billingPeriod === "yearly"
-                      ? plan.yearlyPeriod
-                      : plan.period}
-                  </span>
+                    <span
+                      className={`text-3xl md:text-4xl font-extrabold mr-2 ${
+                        isDark ? "text-[#ffffff]" : "text-[#2d123a]"
+                      }`}
+                    >
+                      {billingPeriod === "yearly"
+                        ? plan.yearlyPrice
+                        : plan.price}
+                    </span>
+                    <span
+                      className={`text-lg md:text-xl ${
+                        isDark ? "text-[#ffffff]" : "text-[#702c91]"
+                      }`}
+                    >
+                      {billingPeriod === "yearly"
+                        ? plan.yearlyPeriod
+                        : plan.period}
+                    </span>
+                  </button>
                 </div>
+                <div className="text-sm text-center mb-6 w-full">
+                  {billingPeriod === "monthly"
+                    ? (() => {
+                        const monthly = parsePrice(plan.price);
+                        if (monthly === null) return null;
+                        const annual = monthly * 12;
+                        if (annual === 0) {
+                          return (
+                            <div
+                              className={`${
+                                isDark ? "text-[#e9e7ee]/60" : "text-gray-500"
+                              }`}
+                            >
+                              Free
+                            </div>
+                          );
+                        }
+                        const formattedAnnual =
+                          formatCurrency(annual) ?? `$${annual.toFixed(2)}`;
+                        return (
+                          <div
+                            className={`${
+                              isDark ? "text-[#e9e7ee]/60" : "text-gray-500"
+                            }`}
+                          >
+                            Bill at {formattedAnnual} once per year
+                          </div>
+                        );
+                      })()
+                    : (() => {
+                        const annual = parsePrice(plan.yearlyPrice);
+                        if (annual === null || annual === 0) {
+                          // fallback to showing 'Free' when yearly is free or non-numeric
+                          return (
+                            <div
+                              className={`${
+                                isDark ? "text-[#e9e7ee]/60" : "text-gray-500"
+                              }`}
+                            >
+                              Free
+                            </div>
+                          );
+                        }
+                        const perMonth = annual / 12;
+                        const formattedPerMonth =
+                          formatCurrency(perMonth) ?? `$${perMonth.toFixed(2)}`;
+                        return (
+                          <div
+                            className={`${
+                              isDark ? "text-[#e9e7ee]/60" : "text-gray-500"
+                            }`}
+                          >
+                            Equivalent to {formattedPerMonth} per month
+                          </div>
+                        );
+                      })()}
+                </div>
+
                 <ul className="mb-8 w-full flex-grow">
                   {plan.features.map((feature, i) => (
                     <li
@@ -841,198 +933,158 @@ const Pricing = () => {
             </motion.div>
           )}
 
-          {/* Contact Sales Section */}
+          {/* Pricing FAQs */}
           {isPricingPage && (
             <motion.div
-              className="mt-20 mx-auto max-w-4xl"
+              className="mt-16 mx-auto max-w-6xl"
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.2 }}
               viewport={{ once: true }}
             >
-              <div
-                className={`rounded-3xl p-12 text-center relative overflow-hidden ${
-                  isDark
-                    ? "bg-[#2d1129]/80 border border-[#b76be0]/20"
-                    : "bg-gradient-to-br from-[#5e255dff] to-[#9d3ecb]"
-                }`}
-              >
-                {/* Background Pattern */}
-                <div className="absolute inset-0 opacity-10">
-                  <div
-                    className={`absolute top-0 left-0 w-40 h-40 rounded-full -translate-x-20 -translate-y-20 ${
-                      isDark ? "bg-[#b76be0]" : "bg-white"
-                    }`}
-                  ></div>
-                  <div
-                    className={`absolute bottom-0 right-0 w-32 h-32 rounded-full translate-x-16 translate-y-16 ${
-                      isDark ? "bg-[#b76be0]" : "bg-white"
-                    }`}
-                  ></div>
-                  <div
-                    className={`absolute top-1/2 left-1/4 w-6 h-6 rounded-full ${
-                      isDark ? "bg-[#b76be0]" : "bg-white"
-                    }`}
-                  ></div>
-                  <div
-                    className={`absolute top-1/4 right-1/4 w-4 h-4 rounded-full ${
-                      isDark ? "bg-[#b76be0]" : "bg-white"
-                    }`}
-                  ></div>
-                </div>
+              <div className="text-center mb-16">
+                <h3
+                  className={`text-4xl font-bold mb-6 ${
+                    isDark ? "text-[#e9e7ee]" : "text-gray-900"
+                  }`}
+                >
+                  Pricing FAQs
+                </h3>
+                <p
+                  className={`text-xl max-w-3xl mx-auto ${
+                    isDark ? "text-[#e9e7ee]/80" : "text-gray-600"
+                  }`}
+                >
+                  Quick answers to common questions about our pricing
+                </p>
+              </div>
 
-                <div className="relative z-10">
-                  <div
-                    className={`inline-flex items-center justify-center w-16 h-16 rounded-full mb-6 ${
-                      isDark ? "bg-[#b76be0]/20" : "bg-white/20"
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+                <div
+                  className={`p-6 rounded-xl ${
+                    isDark
+                      ? "bg-[#1b0f20]/50 border border-[#b76be0]/20"
+                      : "bg-white/80 border border-gray-200"
+                  }`}
+                >
+                  <h4
+                    className={`text-lg font-semibold mb-2 ${
+                      isDark ? "text-[#e9e7ee]" : "text-gray-900"
                     }`}
                   >
-                    <svg
-                      className={`w-8 h-8 ${
-                        isDark ? "text-[#b76be0]" : "text-white"
-                      }`}
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"
-                      />
-                    </svg>
-                  </div>
-
-                  <h3
-                    className={`text-3xl font-bold mb-4 ${
-                      isDark ? "text-[#e9e7ee]" : "text-white"
-                    }`}
-                  >
-                    Need Something Custom?
-                  </h3>
+                    Can I change plans anytime?
+                  </h4>
                   <p
-                    className={`text-xl mb-8 max-w-2xl mx-auto ${
-                      isDark ? "text-[#e9e7ee]/80" : "text-white/90"
+                    className={`text-sm ${
+                      isDark ? "text-[#e9e7ee]/80" : "text-gray-600"
                     }`}
                   >
-                    Looking for enterprise solutions, custom integrations, or
-                    have specific requirements? Our sales team is here to help
-                    you find the perfect solution for your business.
+                    Yes, you can upgrade or downgrade your plan at any time.
+                    Changes take effect immediately.
                   </p>
-
-                  <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-                    <motion.button
-                      className={`px-8 py-4 rounded-full font-semibold text-lg transition-all duration-200 flex items-center gap-2 min-w-[200px] justify-center ${
-                        isDark
-                          ? "bg-[#b76be0] text-gray-300 hover:bg-[#a55bc8]"
-                          : "bg-white text-[#5e255dff] hover:bg-gray-100"
-                      }`}
-                      whileHover={{ scale: 1.05 }}
-                      whileTap={{ scale: 0.95 }}
-                    >
-                      <svg
-                        className="w-5 h-5"
-                        fill="none"
-                        stroke="currentColor"
-                        viewBox="0 0 24 24"
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          strokeWidth={2}
-                          d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"
-                        />
-                      </svg>
-                      Contact Sales Team
-                    </motion.button>
-
-                    <motion.a
-                      href="mailto:sales@yourcompany.com"
-                      className={`transition-colors duration-200 flex items-center gap-2 text-lg ${
-                        isDark
-                          ? "text-[#e9e7ee]/80 hover:text-[#e9e7ee]"
-                          : "text-white/90 hover:text-white"
-                      }`}
-                      whileHover={{ scale: 1.05 }}
-                    >
-                      <svg
-                        className="w-5 h-5"
-                        fill="none"
-                        stroke="currentColor"
-                        viewBox="0 0 24 24"
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          strokeWidth={2}
-                          d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
-                        />
-                      </svg>
-                      sales@yourcompany.com
-                    </motion.a>
-                  </div>
-
-                  <div
-                    className={`mt-8 pt-8 ${
-                      isDark ? "border-[#b76be0]/20" : "border-white/20"
-                    } border-t`}
-                  >
-                    <div className="grid grid-cols-1 md:grid-cols-3 gap-6 text-center">
-                      <div>
-                        <div
-                          className={`text-2xl font-bold mb-1 ${
-                            isDark ? "text-[#e9e7ee]" : "text-white"
-                          }`}
-                        >
-                          24/7
-                        </div>
-                        <div
-                          className={`text-sm ${
-                            isDark ? "text-[#e9e7ee]/80" : "text-white/80"
-                          }`}
-                        >
-                          Enterprise Support
-                        </div>
-                      </div>
-                      <div>
-                        <div
-                          className={`text-2xl font-bold mb-1 ${
-                            isDark ? "text-[#e9e7ee]" : "text-white"
-                          }`}
-                        >
-                          99.9%
-                        </div>
-                        <div
-                          className={`text-sm ${
-                            isDark ? "text-[#e9e7ee]/80" : "text-white/80"
-                          }`}
-                        >
-                          Uptime Guarantee
-                        </div>
-                      </div>
-                      <div>
-                        <div
-                          className={`text-2xl font-bold mb-1 ${
-                            isDark ? "text-[#e9e7ee]" : "text-white"
-                          }`}
-                        >
-                          Custom
-                        </div>
-                        <div
-                          className={`text-sm ${
-                            isDark ? "text-[#e9e7ee]/80" : "text-white/80"
-                          }`}
-                        >
-                          Integration Solutions
-                        </div>
-                      </div>
-                    </div>
-                  </div>
                 </div>
+
+                <div
+                  className={`p-6 rounded-xl ${
+                    isDark
+                      ? "bg-[#1b0f20]/50 border border-[#b76be0]/20"
+                      : "bg-white/80 border border-gray-200"
+                  }`}
+                >
+                  <h4
+                    className={`text-lg font-semibold mb-2 ${
+                      isDark ? "text-[#e9e7ee]" : "text-gray-900"
+                    }`}
+                  >
+                    Is there a free trial?
+                  </h4>
+                  <p
+                    className={`text-sm ${
+                      isDark ? "text-[#e9e7ee]/80" : "text-gray-600"
+                    }`}
+                  >
+                    Yes, our Basic plan is completely free with up to 60 orders
+                    per month.
+                  </p>
+                </div>
+
+                <div
+                  className={`p-6 rounded-xl ${
+                    isDark
+                      ? "bg-[#1b0f20]/50 border border-[#b76be0]/20"
+                      : "bg-white/80 border border-gray-200"
+                  }`}
+                >
+                  <h4
+                    className={`text-lg font-semibold mb-2 ${
+                      isDark ? "text-[#e9e7ee]" : "text-gray-900"
+                    }`}
+                  >
+                    What payment methods do you accept?
+                  </h4>
+                  <p
+                    className={`text-sm ${
+                      isDark ? "text-[#e9e7ee]/80" : "text-gray-600"
+                    }`}
+                  >
+                    We accept all major credit cards, PayPal, and bank transfers
+                    for annual plans.
+                  </p>
+                </div>
+
+                <div
+                  className={`p-6 rounded-xl ${
+                    isDark
+                      ? "bg-[#1b0f20]/50 border border-[#b76be0]/20"
+                      : "bg-white/80 border border-gray-200"
+                  }`}
+                >
+                  <h4
+                    className={`text-lg font-semibold mb-2 ${
+                      isDark ? "text-[#e9e7ee]" : "text-gray-900"
+                    }`}
+                  >
+                    Do you offer refunds?
+                  </h4>
+                  <p
+                    className={`text-sm ${
+                      isDark ? "text-[#e9e7ee]/80" : "text-gray-600"
+                    }`}
+                  >
+                    We offer a 30-day money-back guarantee on all paid plans.
+                  </p>
+                </div>
+              </div>
+
+              <div className="text-center">
+                <Link
+                  to="/help-center"
+                  className={`inline-flex items-center justify-center px-6 py-3 rounded-lg font-medium transition-all duration-200 ${
+                    isDark
+                      ? "bg-[#b76be0]/20 text-[#b76be0] hover:bg-[#b76be0]/30 border border-[#b76be0]/30"
+                      : "bg-[#5e255dff]/10 text-[#5e255dff] hover:bg-[#5e255dff]/20 border border-[#5e255dff]/20"
+                  }`}
+                >
+                  <svg
+                    className="w-4 h-4 mr-2"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                    />
+                  </svg>
+                  More Information
+                </Link>
               </div>
             </motion.div>
           )}
+
+          {/* Ready card at bottom of pricing page */}
           {/* Ready card at bottom of pricing page */}
           {isPricingPage && <Ready />}
         </div>

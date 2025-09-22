@@ -9,11 +9,10 @@ import ThemeToggle from "./ThemeToggle";
 // navLinks: Navigation items for the main navbar. Each item uses React Router DOM for client-side navigation.
 const navLinks = [
   { to: "/", label: "Home" },
-  { to: "/features", label: "Features" },
-  { to: "/how-it-works", label: "How it Works" },
   { to: "/pricing", label: "Pricing" },
-  { to: "/doc", label: "Docs" }, // Documentation: Complete guide and API reference
+  // { to: "/doc", label: "Docs" }, // Documentation: Complete guide and API reference
   { to: "/help-center", label: "Help Center" }, // Help Center: Support and documentation page
+  { to: "/contact", label: "Contact" }, // Contact: Contact form / support
 ];
 
 const Navbar = () => {
@@ -141,26 +140,11 @@ const Navbar = () => {
           transition={{ duration: 0.6, delay: 0.8 }}
         >
           <ThemeToggle className="rounded-lg hover:bg-gray-100" />
-          <motion.div
-            initial={{ opacity: 0, y: -10 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.4, delay: 1.0 }}
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-          >
-            <Link
-              to="/login"
-              className={`px-4 py-2 rounded-lg font-medium text-base transition-colors ${
-                isDark
-                  ? "text-white hover:text-[#b76be0] hover:bg-[#2d1129]"
-                  : "text-gray-700 hover:text-[#5e255dff] hover:bg-gray-50"
-              }`}
-            >
-              Login
-            </Link>
-          </motion.div>
-          <motion.button
-            className="px-5 py-2 rounded-lg font-semibold text-base text-white bg-[#5e255dff] hover:bg-[#4a1d49] transition-all duration-200 transform hover:scale-105 shadow-sm focus:outline-none focus:ring-2 focus:ring-[#5e255d] focus:ring-offset-1"
+          <motion.a
+            href="https://apps.shopify.com/codrocket"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="px-5 py-2 rounded-lg font-semibold text-base text-white bg-[#5e255dff] hover:bg-[#4a1d49] transition-all duration-200 transform hover:scale-105 shadow-sm focus:outline-none focus:ring-2 focus:ring-[#5e255d] focus:ring-offset-1 inline-block"
             initial={{ opacity: 0, scale: 0.8 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.5, delay: 1.1 }}
@@ -168,7 +152,7 @@ const Navbar = () => {
             whileTap={{ scale: 0.95 }}
           >
             Install Now
-          </motion.button>
+          </motion.a>
         </motion.div>
 
         {/* Mobile Hamburger Menu */}
@@ -212,10 +196,10 @@ const Navbar = () => {
                 ? "bg-[#120913] border-gray-700"
                 : "bg-white border-gray-200"
             } border-t shadow-xl z-50`}
-            initial={{ opacity: 0, y: -20, height: 0 }}
-            animate={{ opacity: 1, y: 0, height: "auto" }}
-            exit={{ opacity: 0, y: -20, height: 0 }}
-            transition={{ duration: 0.3, ease: "easeOut" }}
+            initial={{ opacity: 0, height: 0 }}
+            animate={{ opacity: 1, height: "auto" }}
+            exit={{ opacity: 0, height: 0 }}
+            transition={{ duration: 0.28, ease: "easeOut" }}
           >
             <motion.div
               className="px-6 py-4 space-y-2"
@@ -298,29 +282,12 @@ const Navbar = () => {
                   )}
                 </motion.button>
 
-                <motion.div
-                  initial={{ opacity: 0, y: 10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.5, duration: 0.3 }}
-                  whileHover={{ scale: 1.02 }}
-                  whileTap={{ scale: 0.98 }}
-                >
-                  <Link
-                    to="/login"
-                    className={`w-full px-4 py-3 rounded-lg font-medium text-lg transition-colors border block text-center ${
-                      isDark
-                        ? "text-white hover:text-[#b76be0] hover:bg-[#2d1129] border-[#b76be0]/30"
-                        : "text-gray-700 hover:text-[#5e255dff] hover:bg-gray-50 border-gray-300"
-                    }`}
-                    onClick={() => setIsMobileMenuOpen(false)}
-                  >
-                    Login
-                  </Link>
-                </motion.div>
-
-                <motion.button
-                  className="w-full px-5 py-3 rounded-lg font-semibold text-lg text-white bg-[#5e255dff] hover:bg-[#4a1d49] transition-all duration-200 shadow-sm"
+                <motion.a
+                  href="https://apps.shopify.com/codrocket"
+                  target="_blank"
+                  rel="noopener noreferrer"
                   onClick={() => setIsMobileMenuOpen(false)}
+                  className="w-full px-5 py-3 rounded-lg font-semibold text-lg text-white bg-[#5e255dff] hover:bg-[#4a1d49] transition-all duration-200 shadow-sm inline-block text-center"
                   whileHover={{ scale: 1.02, y: -2 }}
                   whileTap={{ scale: 0.98 }}
                   initial={{ opacity: 0, y: 10 }}
@@ -328,7 +295,7 @@ const Navbar = () => {
                   transition={{ delay: 0.6, duration: 0.3 }}
                 >
                   Install Now
-                </motion.button>
+                </motion.a>
               </motion.div>
             </motion.div>
           </motion.div>

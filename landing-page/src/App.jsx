@@ -17,7 +17,6 @@ import Customers from "./Components/customers";
 import Contact from "./Components/contact";
 import HelpCenter from "./Components/helpCenter";
 import Documentation from "./Components/Documentation";
-import Login from "./Components/Connexion/Login";
 import { ThemeProvider } from "./Context/ThemeContext";
 import { useEffect } from "react";
 import Helpcenter1 from "./Components/Helpcenter1";
@@ -27,8 +26,13 @@ function AppContent() {
   const location = useLocation();
   const isDocPage =
     location.pathname === "/doc" || location.pathname === "/help-center/doc";
-  const isLoginPage = location.pathname === "/login";
   const isHelpCenterPage = location.pathname === "/help-center";
+
+  useEffect(() => {
+    // Scroll to top on route change
+    if (typeof window !== "undefined")
+      window.scrollTo({ top: 0, behavior: "smooth" });
+  }, [location.pathname]);
 
   return (
     <>
@@ -47,7 +51,7 @@ function AppContent() {
           document.head.appendChild(m);
         }
       }, [])}
-      {!isLoginPage && !isHelpCenterPage && <Navbar />}
+      {!isHelpCenterPage && <Navbar />}
       <div>
         <Routes>
           <Route
@@ -84,11 +88,10 @@ function AppContent() {
           <Route path="/doc" element={<Documentation />} />
           <Route path="/help-center" element={<Helpcenter1 />} />
           <Route path="/help-center/doc" element={<Documentation />} />
-          <Route path="/login" element={<Login />} />
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
       </div>
-      {!isDocPage && !isLoginPage && !isHelpCenterPage && <Footer />}
+      {!isDocPage && !isHelpCenterPage && <Footer />}
     </>
   );
 }

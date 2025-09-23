@@ -15,11 +15,12 @@ const navLinks = [
   { to: "/contact", label: "Contact" }, // Contact: Contact form / support
 ];
 
-const Navbar = () => {
+const Navbar = ({ variant }) => {
   const location = useLocation();
   const { theme, toggleTheme } = useContext(ThemeContext);
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const isPurple = variant === "purple";
 
   // Check if we're on a documentation page
   const isDocPage =
@@ -44,12 +45,16 @@ const Navbar = () => {
   return (
     <motion.nav
       className={`relative w-full py-4 px-23 sticky top-0 left-0 z-50 ${
-        isDark
+        isPurple
+          ? "bg-[#5e255dff] text-white"
+          : isDark
           ? "bg-[#120913] text-[#e9e7ee]"
           : "bg-white text-gray-700 backdrop-blur-md"
       } ${
         isScrolled || isDocPage
-          ? isDark
+          ? isPurple
+            ? "shadow-[0_4px_24px_0_rgba(0,0,0,0.35)]"
+            : isDark
             ? "shadow-[0_4px_24px_0_rgba(0,0,0,0.6)]"
             : "shadow-[0_4px_24px_0_rgba(94,37,93,0.07)]"
           : ""
@@ -68,8 +73,8 @@ const Navbar = () => {
         >
           <Link to="/">
             <motion.img
-              key={isDark ? "dark" : "light"}
-              src={isDark ? logoWhite : logo}
+              key={isPurple ? "purple" : isDark ? "dark" : "light"}
+              src={isPurple ? logoWhite : isDark ? logoWhite : logo}
               alt="Logo"
               className="h-8 w-40 mr-4 cursor-pointer object-contain"
               initial={{ opacity: 0, scale: 0.9 }}
@@ -96,22 +101,30 @@ const Navbar = () => {
                 <Link
                   to={link.to}
                   className={`text-base font-medium px-4 py-2 rounded-lg transition-all duration-300 relative flex items-center justify-center
-                  focus:outline-none focus:ring-2 focus:ring-[#5e255dff]/20 focus:ring-offset-2
-                  ${
-                    isActive
-                      ? isDark
-                        ? "text-[#b76be0] font-semibold"
-                        : "text-[#5e255dff] font-semibold"
-                      : isDark
-                      ? "text-[#e9e7ee] hover:text-[#b76be0]"
-                      : "text-gray-700 hover:text-[#5e255dff]"
-                  }`}
+                    focus:outline-none focus:ring-2 ${
+                      isPurple
+                        ? "focus:ring-white/20"
+                        : "focus:ring-[#5e255dff]/20"
+                    } focus:ring-offset-2
+                    ${(() => {
+                      if (isActive) {
+                        if (isPurple) return "text-white font-semibold";
+                        if (isDark) return "text-[#b76be0] font-semibold";
+                        return "text-[#5e255dff] font-semibold";
+                      }
+                      if (isPurple) return "text-white hover:text-white";
+                      if (isDark) return "text-[#e9e7ee] hover:text-[#b76be0]";
+                      return "text-gray-700 hover:text-[#5e255dff]";
+                    })()}
+                    `}
                 >
                   {link.label}
 
                   {/* Hover underline animation */}
                   <motion.div
-                    className="absolute bottom-0 left-1/2 h-0.5 bg-[#5e255dff]"
+                    className={`absolute bottom-0 left-1/2 h-0.5 ${
+                      isPurple ? "bg-white" : "bg-[#5e255dff]"
+                    }`}
                     initial={{ width: 0, x: "-50%" }}
                     whileHover={{ width: "80%" }}
                     transition={{ duration: 0.3, ease: "easeInOut" }}
@@ -120,7 +133,9 @@ const Navbar = () => {
                   {/* Active state underline */}
                   {isActive && (
                     <motion.div
-                      className="absolute bottom-0 left-1/2 h-0.5 bg-[#5e255dff]"
+                      className={`absolute bottom-0 left-1/2 h-0.5 ${
+                        isPurple ? "bg-white" : "bg-[#5e255dff]"
+                      }`}
                       initial={{ width: 0, x: "-50%" }}
                       animate={{ width: "100%" }}
                       transition={{ duration: 0.4, ease: "easeInOut" }}
@@ -139,12 +154,24 @@ const Navbar = () => {
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.6, delay: 0.8 }}
         >
-          <ThemeToggle className="rounded-lg hover:bg-gray-100" />
+          <ThemeToggle
+            className={
+              isPurple
+                ? "rounded-lg bg-white/10 text-white"
+                : "rounded-lg hover:bg-gray-100"
+            }
+          />
           <motion.a
             href="https://apps.shopify.com/codrocket"
             target="_blank"
             rel="noopener noreferrer"
-            className="px-5 py-2 rounded-lg font-semibold text-base text-white bg-[#5e255dff] hover:bg-[#4a1d49] transition-all duration-200 transform hover:scale-105 shadow-sm focus:outline-none focus:ring-2 focus:ring-[#5e255d] focus:ring-offset-1 inline-block"
+            className={`px-5 py-2 rounded-lg font-semibold text-base text-white ${
+              isPurple
+                ? "bg-white/10 hover:bg-white/20"
+                : "bg-[#5e255dff] hover:bg-[#4a1d49]"
+            } transition-all duration-200 transform hover:scale-105 shadow-sm focus:outline-none ${
+              isPurple ? "focus:ring-white/30" : "focus:ring-[#5e255d]"
+            } focus:ring-offset-1 inline-block`}
             initial={{ opacity: 0, scale: 0.8 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.5, delay: 1.1 }}
@@ -157,7 +184,9 @@ const Navbar = () => {
 
         {/* Mobile Hamburger Menu */}
         <motion.button
-          className="xl:hidden flex items-center justify-center p-2 rounded-lg hover:bg-gray-100 transition-colors"
+          className={`xl:hidden flex items-center justify-center p-2 rounded-lg transition-colors ${
+            isPurple ? "hover:bg-white/10" : "hover:bg-gray-100"
+          }`}
           onClick={toggleMobileMenu}
           aria-label="Toggle mobile menu"
           whileHover={{ scale: 1.05 }}
@@ -165,19 +194,25 @@ const Navbar = () => {
         >
           <div className="w-6 h-6 flex flex-col justify-center items-center space-y-1">
             <motion.span
-              className="bg-gray-700 block h-0.5 w-6 rounded-sm"
+              className={`${
+                isPurple ? "bg-white" : "bg-gray-700"
+              } block h-0.5 w-6 rounded-sm`}
               animate={
                 isMobileMenuOpen ? { rotate: 45, y: 6 } : { rotate: 0, y: 0 }
               }
               transition={{ duration: 0.3, ease: "easeInOut" }}
             />
             <motion.span
-              className="bg-gray-700 block h-0.5 w-6 rounded-sm"
+              className={`${
+                isPurple ? "bg-white" : "bg-gray-700"
+              } block h-0.5 w-6 rounded-sm`}
               animate={isMobileMenuOpen ? { opacity: 0 } : { opacity: 1 }}
               transition={{ duration: 0.3, ease: "easeInOut" }}
             />
             <motion.span
-              className="bg-gray-700 block h-0.5 w-6 rounded-sm"
+              className={`${
+                isPurple ? "bg-white" : "bg-gray-700"
+              } block h-0.5 w-6 rounded-sm`}
               animate={
                 isMobileMenuOpen ? { rotate: -45, y: -6 } : { rotate: 0, y: 0 }
               }

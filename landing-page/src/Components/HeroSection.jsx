@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
 import { useContext } from "react";
 import ThemeContext from "../Context/ThemeContextContext.js";
-import image from "./../assets/heropics.png";
+import image from "./../assets/picshero.png";
 
 const HeroSection = () => {
   const { theme } = useContext(ThemeContext);

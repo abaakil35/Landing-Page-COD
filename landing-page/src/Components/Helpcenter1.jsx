@@ -2,6 +2,7 @@ import React, { useMemo, useState } from "react";
 import AboutCard from "./AboutCard";
 import Footer from "./Footer";
 import logoWhite from "../assets/logo_white.png";
+import Navbar from "./Navbar";
 
 const cardsData = [
   {
@@ -113,8 +114,10 @@ const Helpcenter1 = () => {
   }, [query]);
   return (
     <div className="w-full">
+      <Navbar variant="purple" />
+
       <header className="w-full">
-        <div className="relative bg-gradient-to-br from-[#5e255dff] via-[#4a1d49] to-[#2d1129] text-white">
+        <div className="relative bg-[#5e255dff] via-[#4a1d49] to-[#2d1129] text-white">
           <div className="max-w-7xl mx-auto py-6 flex items-center justify-center">
             <div className="flex items-center space-x-4">
               <img

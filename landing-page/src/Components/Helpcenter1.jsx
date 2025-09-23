@@ -1,6 +1,7 @@
 import React, { useMemo, useState } from "react";
 import AboutCard from "./AboutCard";
 import Footer from "./Footer";
+import logoWhite from "../assets/logo_white.png";
 
 const cardsData = [
   {
@@ -117,7 +118,7 @@ const Helpcenter1 = () => {
           <div className="max-w-7xl mx-auto py-6 flex items-center justify-center">
             <div className="flex items-center space-x-4">
               <img
-                src="/src/assets/logo_white.png"
+                src={logoWhite}
                 alt="COD Logo"
                 className="h-10 w-auto mr-1"
               />

@@ -27,8 +27,8 @@ const plans = [
   },
   {
     name: "Grow",
-    price: "$9.98",
-    yearlyPrice: "$119.76",
+    price: "$9",
+    yearlyPrice: "$99",
     period: "/month",
     yearlyPeriod: "/year",
     features: [
@@ -47,8 +47,8 @@ const plans = [
   },
   {
     name: "Advanced",
-    price: "$21.98",
-    yearlyPrice: "$263.76",
+    price: "$24",
+    yearlyPrice: "$249",
     period: "/month",
     yearlyPeriod: "/year",
     features: [
@@ -83,7 +83,7 @@ const Pricing = () => {
       question: "Can I switch plans later?",
       answer:
         "Yes — you can upgrade or downgrade your plan at any time. Billing is prorated where applicable, and changes take effect immediately.",
-    },
+                              {billingPeriod === "yearly" ? "$99" : "$9"}
     {
       question: "Do you offer discounts for annual billing?",
       answer:
@@ -286,7 +286,7 @@ const Pricing = () => {
                         }`
                   }`}
                 >
-                  Save 20%
+                  Save 14%
                 </span>
               </button>
             </div>
@@ -342,7 +342,18 @@ const Pricing = () => {
                       }`}
                     >
                       {billingPeriod === "yearly"
-                        ? plan.yearlyPrice
+                        ? (() => {
+                            const annual = parsePrice(plan.yearlyPrice);
+                            if (annual === null || annual === 0) {
+                              // Fallback: show yearlyPrice string (e.g., 'Free')
+                              return plan.yearlyPrice;
+                            }
+                            const perMonth = annual / 12;
+                            const formattedPerMonth =
+                              formatCurrency(perMonth) ??
+                              `$${perMonth.toFixed(2)}`;
+                            return formattedPerMonth;
+                          })()
                         : plan.price}
                     </span>
                     <span
@@ -350,9 +361,7 @@ const Pricing = () => {
                         isDark ? "text-[#ffffff]" : "text-[#702c91]"
                       }`}
                     >
-                      {billingPeriod === "yearly"
-                        ? plan.yearlyPeriod
-                        : plan.period}
+                      {plan.period}
                     </span>
                     {/* Non-interactive plan status/info (e.g., 'Current plan') */}
                     {plan.status && (
@@ -367,61 +376,50 @@ const Pricing = () => {
                   </button>
                 </div>
                 <div className="text-sm text-center mb-6 w-full">
-                  {billingPeriod === "monthly"
-                    ? (() => {
-                        const monthly = parsePrice(plan.price);
-                        if (monthly === null) return null;
-                        const annual = monthly * 12;
-                        if (annual === 0) {
-                          return (
-                            <div
-                              className={`${
-                                isDark ? "text-[#e9e7ee]/60" : "text-gray-500"
-                              }`}
-                            >
-                              Free
-                            </div>
-                          );
-                        }
-                        const formattedAnnual =
-                          formatCurrency(annual) ?? `$${annual.toFixed(2)}`;
-                        return (
-                          <div
-                            className={`${
-                              isDark ? "text-[#e9e7ee]/60" : "text-gray-500"
-                            }`}
-                          >
-                            Bill at {formattedAnnual} once per year
-                          </div>
-                        );
-                      })()
-                    : (() => {
-                        const annual = parsePrice(plan.yearlyPrice);
-                        if (annual === null || annual === 0) {
-                          // fallback to showing 'Free' when yearly is free or non-numeric
-                          return (
-                            <div
-                              className={`${
-                                isDark ? "text-[#e9e7ee]/60" : "text-gray-500"
-                              }`}
-                            >
-                              Free
-                            </div>
-                          );
-                        }
-                        const perMonth = annual / 12;
-                        const formattedPerMonth =
-                          formatCurrency(perMonth) ?? `$${perMonth.toFixed(2)}`;
-                        return (
-                          <div
-                            className={`${
-                              isDark ? "text-[#e9e7ee]/60" : "text-gray-500"
-                            }`}
-                          >
-                            Equivalent to {formattedPerMonth} per month
-                          </div>
-                        );
-                      })()}
+                  {(() => {
+                    // Prefer showing the explicit yearly price (plan.yearlyPrice)
+                    // in the small "bill at" line. Fallback to computed annual
+                    // from the monthly price only if yearlyPrice is missing.
+                    const annualFromYearly = parsePrice(plan.yearlyPrice);
+                    if (annualFromYearly && annualFromYearly > 0) {
+                      return (
+                        <div
+                          className={`${
+                            isDark ? "text-[#e9e7ee]/60" : "text-gray-500"
+                          }`}
+                        >
+                          bill at {plan.yearlyPrice} once per year
+                        </div>
+                      );
+                    }
+
+                    // No explicit yearly price: try to compute from monthly price
+                    const monthly = parsePrice(plan.price);
+                    if (monthly === null || monthly === 0) {
+                      return (
+                        <div
+                          className={`${
+                            isDark ? "text-[#e9e7ee]/60" : "text-gray-500"
+                          }`}
+                        >
+                          Free
+                        </div>
+                      );
+                    }
+
+                    const formattedAnnual =
+                      formatCurrency(monthly * 12) ??
+                      `$${(monthly * 12).toFixed(2)}`;
+                    return (
+                      <div
+                        className={`${
+                          isDark ? "text-[#e9e7ee]/60" : "text-gray-500"
+                        }`}
+                      >
+                        bill at {formattedAnnual} once per year
+                      </div>
+                    );
+                  })()}
                 </div>
 
                 <ul className="mb-8 w-full flex-grow">
@@ -717,9 +715,7 @@ const Pricing = () => {
                                 isDark ? "text-[#e9e7ee]" : "text-gray-900"
                               }`}
                             >
-                              {billingPeriod === "yearly"
-                                ? "$263.76"
-                                : "$21.98"}
+                              {billingPeriod === "yearly" ? "$249" : "$24"}
                               <span
                                 className={`text-lg ${
                                   isDark ? "text-[#e9e7ee]/80" : "text-gray-600"

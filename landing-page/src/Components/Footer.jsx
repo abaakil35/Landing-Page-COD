@@ -2,6 +2,7 @@ import logo from "../assets/logo_white.png";
 import { motion } from "framer-motion";
 import { useContext } from "react";
 import ThemeContext from "../Context/ThemeContextContext.js";
+import { useNavigate, useLocation } from "react-router-dom";
 
 const socialLinks = [
   {
@@ -82,6 +83,36 @@ const footerSections = [
 const Footer = () => {
   const { theme } = useContext(ThemeContext);
   const isDark = theme === "dark";
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  // Helper: navigate to a path or scroll to a hash on the page
+  const handleNav = (href) => (e) => {
+    // external link: leave default behavior
+    if (/^https?:\/\//.test(href)) return;
+
+    e.preventDefault();
+    const [path, hash] = href.split("#");
+    const targetPath = path === "" ? "/" : path;
+
+    const doScroll = () => {
+      if (hash) {
+        // try to find element by id
+        const el = document.getElementById(hash);
+        if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
+      }
+    };
+
+    if (location.pathname === targetPath) {
+      // same route: just scroll
+      doScroll();
+    } else {
+      // navigate then wait a tick and scroll
+      navigate(targetPath);
+      // wait for route change and DOM update
+      setTimeout(doScroll, 50);
+    }
+  };
 
   return (
     <footer
@@ -178,6 +209,7 @@ const Footer = () => {
                       >
                         <a
                           href={link.href}
+                          onClick={handleNav(link.href)}
                           className="text-gray-400 hover:text-white transition-colors duration-300 text-sm leading-relaxed"
                         >
                           {link.label}

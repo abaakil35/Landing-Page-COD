@@ -1,6 +1,7 @@
 import React, { useMemo, useState } from "react";
 import AboutCard from "./AboutCard";
 import Footer from "./Footer";
+import { Link } from "react-router-dom";
 import logoWhite from "../assets/logo_white.png";
 import Navbar from "./Navbar";
 
@@ -184,12 +185,14 @@ const Helpcenter1 = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {filtered.map((card) => (
             <div key={card.id} className="h-full">
-              <AboutCard
-                title={card.title}
-                headline={card.headline}
-                content={card.content}
-                subContent={card.subContent}
-              />
+              <Link to={`/help/${card.id}`} className="block h-full">
+                <AboutCard
+                  title={card.title}
+                  headline={card.headline}
+                  content={card.content}
+                  subContent={card.subContent}
+                />
+              </Link>
             </div>
           ))}
         </div>

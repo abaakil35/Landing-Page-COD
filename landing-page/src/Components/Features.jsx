@@ -439,7 +439,7 @@ const Features = () => {
               href="https://apps.shopify.com/codrocket"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-3 px-8 py-4 bg-gradient-to-r from-[#5e255dff] to-[#a855f7] text-white font-semibold text-lg rounded-xl hover:from-[#4a1d49] hover:to-[#9333ea] transform hover:scale-105 transition-all duration-300 shadow-lg hover:shadow-xl focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2 inline-block"
+              className="inline-flex items-center gap-3 px-8 py-4 bg-[#5e255dff] text-white font-semibold text-lg rounded-xl hover:to-[#9333ea] transform hover:scale-105 transition-all duration-300 shadow-lg hover:shadow-xl focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2 inline-block"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
             >

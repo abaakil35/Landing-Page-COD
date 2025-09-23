@@ -1,4 +1,4 @@
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import { useLocation, Link } from "react-router-dom";
 import { useContext, useEffect, useState } from "react";
 import ThemeContext from "../Context/ThemeContextContext.js";
@@ -24,10 +24,6 @@ const plans = [
       "Multi-Language",
       "Email support",
     ],
-    button: {
-      text: "Downgrade",
-      style: "border border-gray-300 text-black hover:bg-gray-100",
-    },
   },
   {
     name: "Grow",
@@ -48,12 +44,6 @@ const plans = [
       "Multi-Language",
       "Email & WhatsApp support",
     ],
-    button: {
-      text: "current plan",
-      style:
-        "border-2 border-transparent text-white font-bold bg-[#5e255dff] hover:bg-[#4a1d49] transition-all shadow-lg hover:shadow-xl",
-    },
-    popular: true,
   },
   {
     name: "Advanced",
@@ -74,10 +64,7 @@ const plans = [
       "Multi-Language",
       "Email & WhatsApp support",
     ],
-    button: {
-      text: "Upgrade",
-      style: "border border-gray-300 text-black hover:bg-gray-100",
-    },
+    status: "",
   },
 ];
 
@@ -87,6 +74,49 @@ const Pricing = () => {
   const { theme } = useContext(ThemeContext);
   const isDark = theme === "dark";
   const [billingPeriod, setBillingPeriod] = useState("monthly");
+
+  // Pricing FAQs state and content (centered accordion)
+  const [openPricingFAQ, setOpenPricingFAQ] = useState(null);
+  const pricingFaqs = [
+    {
+      question: "Can I switch plans later?",
+      answer:
+        "Yes — you can upgrade or downgrade your plan at any time. Billing is prorated where applicable, and changes take effect immediately.",
+    },
+    {
+      question: "Do you offer discounts for annual billing?",
+      answer:
+        "Yes — choosing yearly billing gives you a 20% discount compared to monthly pricing. You can toggle billing above to see the yearly equivalent.",
+    },
+    {
+      question: "Is there a free plan?",
+      answer:
+        "Yes, our Basic plan is free and includes core features suitable for getting started. See the plan card for details.",
+    },
+    {
+      question: "How does billing work for upgrades mid-cycle?",
+      answer:
+        "When you upgrade mid-cycle, we prorate the remaining time on your old plan and apply the difference toward your new plan. Exact amounts are shown at checkout.",
+    },
+    {
+      question: "Do you offer support for migrations?",
+      answer:
+        "Yes — for higher-tier plans we offer assisted migration and onboarding support to help you move smoothly.",
+    },
+    {
+      question: "Can I get a custom plan for my business?",
+      answer:
+        "We offer custom enterprise plans for high-volume stores. Contact our sales team to discuss requirements and pricing.",
+    },
+    {
+      question: "Is there a trial period?",
+      answer:
+        "We offer a free Basic plan and occasionally promotional trials for premium features. Check our pricing page or contact support for current offers.",
+    },
+  ];
+
+  const togglePricingFAQ = (i) =>
+    setOpenPricingFAQ(openPricingFAQ === i ? null : i);
 
   // small helper: parse a price string like "$119.76" into a number (119.76)
   const parsePrice = (priceStr) => {
@@ -322,6 +352,16 @@ const Pricing = () => {
                         ? plan.yearlyPeriod
                         : plan.period}
                     </span>
+                    {/* Non-interactive plan status/info (e.g., 'Current plan') */}
+                    {plan.status && (
+                      <div
+                        className={`mt-3 text-sm font-medium ${
+                          isDark ? "text-[#e9e7ee]/80" : "text-gray-600"
+                        }`}
+                      >
+                        {plan.status}
+                      </div>
+                    )}
                   </button>
                 </div>
                 <div className="text-sm text-center mb-6 w-full">
@@ -413,6 +453,85 @@ const Pricing = () => {
                 {/* No per-card CTA on the home pricing display per request */}
               </motion.div>
             ))}
+          </div>
+
+          {/* Pricing FAQs - centered accordion */}
+          <div className="max-w-3xl mx-auto mt-16">
+            <div className="text-center mb-8">
+              <h3
+                className={`text-3xl md:text-4xl font-extrabold ${
+                  isDark ? "text-[#e9e7ee]" : "text-gray-900"
+                }`}
+              >
+                Pricing FAQs
+              </h3>
+              <p
+                className={`text-lg ${
+                  isDark ? "text-[#e9e7ee]/70" : "text-gray-600"
+                }`}
+              >
+                Common questions about our plans and billing
+              </p>
+            </div>
+
+            <div className="space-y-4">
+              {pricingFaqs.map((f, i) => (
+                <div
+                  key={i}
+                  className={`rounded-2xl overflow-hidden border ${
+                    isDark
+                      ? "border-[#2d1129] bg-[#120913]/60"
+                      : "border-gray-100 bg-white"
+                  } `}
+                >
+                  <button
+                    onClick={() => togglePricingFAQ(i)}
+                    className={`w-full text-left px-6 py-6 flex justify-between items-center ${
+                      isDark ? "text-[#e9e7ee]" : "text-gray-900"
+                    }`}
+                  >
+                    <span className="font-semibold text-lg md:text-xl">
+                      {f.question}
+                    </span>
+                    <svg
+                      className={`w-5 h-5 transform ${
+                        openPricingFAQ === i ? "rotate-180" : ""
+                      }`}
+                      viewBox="0 0 20 20"
+                      fill="none"
+                      stroke="currentColor"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M6 8l4 4 4-4"
+                      />
+                    </svg>
+                  </button>
+
+                  <AnimatePresence>
+                    {openPricingFAQ === i && (
+                      <motion.div
+                        initial={{ height: 0, opacity: 0 }}
+                        animate={{ height: "auto", opacity: 1 }}
+                        exit={{ height: 0, opacity: 0 }}
+                        transition={{ duration: 0.25 }}
+                        className="px-6 pb-4"
+                      >
+                        <div
+                          className={`${
+                            isDark ? "text-[#e9e7ee]/80" : "text-gray-600"
+                          }`}
+                        >
+                          {f.answer}
+                        </div>
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+                </div>
+              ))}
+            </div>
           </div>
 
           {/* CTA: Compare pricing plans (show only when NOT on /pricing page) */}
@@ -1085,7 +1204,7 @@ const Pricing = () => {
           )}
 
           {/* Ready card at bottom of pricing page */}
-          {/* Ready card at bottom of pricing page */}
+          
           {isPricingPage && <Ready />}
         </div>
       </div>

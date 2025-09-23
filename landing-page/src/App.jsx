@@ -19,7 +19,8 @@ import HelpCenter from "./Components/helpCenter";
 import Documentation from "./Components/Documentation";
 import Login from "./Components/Connexion/Login";
 import { ThemeProvider } from "./Context/ThemeContext";
-import { Helmet } from "react-helmet-async";
+import { useEffect } from "react";
+import Helpcenter1 from "./Components/Helpcenter1";
 // import FAQ from "./Components/FAQ";
 
 function AppContent() {
@@ -27,68 +28,44 @@ function AppContent() {
   const isDocPage =
     location.pathname === "/doc" || location.pathname === "/help-center/doc";
   const isLoginPage = location.pathname === "/login";
+  const isHelpCenterPage = location.pathname === "/help-center";
 
   return (
     <>
-      <Helmet>
-        <title>Landing Page COD</title>
-        <meta
-          name="description"
-          content="Default description for Landing Page COD"
-        />
-        <link rel="canonical" href={window.location.href} />
-        <link rel="icon" href="/favicon.ico" />
-        <meta property="og:title" content="Landing Page COD" />
-        <meta
-          property="og:description"
-          content="Default description for Landing Page COD"
-        />
-        <meta property="og:image" content="/logo.png" />
-        <meta property="og:url" content={window.location.href} />
-        <meta property="og:type" content="website" />
-        <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content="Landing Page COD" />
-        <meta
-          name="twitter:description"
-          content="Default description for Landing Page COD"
-        />
-        <meta name="twitter:image" content="/logo.png" />
-      </Helmet>
-      {!isLoginPage && <Navbar />}
+      {/* Set a default title/meta via DOM for environments without react-helmet-async */}
+      {useEffect(() => {
+        document.title = "Landing Page COD";
+        const desc = document.querySelector('meta[name="description"]');
+        if (desc)
+          desc.setAttribute(
+            "content",
+            "Default description for Landing Page COD"
+          );
+        else {
+          const m = document.createElement("meta");
+          m.name = "description";
+          m.content = "Default description for Landing Page COD";
+          document.head.appendChild(m);
+        }
+      }, [])}
+      {!isLoginPage && !isHelpCenterPage && <Navbar />}
       <div>
         <Routes>
           <Route
             path="/"
             element={
               <>
-                <Helmet>
-                  <title>Landing Page COD - Home</title>
-                  <meta
-                    name="description"
-                    content="Welcome to our landing page for COD services."
-                  />
-                  <meta name="keywords" content="COD, landing page, services" />
-                  <link rel="canonical" href={window.location.href} />
-                  <link rel="icon" href="/favicon.ico" />
-                  <meta property="og:title" content="Landing Page COD - Home" />
-                  <meta
-                    property="og:description"
-                    content="Welcome to our landing page for COD services."
-                  />
-                  <meta property="og:image" content="/logo.png" />
-                  <meta property="og:url" content={window.location.href} />
-                  <meta property="og:type" content="website" />
-                  <meta name="twitter:card" content="summary_large_image" />
-                  <meta
-                    name="twitter:title"
-                    content="Landing Page COD - Home"
-                  />
-                  <meta
-                    name="twitter:description"
-                    content="Welcome to our landing page for COD services."
-                  />
-                  <meta name="twitter:image" content="/logo.png" />
-                </Helmet>
+                {useEffect(() => {
+                  document.title = "Landing Page COD - Home";
+                  const desc = document.querySelector(
+                    'meta[name="description"]'
+                  );
+                  if (desc)
+                    desc.setAttribute(
+                      "content",
+                      "Welcome to our landing page for COD services."
+                    );
+                }, [])}
                 <HeroSection />
                 <Features />
                 <HowCODWorks />
@@ -106,13 +83,13 @@ function AppContent() {
           <Route path="/pricing" element={<Pricing />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/doc" element={<Documentation />} />
-          <Route path="/help-center" element={<HelpCenter />} />
+          <Route path="/help-center" element={<Helpcenter1 />} />
           <Route path="/help-center/doc" element={<Documentation />} />
           <Route path="/login" element={<Login />} />
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
       </div>
-      {!isDocPage && !isLoginPage && <Footer />}
+      {!isDocPage && !isLoginPage && !isHelpCenterPage && <Footer />}
     </>
   );
 }

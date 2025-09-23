@@ -48,9 +48,7 @@ const HelpCenter = () => {
   return (
     <div
       className={`relative w-full py-20 px-23 ${
-        isDark
-          ? "bg-gradient-to-br from-[#0a0f1c] via-[#0f1419] to-[#1a1f2e]"
-          : "bg-white"
+        isDark ? "bg-black" : "bg-white"
       }`}
     >
       <div className="max-w-7xl mx-auto">
@@ -61,20 +59,21 @@ const HelpCenter = () => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
         >
-          <h1
+          <h2
             className={`text-4xl md:text-5xl font-bold mb-6 ${
               isDark ? "text-white" : ""
             }`}
             style={isDark ? {} : { color: "#5e255dff" }}
           >
             Welcome to the Help Center
-          </h1>
+          </h2>
           <p
             className={`text-xl max-w-3xl mx-auto ${
               isDark ? "text-gray-300" : "text-gray-900"
             }`}
           >
-            Your ultimate resource for creating seamless and professional Cash on Delivery forms with Rocket.
+            Your ultimate resource for creating seamless and professional Cash
+            on Delivery forms with Rocket.
           </p>
         </motion.div>
 
@@ -140,8 +139,6 @@ const HelpCenter = () => {
           </div>
         </motion.div>
 
-        {/* Quick Start Guide */}
-      
         {/* Help Categories Section */}
         <motion.div
           className="mb-20"
@@ -156,14 +153,15 @@ const HelpCenter = () => {
               }`}
               style={isDark ? {} : { color: "#5e255dff" }}
             >
-              Help Categories
+              Categories
             </h2>
             <p
               className={`text-xl max-w-2xl mx-auto ${
                 isDark ? "text-gray-300" : "text-gray-600"
               }`}
             >
-              Find detailed guides for every aspect of COD Form Builder
+              Find detailed guides for every aspect of COD Form & Manager By
+              CODRocket
             </p>
           </div>
 
@@ -181,7 +179,7 @@ const HelpCenter = () => {
               transition={{ duration: 0.6, delay: 0.5 }}
               whileHover={{ y: -5 }}
             >
-              <div className="w-16 h-16 bg-gradient-to-br from-blue-500 to-blue-600 rounded-lg mb-6 flex items-center justify-center shadow-lg">
+              <div className="w-16 h-16 bg-blue-500 rounded-lg mb-6 flex items-center justify-center shadow-lg">
                 <svg
                   className="w-8 h-8 text-white"
                   fill="none"
@@ -234,7 +232,7 @@ const HelpCenter = () => {
               transition={{ duration: 0.6, delay: 0.6 }}
               whileHover={{ y: -5 }}
             >
-              <div className="w-16 h-16 bg-gradient-to-br from-green-500 to-green-600 rounded-lg mb-6 flex items-center justify-center shadow-lg">
+              <div className="w-16 h-16 bg-green-500 rounded-lg mb-6 flex items-center justify-center shadow-lg">
                 <svg
                   className="w-8 h-8 text-white"
                   fill="none"
@@ -288,7 +286,7 @@ const HelpCenter = () => {
               transition={{ duration: 0.6, delay: 0.7 }}
               whileHover={{ y: -5 }}
             >
-              <div className="w-16 h-16 bg-gradient-to-br from-orange-500 to-orange-600 rounded-lg mb-6 flex items-center justify-center shadow-lg">
+              <div className="w-16 h-16 bg-orange-500 rounded-lg mb-6 flex items-center justify-center shadow-lg">
                 <svg
                   className="w-8 h-8 text-white"
                   fill="none"
@@ -342,7 +340,7 @@ const HelpCenter = () => {
               transition={{ duration: 0.6, delay: 0.8 }}
               whileHover={{ y: -5 }}
             >
-              <div className="w-16 h-16 bg-gradient-to-br from-purple-500 to-purple-600 rounded-lg mb-6 flex items-center justify-center shadow-lg">
+              <div className="w-16 h-16 bg-purple-500 rounded-lg mb-6 flex items-center justify-center shadow-lg">
                 <svg
                   className="w-8 h-8 text-white"
                   viewBox="0 0 40 40"
@@ -407,7 +405,7 @@ const HelpCenter = () => {
               transition={{ duration: 0.6, delay: 0.9 }}
               whileHover={{ y: -5 }}
             >
-              <div className="w-16 h-16 bg-gradient-to-br from-teal-500 to-teal-600 rounded-lg mb-6 flex items-center justify-center shadow-lg">
+              <div className="w-16 h-16 bg-teal-500 rounded-lg mb-6 flex items-center justify-center shadow-lg">
                 <svg
                   className="w-8 h-8 text-white"
                   fill="none"
@@ -460,7 +458,7 @@ const HelpCenter = () => {
               transition={{ duration: 0.6, delay: 1.0 }}
               whileHover={{ y: -5 }}
             >
-              <div className="w-16 h-16 bg-gradient-to-br from-red-500 to-red-600 rounded-lg mb-6 flex items-center justify-center shadow-lg">
+              <div className="w-16 h-16 bg-red-500 rounded-lg mb-6 flex items-center justify-center shadow-lg">
                 <svg
                   className="w-8 h-8 text-white"
                   fill="none"
@@ -630,8 +628,8 @@ const HelpCenter = () => {
             <motion.button
               className={`px-8 py-4 font-semibold rounded-xl transition-all duration-300 shadow-lg hover:shadow-xl flex items-center gap-3 mx-auto ${
                 isDark
-                  ? "bg-gradient-to-r from-[#5e255dff] to-[#a855f7] hover:from-[#4a1d49] hover:to-[#9333ea] text-white"
-                  : "bg-gradient-to-r from-[#5e255dff] to-[#a855f7] hover:from-[#4a1d49] hover:to-[#9333ea] text-white"
+                  ? "bg-[#5e255dff] text-white hover:bg-[#4a1d49]"
+                  : "bg-[#5e255dff] text-white hover:bg-[#4a1d49]"
               }`}
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
@@ -701,7 +699,11 @@ const HelpCenter = () => {
               whileHover={{ y: -5 }}
             >
               {/* Video Thumbnail */}
-              <div className="relative bg-gradient-to-br from-gray-900 via-gray-800 to-black aspect-video flex items-center justify-center overflow-hidden">
+              <div
+                className={`relative ${
+                  isDark ? "bg-black" : "bg-gray-800"
+                } aspect-video flex items-center justify-center overflow-hidden`}
+              >
                 {/* Dark Themed Background Pattern */}
                 <div className="absolute inset-0">
                   {/* Code/Form Elements Pattern */}
@@ -766,7 +768,11 @@ const HelpCenter = () => {
               whileHover={{ y: -5 }}
             >
               {/* Video Thumbnail */}
-              <div className="relative bg-gradient-to-br from-slate-900 via-slate-800 to-gray-900 aspect-video flex items-center justify-center overflow-hidden">
+              <div
+                className={`relative ${
+                  isDark ? "bg-black" : "bg-slate-800"
+                } aspect-video flex items-center justify-center overflow-hidden`}
+              >
                 {/* Dark Themed Background Pattern */}
                 <div className="absolute inset-0">
                   {/* Drag & Drop Elements */}
@@ -854,7 +860,11 @@ const HelpCenter = () => {
               whileHover={{ y: -5 }}
             >
               {/* Video Thumbnail */}
-              <div className="relative bg-gradient-to-br from-zinc-900 via-gray-900 to-black aspect-video flex items-center justify-center overflow-hidden">
+              <div
+                className={`relative ${
+                  isDark ? "bg-black" : "bg-zinc-800"
+                } aspect-video flex items-center justify-center overflow-hidden`}
+              >
                 {/* Dark Themed Background Pattern */}
                 <div className="absolute inset-0">
                   {/* Order Management Dashboard Elements */}
@@ -948,8 +958,8 @@ const HelpCenter = () => {
             <motion.button
               className={`px-8 py-4 font-semibold rounded-xl transition-all duration-300 shadow-lg hover:shadow-xl flex items-center gap-3 mx-auto ${
                 isDark
-                  ? "bg-gradient-to-r from-[#5e255dff] to-[#a855f7] hover:from-[#4a1d49] hover:to-[#9333ea] text-white"
-                  : "bg-gradient-to-r from-[#5e255dff] to-[#a855f7] hover:from-[#4a1d49] hover:to-[#9333ea] text-white"
+                  ? "bg-[#5e255dff] text-white hover:bg-[#4a1d49]"
+                  : "bg-[#5e255dff] text-white hover:bg-[#4a1d49]"
               }`}
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
@@ -1022,9 +1032,7 @@ const HelpCenter = () => {
                 {/* Email Icon */}
                 <div
                   className={`w-20 h-20 rounded-xl mx-auto mb-6 flex items-center justify-center group-hover:shadow-lg transition-all duration-300 group-hover:scale-105 ${
-                    isDark
-                      ? "bg-gradient-to-br from-gray-700 to-gray-600"
-                      : "bg-gradient-to-br from-blue-50 to-blue-100"
+                    isDark ? "bg-gray-700" : "bg-blue-50"
                   }`}
                 >
                   <svg
@@ -1183,9 +1191,7 @@ const HelpCenter = () => {
                 {/* Chat Icon */}
                 <div
                   className={`w-20 h-20 rounded-xl mx-auto mb-6 flex items-center justify-center group-hover:shadow-lg transition-all duration-300 group-hover:scale-105 ${
-                    isDark
-                      ? "bg-gradient-to-br from-gray-700 to-gray-600"
-                      : "bg-gradient-to-br from-green-50 to-green-100"
+                    isDark ? "bg-gray-700" : "bg-green-50"
                   }`}
                 >
                   <svg
@@ -1349,9 +1355,7 @@ const HelpCenter = () => {
                 {/* Form Header */}
                 <div
                   className={`px-8 py-6 ${
-                    isDark
-                      ? "bg-gradient-to-r from-[#5e255dff] to-[#a855f7]"
-                      : "bg-gradient-to-r from-[#5e255dff] to-[#a855f7]"
+                    isDark ? "bg-[#5e255dff]" : "bg-[#5e255dff]"
                   }`}
                 >
                   <h3 className="text-2xl font-bold text-white text-center">
@@ -1528,66 +1532,10 @@ const HelpCenter = () => {
                           isDark ? "text-gray-300" : "text-gray-700"
                         }`}
                       >
-                        Priority Level
-                      </label>
-                      <div className="flex space-x-4">
-                        <label className="flex items-center">
-                          <input
-                            type="radio"
-                            name="priority"
-                            value="low"
-                            className="sr-only"
-                          />
-                          <div className="w-4 h-4 border-2 border-green-400 rounded-full mr-2 flex items-center justify-center">
-                            <div className="w-2 h-2 bg-green-400 rounded-full opacity-0 transition-opacity"></div>
-                          </div>
-                          <span
-                            className={`text-sm ${
-                              isDark ? "text-gray-300" : "text-gray-600"
-                            }`}
-                          >
-                            Low
-                          </span>
-                        </label>
-                        <label className="flex items-center">
-                          <input
-                            type="radio"
-                            name="priority"
-                            value="medium"
-                            className="sr-only"
-                            defaultChecked
-                          />
-                          <div className="w-4 h-4 border-2 border-yellow-400 rounded-full mr-2 flex items-center justify-center">
-                            <div className="w-2 h-2 bg-yellow-400 rounded-full"></div>
-                          </div>
-                          <span
-                            className={`text-sm ${
-                              isDark ? "text-gray-300" : "text-gray-600"
-                            }`}
-                          >
-                            Medium
-                          </span>
-                        </label>
-                        <label className="flex items-center">
-                          <input
-                            type="radio"
-                            name="priority"
-                            value="high"
-                            className="sr-only"
-                          />
-                          <div className="w-4 h-4 border-2 border-red-400 rounded-full mr-2 flex items-center justify-center">
-                            <div className="w-2 h-2 bg-red-400 rounded-full opacity-0 transition-opacity"></div>
-                          </div>
-                          <span
-                            className={`text-sm ${
-                              isDark ? "text-gray-300" : "text-gray-600"
-                            }`}
-                          >
-                            High
-                          </span>
+
                         </label>
                       </div>
-                    </div>
+
 
                     {/* Submit Button */}
                     <div className="flex flex-col sm:flex-row gap-4 pt-4">
@@ -1595,8 +1543,8 @@ const HelpCenter = () => {
                         type="submit"
                         className={`flex-1 px-8 py-4 rounded-xl font-semibold transition-all duration-300 shadow-lg hover:shadow-xl flex items-center justify-center space-x-2 ${
                           isDark
-                            ? "bg-gradient-to-r from-[#5e255dff] to-[#a855f7] hover:from-[#4a1d49] hover:to-[#9333ea] text-white"
-                            : "bg-gradient-to-r from-[#5e255dff] to-[#a855f7] hover:from-[#4a1d49] hover:to-[#9333ea] text-white"
+                            ? "bg-[#5e255dff] text-white hover:bg-[#4a1d49]"
+                            : "bg-[#5e255dff] text-white hover:bg-[#4a1d49]"
                         }`}
                         whileHover={{ scale: 1.02 }}
                         whileTap={{ scale: 0.98 }}
@@ -1616,18 +1564,7 @@ const HelpCenter = () => {
                           />
                         </svg>
                       </motion.button>
-                      <motion.button
-                        type="button"
-                        className={`sm:w-auto px-6 py-4 border-2 rounded-xl font-semibold transition-all duration-300 ${
-                          isDark
-                            ? "border-gray-600 text-gray-300 hover:border-gray-500 hover:bg-gray-700"
-                            : "border-gray-300 text-gray-700 hover:border-gray-400 hover:bg-gray-50"
-                        }`}
-                        whileHover={{ scale: 1.02 }}
-                        whileTap={{ scale: 0.98 }}
-                      >
-                        Save as Draft
-                      </motion.button>
+                      
                     </div>
                   </form>
 

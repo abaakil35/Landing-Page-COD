@@ -13,6 +13,8 @@
     "@chakra-ui/react": "^3.27.0",
     "@emotion/react": "^11.14.0",
     "@emotion/styled": "^11.14.1",
+    "@mui/icons-material": "^7.3.2",
+    "@mui/material": "^7.3.2",
     "@tailwindcss/vite": "^4.1.12",
     "framer-motion": "^12.23.19",
     "i18next": "^25.5.2",

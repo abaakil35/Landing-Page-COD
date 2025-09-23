@@ -52,9 +52,9 @@ const footerSections = [
     links: [
       { href: "#features", label: "Features" },
       { href: "#pricing", label: "Pricing" },
-      { href: "#demo", label: "Demo" },
-      { href: "#api", label: "API" },
-      { href: "#integrations", label: "Integrations" },
+
+      { href: "#api", label: "Help Center" },
+      { href: "#integrations", label: "Documentation" },
     ],
   },
   {
@@ -67,23 +67,13 @@ const footerSections = [
       { href: "#terms", label: "Terms of Service" },
     ],
   },
-  {
-    title: "Compare",
-    links: [
-      { href: "#vs-competitors", label: "COD Rocket vs. Others" },
-      { href: "#features-comparison", label: "Feature Comparison" },
-      { href: "#pricing-comparison", label: "Pricing Comparison" },
-      { href: "#alternatives", label: "Alternatives" },
-      { href: "#migration", label: "Migration Guide" },
-    ],
-  },
+
   {
     title: "Learn",
     links: [
       { href: "/help-center", label: "Help Center" },
       { href: "#docs", label: "Documentation" },
       { href: "#tutorials", label: "Video Tutorials" },
-      { href: "#community", label: "Community" },
       { href: "#support", label: "Contact Support" },
     ],
   },

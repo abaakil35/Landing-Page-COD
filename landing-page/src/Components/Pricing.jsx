@@ -76,7 +76,8 @@ const Pricing = () => {
   const [billingPeriod, setBillingPeriod] = useState("monthly");
 
   // Pricing FAQs state and content (centered accordion)
-  const [openPricingFAQ, setOpenPricingFAQ] = useState(null);
+  // const [openPricingFAQ, setOpenPricingFAQ] = useState(null);
+  /*
   const pricingFaqs = [
     {
       question: "Can I switch plans later?",
@@ -117,6 +118,7 @@ const Pricing = () => {
 
   const togglePricingFAQ = (i) =>
     setOpenPricingFAQ(openPricingFAQ === i ? null : i);
+  */
 
   // small helper: parse a price string like "$119.76" into a number (119.76)
   const parsePrice = (priceStr) => {
@@ -456,6 +458,7 @@ const Pricing = () => {
           </div>
 
           {/* Pricing FAQs - centered accordion */}
+          {/*
           <div className="max-w-3xl mx-auto mt-16">
             <div className="text-center mb-8">
               <h3
@@ -1053,7 +1056,7 @@ const Pricing = () => {
           )}
 
           {/* Pricing FAQs */}
-          {isPricingPage && (
+          {/* {isPricingPage && (
             <motion.div
               className="mt-16 mx-auto max-w-6xl"
               initial={{ opacity: 0, y: 30 }}
@@ -1174,37 +1177,10 @@ const Pricing = () => {
                   </p>
                 </div>
               </div>
-
-              <div className="text-center">
-                <Link
-                  to="/help-center"
-                  className={`inline-flex items-center justify-center px-6 py-3 rounded-lg font-medium transition-all duration-200 ${
-                    isDark
-                      ? "bg-[#b76be0]/20 text-[#b76be0] hover:bg-[#b76be0]/30 border border-[#b76be0]/30"
-                      : "bg-[#5e255dff]/10 text-[#5e255dff] hover:bg-[#5e255dff]/20 border border-[#5e255dff]/20"
-                  }`}
-                >
-                  <svg
-                    className="w-4 h-4 mr-2"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
-                    />
-                  </svg>
-                  More Information
-                </Link>
-              </div>
-            </motion.div>
-          )}
+              */}
 
           {/* Ready card at bottom of pricing page */}
-          
+
           {isPricingPage && <Ready />}
         </div>
       </div>

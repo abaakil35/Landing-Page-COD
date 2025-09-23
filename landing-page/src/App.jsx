@@ -32,7 +32,6 @@ function AppContent() {
 
   return (
     <>
-      {/* Set a default title/meta via DOM for environments without react-helmet-async */}
       {useEffect(() => {
         document.title = "Landing Page COD";
         const desc = document.querySelector('meta[name="description"]');

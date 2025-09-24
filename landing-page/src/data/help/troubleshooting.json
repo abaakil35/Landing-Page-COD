@@ -1,0 +1,32 @@
+{
+    "id": "troubleshooting",
+    "title": "Troubleshooting & FAQs",
+    "description": "Common Issues & Fixes",
+    "articles": [
+        {
+            "id": "button-not-showing",
+            "title": "COD Button Not Showing: How to Fix",
+            "body": "1) Make sure the app is installed and the button placement is enabled for the theme you are previewing. Use the theme selector in the app to target the correct theme.\n2) Clear caches and browser storage, then hard-refresh the page. If your theme uses a page builder, verify that the product template includes the section where the app block is inserted."
+        },
+        {
+            "id": "form-not-submitting",
+            "title": "Form Not Submitting or Saving Orders",
+            "body": "Check for Javascript console errors and theme conflicts. If the form opens but fails to submit, ensure required fields are correctly configured and not blocked by a third-party script. Temporarily disable other apps that modify checkout flow to isolate the conflict."
+        },
+        {
+            "id": "styling-issues",
+            "title": "Styling or Layout Issues (Theme Conflicts)",
+            "body": "Most layout problems are fixed by adding a small CSS override in the app settings. Use the theme inspector to find the conflicting selector. If the issue is caused by a legacy theme, contact support for a guided fix."
+        },
+        {
+            "id": "duplicate-orders",
+            "title": "Duplicate Orders or Incorrect Data",
+            "body": "Verify that customers are not double-submitting forms (check form submit button states) and that your checkout apps are not duplicating the workflow. If order data is missing, check the app's permissions and the order notes/attributes the app writes to Shopify."
+        },
+        {
+            "id": "troubleshooting-faq",
+            "title": "General Frequently Asked Questions",
+            "body": "Q: Can I disable COD for specific products?\nA: Yes, use product tags to exclude items from COD or set rules in the Shipping & Rules section.\nQ: How long does support take to respond?\nA: Response times vary by plan — priority support is available for paid tiers."
+        }
+    ]
+}

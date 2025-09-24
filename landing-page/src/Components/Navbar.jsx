@@ -51,7 +51,9 @@ const Navbar = ({ variant }) => {
           ? "bg-[#120913] text-[#e9e7ee]"
           : "bg-white text-gray-700 backdrop-blur-md"
       } ${
-        isScrolled || isDocPage
+        // don't show the elevated scroll shadow while browsing help articles
+        (location.pathname.startsWith("/help") ? false : isScrolled) ||
+        isDocPage
           ? isPurple
             ? "shadow-[0_4px_24px_0_rgba(0,0,0,0.35)]"
             : isDark
@@ -75,7 +77,11 @@ const Navbar = ({ variant }) => {
         {/* Desktop Navigation */}
         <div className="hidden xl:flex flex-1 justify-center gap-2">
           {navLinks.map((link) => {
-            const isActive = location.pathname === link.to;
+            // Mark Help Center as active for any /help route (e.g. /help/:topic/:article)
+            const isActive =
+              location.pathname === link.to ||
+              (link.to === "/help-center" &&
+                location.pathname.startsWith("/help"));
             return (
               <div key={link.to} className="relative group">
                 <Link
@@ -92,7 +98,8 @@ const Navbar = ({ variant }) => {
                         if (isDark) return "text-[#b76be0] font-semibold";
                         return "text-[#5e255dff] font-semibold";
                       }
-                      if (isPurple) return "text-white hover:text-white";
+                      if (isPurple)
+                        return "text-white hover:text-white hover:bg-white/10 rounded-lg";
                       if (isDark) return "text-[#e9e7ee] hover:text-[#b76be0]";
                       return "text-gray-700 hover:text-[#5e255dff]";
                     })()}
@@ -198,7 +205,10 @@ const Navbar = ({ variant }) => {
         >
           <div className="px-6 py-4 space-y-2">
             {navLinks.map((link) => {
-              const isActive = location.pathname === link.to;
+              const isActive =
+                location.pathname === link.to ||
+                (link.to === "/help-center" &&
+                  location.pathname.startsWith("/help"));
               return (
                 <div key={link.to}>
                   <Link

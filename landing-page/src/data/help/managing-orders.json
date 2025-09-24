@@ -1,0 +1,27 @@
+{
+    "id": "managing-orders",
+    "title": "Managing Orders",
+    "description": "Process & Operations",
+    "articles": [
+        {
+            "id": "find-cod-orders",
+            "title": "Where to Find COD Orders in Shopify",
+            "body": "COD orders are regular Shopify orders that include a COD tag (configurable from the app). To find them quickly, filter your Orders view by the COD tag or create a saved search."
+        },
+        {
+            "id": "order-tagging",
+            "title": "Automatic Order Tagging & Filtering",
+            "body": "CODRocket can automatically tag orders when a customer selects the COD option. Tags can include metadata such as the COD fee applied, delivery instructions summary, and originating page (product, cart). Use these tags to build automated workflows or reporting filters."
+        },
+        {
+            "id": "exporting-orders",
+            "title": "Exporting COD Orders for Logistics Partners",
+            "body": "Use the export feature to generate CSVs containing COD order details (customer name, address, phone, COD amount, and notes). Exports can be filtered by date range, fulfillment status, or shipping zone for integration with logistics partners."
+        },
+        {
+            "id": "analytics",
+            "title": "Tracking COD Performance with Analytics",
+            "body": "The app provides basic analytics showing COD adoption rate, average COD order value, and refund rates. Combine this with Shopify analytics to evaluate the impact on conversion and fulfillment overhead. Exportable reports let you share metrics with finance or logistics teams."
+        }
+    ]
+}

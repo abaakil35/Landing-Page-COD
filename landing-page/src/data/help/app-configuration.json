@@ -1,0 +1,32 @@
+{
+    "id": "app-configuration",
+    "title": "App Configuration",
+    "description": "Setup & Customization",
+    "articles": [
+        {
+            "id": "customize-cod-button",
+            "title": "Customizing the COD Buy Button (Placement & Options)",
+            "body": "Place the COD Buy Button on product pages, inside the cart, or as a floating button. Options include the button text, color presets, and whether the button opens a modal order form or navigates to a separate page. Test placements across devices to ensure visibility without blocking important CTAs."
+        },
+        {
+            "id": "edit-order-form",
+            "title": "Building & Editing Your Order Form",
+            "body": "The order form captures buyer information required for COD fulfillment (delivery instructions, phone confirmation, optional cash collection notes). Use the form editor to add, remove, or reorder fields. Fields can be marked required, and you can optionally include conditional fields that appear based on customer selections."
+        },
+        {
+            "id": "shipping-rules",
+            "title": "Setting Up Shipping Rules & Conditional Charges",
+            "body": "Define shipping rules and conditional COD handling fees based on cart totals, shipping zones, or product tags. For example, add a fixed COD handling fee for orders under a threshold or exclude COD for certain shipping countries. Rules are evaluated at checkout to present accurate totals to customers."
+        },
+        {
+            "id": "localization",
+            "title": "Multi-Language & Localization Settings",
+            "body": "CODRocket supports localization for button text and form labels. Translate the strings for each supported storefront language from the Settings → Localization panel. If your theme uses a language switcher, verify that translations render correctly on product and cart pages."
+        },
+        {
+            "id": "custom-css",
+            "title": "Styling & Branding with Custom CSS",
+            "body": "If you need finer control, add custom CSS snippets in the app settings to match your store branding. Use the theme inspector to target the correct selectors and preview changes in a sandbox theme. Keep CSS minimal to avoid conflicts when you update themes."
+        }
+    ]
+}

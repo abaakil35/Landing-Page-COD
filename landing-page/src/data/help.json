@@ -6,7 +6,7 @@
             "description": "Introduction & Quick Setup",
             "articles": [
                 {
-                    "id": "what-is-codrocket",
+                    "id": "what-is-codrocket ",
                     "title": "What is CODRocket?",
                     "body": "CODRocket is a lightweight Shopify app that lets merchants accept Cash on Delivery (COD) payments by adding a configurable COD Buy Button and an order form to product and checkout flows. It helps merchants collect delivery instructions, capture extra fees or conditional charges for COD handling, and tag orders so they can be filtered and processed separately."
                 },

@@ -2,13 +2,15 @@ import React from "react";
 import { useParams, Link, useNavigate } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import Navbar from "./Navbar";
-import Footer from "./Footer";
-import helpData from "../data/help.json";
+import helpData from "../data/help";
 
-// helper: find topic/article by slug
-const findTopic = (topicId) => helpData.topics.find((t) => t.id === topicId);
+// helper: find topic/article by slug (normalize ids to be robust against trailing spaces/casing)
+const normalize = (s) => (typeof s === "string" ? s.trim().toLowerCase() : s);
+const findTopic = (topicId) =>
+  helpData.topics.find((t) => normalize(t.id) === normalize(topicId));
 const findArticle = (topic, articleId) =>
-  topic?.articles?.find((a) => a.id === articleId) || null;
+  topic?.articles?.find((a) => normalize(a.id) === normalize(articleId)) ||
+  null;
 
 const itemMotion = {
   initial: { opacity: 0, y: 8 },
@@ -35,12 +37,71 @@ const HelpArticle = () => {
     currentArticle = currentTopic?.articles?.[0] || null;
   }
 
+  // If the route includes a topic but no article, redirect to the topic's first article
+  React.useEffect(() => {
+    if (topicId && !articleId && currentTopic) {
+      const firstArticle = currentTopic.articles && currentTopic.articles[0];
+      if (firstArticle) {
+        navigate(`/help/${topicId}/${firstArticle.id}`, { replace: true });
+      }
+    }
+  }, [topicId, articleId, currentTopic, navigate]);
+
   return (
     <div className="min-h-screen bg-gray-50">
       <Navbar variant="purple" />
 
+      {/* Compact headline between nav and content (fixed under the navbar) */}
+      <motion.div
+        initial={{ opacity: 0, y: 6 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.36 }}
+        className="fixed inset-x-0 top-16 z-40 bg-white shadow"
+      >
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 shadow-b">
+          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
+            <div>
+              <nav
+                className="text-sm text-gray-500 mb-1 "
+                aria-label="Breadcrumb"
+              >
+                <Link to="/help-center" className="hover:text-[#5e255dff]">
+                  Help Center
+                </Link>
+                <span className="px-2">/</span>
+                <span className="text-gray-700 font-medium">
+                  {currentTopic?.title || "Topic"}
+                </span>
+              </nav>
+              <h2 className="text-lg sm:text-2xl font-extrabold text-gray-900">
+                {currentArticle?.title || currentTopic?.title || "Help Center"}
+              </h2>
+              <p className="text-sm text-gray-500 mt-1">
+                {currentTopic?.description ||
+                  "Find helpful guides and troubleshooting articles."}
+              </p>
+            </div>
+            <div className="flex-shrink-0">
+              {/* optional quick action button */}
+              <Link
+                to="/help-center"
+                className="inline-flex items-center px-4 py-2 rounded-md bg-[#5e255dff] text-white text-sm font-medium hover:brightness-95"
+              >
+                Browse Topics
+              </Link>
+            </div>
+          </div>
+        </div>
+      </motion.div>
+
+      {/* spacer to avoid content being covered by the fixed headline
+      responsive: taller on mobile (stacked layout) and shorter on sm+ */}
+      <div className="h-28 sm:h-24" aria-hidden="true" />
+
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
+
+
           {/* Sidebar navigation */}
           <aside className="order-2 lg:order-1 lg:col-span-1">
             <div className="hidden lg:block sticky top-24">
@@ -152,7 +213,7 @@ const HelpArticle = () => {
           </aside>
 
           {/* Main article area */}
-          <section className="order-1 lg:order-2 lg:col-span-3">
+          <section className="order-1 lg:order-2 lg:col-span-3 ">
             <AnimatePresence mode="wait">
               <motion.div
                 key={id || "notfound"}
@@ -160,7 +221,7 @@ const HelpArticle = () => {
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -6 }}
                 transition={{ duration: 0.32 }}
-                className="bg-white rounded-2xl shadow-lg p-8"
+                className="bg-white rounded-2xl shadow-sm p-8 lg:max-h-[calc(100vh-160px)] lg:overflow-y-auto"
               >
                 {!currentArticle ? (
                   <div>
@@ -296,7 +357,7 @@ const HelpArticle = () => {
         </div>
       </div>
 
-      <Footer />
+      {/* Footer is rendered at the app level in App.jsx to avoid duplicates */}
     </div>
   );
 };

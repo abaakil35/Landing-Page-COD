@@ -1,0 +1,32 @@
+{
+    "id": "support-policies",
+    "title": "Support & Policies",
+    "description": "Support Channels & Legal",
+    "articles": [
+        {
+            "id": "contact-support",
+            "title": "How to Contact CODRocket Support",
+            "body": "Contact support from the app dashboard (Help → Contact Support) or email our support team with your store URL, screenshots, and a concise description of the issue. Include steps to reproduce and any error messages."
+        },
+        {
+            "id": "feature-requests",
+            "title": "Submitting Feature Requests or Feedback",
+            "body": "Use the 'Suggest a feature' flow in the app or create a ticket with details about your use case. Product team reviews incoming requests and prioritizes them by impact and demand."
+        },
+        {
+            "id": "release-notes",
+            "title": "Release Notes & Latest Updates",
+            "body": "View release notes inside the app under 'Updates'. This includes bug fixes, new features, and important migration notices."
+        },
+        {
+            "id": "privacy",
+            "title": "Privacy & Data Protection Practices",
+            "body": "CODRocket only stores data necessary to operate the app (order tags, minimal form responses). We do not store full payment credentials and we follow Shopify's data protection guidelines. For details see our Privacy Policy."
+        },
+        {
+            "id": "terms",
+            "title": "Terms of Service & Refund Policy",
+            "body": "Terms and refund guidelines are available from the app dashboard and on the website. For billing disputes or refund requests, provide your store ID and invoice reference when contacting support."
+        }
+    ]
+}

@@ -2,7 +2,7 @@ import React, { useState, useContext } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Link } from "react-router-dom";
 import ThemeContext from "../Context/ThemeContextContext.js";
-import helpData from "../data/help.json";
+import helpData from "../data/help";
 
 const HelpCenter = () => {
   const [openFAQ, setOpenFAQ] = useState(null);
@@ -216,8 +216,8 @@ const HelpCenter = () => {
                   to={`/help/${topic.id}/${topic.articles[0]?.id}`}
                   className={`font-semibold transition-colors inline-flex items-center ${
                     isDark
-                      ? "text-gray-300 hover:text-blue-400"
-                      : "text-gray-900 hover:text-[#5e255dff]"
+                      ? "text-gray-300 hover:text-blue-400 group-hover:text-blue-400"
+                      : "text-gray-900 hover:text-[#5e255dff] group-hover:text-[#5e255dff]"
                   }`}
                 >
                   <div className="flex flex-col items-start">
@@ -225,7 +225,7 @@ const HelpCenter = () => {
                       View Articles →
                     </motion.span>
                     {topic.articles && topic.articles.length > 0 && (
-                      <span className="text-sm text-gray-500 mt-2">
+                      <span className="text-sm text-gray-500 mt-2 group-hover:text-gray-400">
                         {topic.articles[0].title}
                       </span>
                     )}
@@ -280,8 +280,8 @@ const HelpCenter = () => {
                 to="/doc?section=form-builder"
                 className={`font-semibold transition-colors inline-flex items-center ${
                   isDark
-                    ? "text-gray-300 hover:text-blue-400"
-                    : "text-gray-900 hover:text-[#5e255dff]"
+                    ? "text-gray-300 hover:text-blue-400 group-hover:text-blue-400"
+                    : "text-gray-900 hover:text-[#5e255dff] group-hover:text-[#5e255dff]"
                 }`}
               >
                 <motion.span whileHover={{ x: 5 }}>View Articles →</motion.span>
@@ -334,8 +334,8 @@ const HelpCenter = () => {
                 to="/doc?section=order-management"
                 className={`font-semibold transition-colors inline-flex items-center ${
                   isDark
-                    ? "text-gray-300 hover:text-blue-400"
-                    : "text-gray-900 hover:text-[#5e255dff]"
+                    ? "text-gray-300 hover:text-blue-400 group-hover:text-blue-400"
+                    : "text-gray-900 hover:text-[#5e255dff] group-hover:text-[#5e255dff]"
                 }`}
               >
                 <motion.span whileHover={{ x: 5 }}>View Articles →</motion.span>
@@ -399,8 +399,8 @@ const HelpCenter = () => {
                 to="/doc?section=customization"
                 className={`font-semibold transition-colors inline-flex items-center ${
                   isDark
-                    ? "text-gray-300 hover:text-blue-400"
-                    : "text-gray-900 hover:text-[#5e255dff]"
+                    ? "text-gray-300 hover:text-blue-400 group-hover:text-blue-400"
+                    : "text-gray-900 hover:text-[#5e255dff] group-hover:text-[#5e255dff]"
                 }`}
               >
                 <motion.span whileHover={{ x: 5 }}>View Articles →</motion.span>
@@ -452,8 +452,8 @@ const HelpCenter = () => {
                 to="/doc?section=shopify-integration"
                 className={`font-semibold transition-colors inline-flex items-center ${
                   isDark
-                    ? "text-gray-300 hover:text-blue-400"
-                    : "text-gray-900 hover:text-[#5e255dff]"
+                    ? "text-gray-300 hover:text-blue-400 group-hover:text-blue-400"
+                    : "text-gray-900 hover:text-[#5e255dff] group-hover:text-[#5e255dff]"
                 }`}
               >
                 <motion.span whileHover={{ x: 5 }}>View Articles →</motion.span>
@@ -505,8 +505,8 @@ const HelpCenter = () => {
                 to="/doc?section=troubleshooting"
                 className={`font-semibold transition-colors inline-flex items-center ${
                   isDark
-                    ? "text-gray-300 hover:text-blue-400"
-                    : "text-gray-900 hover:text-[#5e255dff]"
+                    ? "text-gray-300 hover:text-blue-400 group-hover:text-blue-400"
+                    : "text-gray-900 hover:text-[#5e255dff] group-hover:text-[#5e255dff]"
                 }`}
               >
                 <motion.span whileHover={{ x: 5 }}>View Articles →</motion.span>

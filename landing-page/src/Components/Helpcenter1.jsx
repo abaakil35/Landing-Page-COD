@@ -8,57 +8,51 @@ import Navbar from "./Navbar";
 const cardsData = [
   {
     id: 1,
-    title: "About CODocket",
-    headline: "Welcome to COD Form & Manager by CODRocket Help Center",
+    title: "Getting Started",
+    headline: "Introduction & Quick Setup",
     content:
-      "Get started with COD Form & Manager by CODRocket and learn how to create powerful forms and manage your data effectively.",
-    subContent:
-      "Our comprehensive help center provides guides, tutorials, and support resources.",
+      "This section introduces CODRocket to new users. It explains what the app does, how to install it on a Shopify store, and the basic steps to start accepting Cash on Delivery (COD) orders. Perfect for first-time users who want a quick setup.",
+    subContent: "",
   },
   {
     id: 2,
-    title: "Getting Started",
-    headline: "Quick Start Guide",
+    title: "App Configuration",
+    headline: "Setup & Customization",
     content:
-      "Learn the basics of COD Form & Manager by CODRocket in minutes. Create your first form and start collecting responses.",
-    subContent:
-      "Step-by-step tutorials for beginners and advanced users alike.",
+      "Here you’ll find detailed guides on customizing CODRocket to fit your business. From adjusting the COD Buy Button placement to designing order forms, setting shipping rules, or applying your store’s branding — this section covers everything about setup and personalization.",
+    subContent: "",
   },
   {
     id: 3,
-    title: "Form Building",
-    headline: "Advanced Form Features",
+    title: "Managing Orders",
+    headline: "Process & Operations",
     content:
-      "Discover powerful form building tools including conditional logic, validation, and custom styling.",
-    subContent:
-      "Create complex forms with ease using our intuitive drag-and-drop interface.",
+      "Once CODRocket is live, this section explains how to process and manage COD orders. It includes order tracking, automatic tagging, exporting data for logistics, and viewing analytics to help merchants make better decisions.",
+    subContent: "",
   },
   {
     id: 4,
-    title: "Integrations",
-    headline: "Connect Your Tools",
+    title: "Pricing & Plans",
+    headline: "Costs & Billing",
     content:
-      "Integrate COD Form & Manager by CODRocket with your favorite apps and services for seamless workflows.",
-    subContent:
-      "Zapier, Slack, Google Sheets, and many more integrations available.",
+      "Merchants often want clarity on costs. This section explains the difference between free and paid plans, subscription upgrades or downgrades, billing details, and frequently asked questions about pricing.",
+    subContent: "",
   },
   {
     id: 5,
-    title: "Analytics",
-    headline: "Track Form Performance",
+    title: "Troubleshooting & FAQs",
+    headline: "Common Issues & Fixes",
     content:
-      "Monitor form submissions, analyze user behavior, and optimize your forms for better results.",
-    subContent:
-      "Detailed analytics and reporting to improve your form conversion rates.",
+      "Things don’t always go as planned. This section provides solutions to common problems like the COD button not showing, form submission errors, styling issues, and order data problems. It also includes a quick FAQ with answers to the most common merchant questions.",
+    subContent: "",
   },
   {
     id: 6,
-    title: "Security",
-    headline: "Data Protection & Privacy",
+    title: "Support & Policies",
+    headline: "Support Channels & Legal",
     content:
-      "Learn about our security measures, data encryption, and compliance standards.",
-    subContent:
-      "Your data is safe with enterprise-grade security and privacy protection.",
+      "For cases where users still need help, this section covers all support channels, expected response times, and how to request new features. It also includes release notes, privacy details, and legal policies to build trust and transparency.",
+    subContent: "",
   },
   {
     id: 7,

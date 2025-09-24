@@ -20,6 +20,7 @@ import Documentation from "./Components/Documentation";
 import { ThemeProvider } from "./Context/ThemeContext";
 import { useEffect } from "react";
 import Helpcenter1 from "./Components/Helpcenter1";
+import HelpArticle from "./Components/HelpArticle";
 // import FAQ from "./Components/FAQ";
 
 function AppContent() {
@@ -27,6 +28,7 @@ function AppContent() {
   const isDocPage =
     location.pathname === "/doc" || location.pathname === "/help-center/doc";
   const isHelpCenterPage = location.pathname === "/help-center";
+  const isHelpArticle = location.pathname.startsWith("/help/");
 
   useEffect(() => {
     // Scroll to top on route change
@@ -51,7 +53,7 @@ function AppContent() {
           document.head.appendChild(m);
         }
       }, [])}
-      {!isHelpCenterPage && <Navbar />}
+      {!isHelpCenterPage && !isHelpArticle && <Navbar />}
       <div>
         <Routes>
           <Route
@@ -87,6 +89,7 @@ function AppContent() {
           <Route path="/contact" element={<Contact />} />
           <Route path="/doc" element={<Documentation />} />
           <Route path="/help-center" element={<Helpcenter1 />} />
+          <Route path="/help/:id" element={<HelpArticle />} />
           <Route path="/help-center/doc" element={<Documentation />} />
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>

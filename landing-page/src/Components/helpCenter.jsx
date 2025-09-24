@@ -2,6 +2,7 @@ import React, { useState, useContext } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Link } from "react-router-dom";
 import ThemeContext from "../Context/ThemeContextContext.js";
+import helpData from "../data/help.json";
 
 const HelpCenter = () => {
   const [openFAQ, setOpenFAQ] = useState(null);
@@ -167,58 +168,71 @@ const HelpCenter = () => {
 
           {/* Categories Grid */}
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {/* Getting Started */}
-            <motion.div
-              className={`rounded-xl p-6 hover:shadow-lg transition-all duration-300 group ${
-                isDark
-                  ? "bg-gray-800 border border-gray-700 hover:shadow-gray-700/50"
-                  : "bg-white border border-gray-200"
-              }`}
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.5 }}
-              whileHover={{ y: -5 }}
-            >
-              <div className="w-16 h-16 bg-blue-500 rounded-lg mb-6 flex items-center justify-center shadow-lg">
-                <svg
-                  className="w-8 h-8 text-white"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.746 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"
-                  />
-                </svg>
-              </div>
-              <h3
-                className={`text-xl font-bold mb-3 ${
-                  isDark ? "text-white" : "text-gray-900"
-                }`}
-              >
-                Getting Started
-              </h3>
-              <p
-                className={`mb-4 leading-relaxed ${
-                  isDark ? "text-gray-300" : "text-gray-600"
-                }`}
-              >
-                Learn the basics of setting up and configuring your COD forms
-              </p>
-              <Link
-                to="/doc?section=introduction"
-                className={`font-semibold transition-colors inline-flex items-center ${
+            {/* Dynamic categories from JSON - render first 6 topics or fallback to existing cards */}
+            {helpData.topics.slice(0, 6).map((topic, idx) => (
+              <motion.div
+                key={topic.id}
+                className={`rounded-xl p-6 hover:shadow-lg transition-all duration-300 group ${
                   isDark
-                    ? "text-gray-300 hover:text-blue-400"
-                    : "text-gray-900 hover:text-[#5e255dff]"
+                    ? "bg-gray-800 border border-gray-700 hover:shadow-gray-700/50"
+                    : "bg-white border border-gray-200"
                 }`}
+                initial={{ opacity: 0, y: 30 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.5 + idx * 0.05 }}
+                whileHover={{ y: -5 }}
               >
-                <motion.span whileHover={{ x: 5 }}>View Articles →</motion.span>
-              </Link>
-            </motion.div>
+                <div className="w-16 h-16 bg-blue-500 rounded-lg mb-6 flex items-center justify-center shadow-lg">
+                  {/* simple icon - keep existing visuals */}
+                  <svg
+                    className="w-8 h-8 text-white"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.746 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"
+                    />
+                  </svg>
+                </div>
+                <h3
+                  className={`text-xl font-bold mb-3 ${
+                    isDark ? "text-white" : "text-gray-900"
+                  }`}
+                >
+                  {topic.title}
+                </h3>
+                <p
+                  className={`mb-4 leading-relaxed ${
+                    isDark ? "text-gray-300" : "text-gray-600"
+                  }`}
+                >
+                  {topic.description}
+                </p>
+                <Link
+                  to={`/help/${topic.id}/${topic.articles[0]?.id}`}
+                  className={`font-semibold transition-colors inline-flex items-center ${
+                    isDark
+                      ? "text-gray-300 hover:text-blue-400"
+                      : "text-gray-900 hover:text-[#5e255dff]"
+                  }`}
+                >
+                  <div className="flex flex-col items-start">
+                    <motion.span whileHover={{ x: 5 }}>
+                      View Articles →
+                    </motion.span>
+                    {topic.articles && topic.articles.length > 0 && (
+                      <span className="text-sm text-gray-500 mt-2">
+                        {topic.articles[0].title}
+                      </span>
+                    )}
+                  </div>
+                </Link>
+              </motion.div>
+            ))}
 
             {/* Form Builder */}
             <motion.div
@@ -1531,11 +1545,8 @@ const HelpCenter = () => {
                         className={`block text-sm font-semibold mb-3 ${
                           isDark ? "text-gray-300" : "text-gray-700"
                         }`}
-                      >
-
-                        </label>
-                      </div>
-
+                      ></label>
+                    </div>
 
                     {/* Submit Button */}
                     <div className="flex flex-col sm:flex-row gap-4 pt-4">
@@ -1564,7 +1575,6 @@ const HelpCenter = () => {
                           />
                         </svg>
                       </motion.button>
-                      
                     </div>
                   </form>
 

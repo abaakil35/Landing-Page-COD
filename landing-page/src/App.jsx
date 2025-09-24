@@ -89,6 +89,7 @@ function AppContent() {
           <Route path="/contact" element={<Contact />} />
           <Route path="/doc" element={<Documentation />} />
           <Route path="/help-center" element={<Helpcenter1 />} />
+          <Route path="/help/:topic/:article" element={<HelpArticle />} />
           <Route path="/help/:id" element={<HelpArticle />} />
           <Route path="/help-center/doc" element={<Documentation />} />
           <Route path="*" element={<Navigate to="/" replace />} />

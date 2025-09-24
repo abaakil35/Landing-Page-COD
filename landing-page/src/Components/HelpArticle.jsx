@@ -100,8 +100,6 @@ const HelpArticle = () => {
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
-
-
           {/* Sidebar navigation */}
           <aside className="order-2 lg:order-1 lg:col-span-1">
             <div className="hidden lg:block sticky top-24">
@@ -282,12 +280,9 @@ const HelpArticle = () => {
 
                     <motion.div
                       {...itemMotion}
-                      className="prose max-w-none text-gray-800"
-                    >
-                      {currentArticle.body.split("\n\n").map((p, i) => (
-                        <p key={i}>{p}</p>
-                      ))}
-                    </motion.div>
+                      className="prose prose-lg max-w-none text-gray-800 prose-headings:text-[#5e255dff] prose-strong:text-[#5e255dff] prose-a:text-[#5e255dff] hover:prose-a:underline"
+                      dangerouslySetInnerHTML={{ __html: currentArticle.body }}
+                    />
 
                     <footer className="mt-8 border-t pt-6">
                       <div className="flex items-center justify-between">

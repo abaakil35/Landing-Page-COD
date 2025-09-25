@@ -67,35 +67,6 @@ const cardsData = [
 const Helpcenter1 = () => {
   const [query, setQuery] = useState("");
 
-  const articlesData = [
-    {
-      id: "a1",
-      title: "Cash on Delivery Guide",
-      headline: "Everything you need to know about Cash on Delivery",
-      content:
-        "Learn how Cash on Delivery (COD) works with COD Form & Manager — setup, restrictions, and best practices.",
-      subContent:
-        "Improve conversion while safely handling payments on delivery.",
-    },
-    {
-      id: "a2",
-      title: "COD Limitations",
-      headline: "When to use and when to avoid COD",
-      content:
-        "Understand order risk, geographic availability, and recommended verification steps for COD orders.",
-      subContent: "Tips to reduce returns and fraud for COD shipments.",
-    },
-    {
-      id: "a3",
-      title: "COD Analytics",
-      headline: "Track and optimize COD performance",
-      content:
-        "Use analytics to monitor COD order completion rates and identify opportunities to improve acceptance.",
-      subContent:
-        "Leverage reports to make data-driven decisions for COD policies.",
-    },
-  ];
-
   const filtered = useMemo(() => {
     const q = query.trim().toLowerCase();
     if (!q) return cardsData;
@@ -193,28 +164,6 @@ const Helpcenter1 = () => {
 
         <div className="mt-16 text-center">
           {/* Latest Articles & News */}
-          <div className="max-w-7xl mx-auto mb-10">
-            <div className="text-center mb-6">
-              <h3 className="text-4xl font-extrabold">
-                Latest Articles & News
-              </h3>
-              <p className="text-gray-600">
-                Recent updates about Cash on Delivery and platform news.
-              </p>
-            </div>
-
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 px-6">
-              {articlesData.slice(0, 2).map((art) => (
-                <AboutCard
-                  key={art.id}
-                  title={art.title}
-                  headline={art.headline}
-                  content={art.content}
-                  subContent={art.subContent}
-                />
-              ))}
-            </div>
-          </div>
 
           <div className="mt-8 bg-gradient-to-r from-[#5e255dff] to-[#4a1d49] rounded-2xl p-8 text-white">
             <h3 className="text-2xl font-bold mb-4">
@@ -224,9 +173,11 @@ const Helpcenter1 = () => {
               Our support team is here to help you with any questions or issues
               you might have.
             </p>
-            <button className="bg-white text-[#5e255dff] font-semibold py-3 px-8 rounded-lg hover:bg-gray-100 transition-colors duration-300 shadow-lg">
-              Send an Email
-            </button>
+            <Link to="/contact">
+              <button className="bg-white text-[#5e255dff] font-semibold py-3 px-8 rounded-lg hover:bg-gray-100 transition-colors duration-300 shadow-lg cursor-pointer">
+                Send an Email
+              </button>
+            </Link>
           </div>
         </div>
       </div>

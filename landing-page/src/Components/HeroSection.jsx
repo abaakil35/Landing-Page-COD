@@ -1,13 +1,13 @@
 import { motion } from "framer-motion";
 import { useContext } from "react";
 import ThemeContext from "../Context/ThemeContextContext.js";
-import image from "./../assets/picshero.png";
+import image from "./../assets/NewHeroSection.png";
 
 const HeroSection = () => {
   const { theme } = useContext(ThemeContext);
   return (
     <section
-      className={`relative w-full py-23 px-23 overflow-hidden ${
+      className={`relative w-full py-3 px-23 overflow-hidden ${
         theme === "dark" ? "bg-[#0f0712]" : "bg-white"
       }`}
     >
@@ -128,7 +128,6 @@ const HeroSection = () => {
               <span>Easy installation</span>
             </div>
           </motion.div>
-
         </motion.div>
 
         <motion.div
@@ -137,12 +136,12 @@ const HeroSection = () => {
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.8, delay: 0.4 }}
         >
-          {/* Purple blob background */}
+          {/* Enhanced purple blob background */}
           <motion.svg
             className="absolute -z-10 left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2"
-            width="370"
-            height="370"
-            viewBox="0 0 370 370"
+            width="400"
+            height="400"
+            viewBox="0 0 400 400"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
             initial={{ scale: 0, rotate: -180 }}
@@ -150,118 +149,30 @@ const HeroSection = () => {
             transition={{ duration: 1, delay: 0.6, ease: "easeOut" }}
           >
             <ellipse
-              cx="185"
-              cy="185"
-              rx="185"
-              ry="150"
+              cx="200"
+              cy="200"
+              rx="200"
+              ry="160"
               fill="#a78bfa"
-              fillOpacity={`${theme === "dark" ? "0.15" : "0.25"}`}
+              fillOpacity={`${theme === "dark" ? "0.12" : "0.18"}`}
             />
           </motion.svg>
           <motion.div
-            className="hero-image h-[28rem] w-64 md:h-[32rem] md:w-[28rem] flex justify-center items-center overflow-visible"
+            className="hero-image h-[32rem] w-80 md:h-[40rem] md:w-[36rem] flex justify-center items-center overflow-visible relative"
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.8 }}
-            whileHover={{ scale: 1.05, rotate: 2 }}
+            whileHover={{ scale: 1.03, y: -5 }}
           >
             <img
               src={image}
               alt="COD Rocket dashboard interface showing order management and analytics"
               width="448"
               height="512"
-              className="object-contain max-h-full max-w-full drop-shadow-2xl"
+              className="object-contain drop-shadow-2xl rounded-3xl shadow-2xl w-[1122px] "
               loading="eager"
               decoding="async"
             />
-            {/* bottom-right features card removed per request */}
-
-            {/* Floating card - top-left */}
-            <motion.div
-              initial={{ y: 0, scale: 0.95 }}
-              animate={{ y: [0, -4, 0], scale: [0.95, 1, 0.95] }}
-              transition={{ duration: 2.6, repeat: Infinity }}
-              className={`absolute top-2 left-2 rounded-xl p-2 shadow-lg flex items-center gap-2 ${
-                theme === "dark"
-                  ? "bg-[#0f0810] text-[#e9e7ee]"
-                  : "bg-white text-gray-800"
-              }`}
-            >
-              <div className="w-8 h-8 rounded-md bg-gradient-to-tr from-[#7c3aed] to-[#a78bfa] flex items-center justify-center text-white">
-                  <svg
-                className={`w-4 h-4 ${
-                  theme === "dark" ? "text-[#b76be0]" : "text-white"
-                }`}
-                fill="currentColor"
-                viewBox="0 0 20 20"
-              >
-                <path
-                  fillRule="evenodd"
-                  d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-                  clipRule="evenodd"
-                />
-              </svg>
-              </div>
-              <div className="text-xs font-medium">Free Plan Available </div>
-            </motion.div>
-
-            {/* Floating card - top-right */}
-            <motion.div
-              initial={{ y: 0, scale: 0.95 }}
-              animate={{ y: [0, -4, 0], scale: [0.95, 1, 0.95] }}
-              transition={{ duration: 2.8, repeat: Infinity }}
-              className={`absolute top-8 right-8 rounded-xl px-3 py-1 shadow-lg flex items-center gap-2 ${
-                theme === "dark"
-                  ? "bg-[#0f0810] text-[#e9e7ee]"
-                  : "bg-white text-gray-800"
-              }`}
-            >
-              <div className="w-6 h-6 rounded-md bg-gradient-to-tr from-[#5e255dff] to-[#a78bfa] flex items-center justify-center text-white">
-                  <svg
-                className={`w-4 h-4 ${
-                  theme === "dark" ? "text-[#b76be0]" : "text-white"
-                }`}
-                fill="currentColor"
-                viewBox="0 0 20 20"
-              >
-                <path
-                  fillRule="evenodd"
-                  d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-                  clipRule="evenodd"
-                />
-              </svg>
-              </div>
-              <div className="text-xs font-medium">No Setup Fees</div>
-            </motion.div>
-
-            {/* Floating card - bottom-left */}
-            <motion.div
-              initial={{ y: 0, scale: 0.95 }}
-              animate={{ y: [0, -4, 0], scale: [0.95, 1, 0.95] }}
-              transition={{ duration: 2.4, repeat: Infinity }}
-              className={`absolute bottom-10 left-6 rounded-xl px-3 py-1 shadow-lg flex items-center gap-2 ${
-                theme === "dark"
-                  ? "bg-[#0f0810] text-[#e9e7ee]"
-                  : "bg-white text-gray-800"
-              }`}
-            >
-              <div className="w-6 h-6 rounded-md bg-gradient-to-tr from-[#5e255dff] to-[#a78bfa] flex items-center justify-center text-white">
-                <svg
-                className={`w-4 h-4 ${
-                  theme === "dark" ? "text-[#b76be0]" : "text-white"
-                }`}
-                fill="currentColor"
-                viewBox="0 0 20 20"
-              >
-                <path
-                  fillRule="evenodd"
-                  d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-                  clipRule="evenodd"
-                />
-              </svg>
-              </div>
-              <div className="text-xs font-medium">Easy Installation </div>
-            </motion.div>
           </motion.div>
         </motion.div>
       </div>

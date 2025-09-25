@@ -352,6 +352,23 @@ const HelpArticle = () => {
         </div>
       </div>
 
+      <div className="px-30 py-6 text-center">
+        <div className=" bg-gradient-to-r from-[#5e255dff] to-[#4a1d49] rounded-2xl p-8 text-white">
+          <h3 className="text-2xl font-bold mb-4">
+            Not finding what you're looking for?
+          </h3>
+          <p className="text-lg mb-6 opacity-90">
+            Our support team is here to help you with any questions or issues
+            you might have.
+          </p>
+          <Link to="/contact">
+            <button className="bg-white text-[#5e255dff] font-semibold py-3 px-8 rounded-lg hover:bg-gray-100 transition-colors duration-300 shadow-lg">
+              Send an Email
+            </button>
+          </Link>
+        </div>
+      </div>
+
       {/* Footer is rendered at the app level in App.jsx to avoid duplicates */}
     </div>
   );

@@ -11,8 +11,6 @@ const Ready = () => {
         isDark ? "bg-[#0f0712]" : "bg-[#FCFCFC]"
       }`}
     >
-      {/* Decorative blurred circles */}
-    
       <div className="max-w-7xl mx-auto relative z-10 px-4">
         <div
           className={`mx-auto w-full backdrop-blur-md rounded-2xl py-12 md:py-16 px-8 flex flex-col items-center shadow-lg ${
@@ -56,16 +54,6 @@ const Ready = () => {
               }`}
             >
               Install from Shopify App Store
-            </a>
-            <a
-              href="#"
-              className={`w-full md:w-auto px-6 lg:px-10 py-4 lg:py-5 rounded-lg font-bold text-base lg:text-lg shadow-md hover:shadow-xl transition-all text-center ${
-                isDark
-                  ? "bg-[#2d1129]/50 text-[#e9e7ee] hover:bg-[#2d1129]/70"
-                  : "bg-white text-[#2d123a] hover:bg-[#f9f4f9]"
-              }`}
-            >
-              Schedule Demo
             </a>
           </div>
           <div

@@ -76,7 +76,7 @@ function AppContent() {
                 <HowCODWorks />
                 <SeeAction />
                 {/* <FAQ /> */}
-                <Customers />
+                {/* <Customers /> */}
                 <Pricing />
                 {/* <Contact /> */}
                 <Ready />

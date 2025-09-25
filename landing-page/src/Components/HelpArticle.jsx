@@ -59,7 +59,7 @@ const HelpArticle = () => {
         className="fixed inset-x-0 top-16 z-40 bg-white shadow"
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 shadow-b">
-          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
+          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 ">
             <div>
               <nav
                 className="text-sm text-gray-500 mb-1 "
@@ -352,7 +352,7 @@ const HelpArticle = () => {
         </div>
       </div>
 
-      <div className="px-30 py-6 text-center">
+      <div className="px-39 py-6 text-center">
         <div className=" bg-gradient-to-r from-[#5e255dff] to-[#4a1d49] rounded-2xl p-8 text-white">
           <h3 className="text-2xl font-bold mb-4">
             Not finding what you're looking for?

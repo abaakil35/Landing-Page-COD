@@ -4,6 +4,7 @@ import Footer from "./Footer";
 import { Link } from "react-router-dom";
 import logoWhite from "../assets/logo_white.png";
 import Navbar from "./Navbar";
+import helpData from "../data/help";
 
 const cardsData = [
   {
@@ -148,18 +149,26 @@ const Helpcenter1 = () => {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          {filtered.map((card) => (
-            <div key={card.id} className="h-full">
-              <Link to={`/help/${card.id}`} className="block h-full">
-                <AboutCard
-                  title={card.title}
-                  headline={card.headline}
-                  content={card.content}
-                  subContent={card.subContent}
-                />
-              </Link>
-            </div>
-          ))}
+          {filtered.map((card) => {
+            // Find the topic index in helpData.topics (alphabetical import order)
+            const topicIndex = helpData.topics.findIndex(
+              (t) => t.title.toLowerCase() === card.title.toLowerCase()
+            );
+            const to =
+              topicIndex >= 0 ? `/help/${topicIndex + 1}` : `/help/${card.id}`;
+            return (
+              <div key={card.id} className="h-full">
+                <Link to={to} className="block h-full">
+                  <AboutCard
+                    title={card.title}
+                    headline={card.headline}
+                    content={card.content}
+                    subContent={card.subContent}
+                  />
+                </Link>
+              </div>
+            );
+          })}
         </div>
 
         <div className="mt-16 text-center">

@@ -37,15 +37,8 @@ const HelpArticle = () => {
     currentArticle = currentTopic?.articles?.[0] || null;
   }
 
-  // If the route includes a topic but no article, redirect to the topic's first article
-  React.useEffect(() => {
-    if (topicId && !articleId && currentTopic) {
-      const firstArticle = currentTopic.articles && currentTopic.articles[0];
-      if (firstArticle) {
-        navigate(`/help/${topicId}/${firstArticle.id}`, { replace: true });
-      }
-    }
-  }, [topicId, articleId, currentTopic, navigate]);
+  // Do NOT auto-redirect when visiting /help/:topic — render a topic landing
+  // listing articles so the user can choose which article to open.
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -113,7 +106,7 @@ const HelpArticle = () => {
                     return (
                       <div key={topic.id}>
                         <Link
-                          to={`/help/${topic.id}/${topic.articles[0]?.id}`}
+                          to={`/help/${topic.id}`}
                           className={`block rounded-md px-3 py-2 text-sm transition-all duration-150 group ${
                             isActiveTopic
                               ? "bg-[#f6f0ff] text-[#5e255dff] font-semibold shadow"
@@ -196,7 +189,7 @@ const HelpArticle = () => {
                 {helpData.topics.map((topic) => (
                   <Link
                     key={topic.id}
-                    to={`/help/${topic.id}/${topic.articles[0]?.id}`}
+                    to={`/help/${topic.id}`}
                     className={`flex-shrink-0 px-3 py-2 rounded-md text-sm border ${
                       currentTopic?.id === topic.id
                         ? "bg-[#5e255dff] text-white"
@@ -219,23 +212,65 @@ const HelpArticle = () => {
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -6 }}
                 transition={{ duration: 0.32 }}
-                className="bg-white rounded-2xl shadow-sm p-8 lg:max-h-[calc(100vh-160px)] lg:overflow-y-auto"
+                className="bg-white rounded-2xl shadow-sm p-8 lg:max-h-[calc(100vh)] lg:overflow-y-auto"
               >
                 {!currentArticle ? (
-                  <div>
-                    <h2 className="text-2xl font-bold">Article not found</h2>
-                    <p className="mt-3 text-gray-600">
-                      We couldn't find the article you're looking for.
-                    </p>
-                    <div className="mt-4">
-                      <Link
-                        to="/help-center"
-                        className="text-[#5e255dff] hover:underline"
-                      >
-                        Back to Help Center
-                      </Link>
+                  currentTopic ? (
+                    <div>
+                      <h2 className="text-2xl font-bold">
+                        {currentTopic.title}
+                      </h2>
+                      <p className="mt-3 text-gray-600">
+                        {currentTopic.description}
+                      </p>
+                      <div className="mt-6 grid gap-4">
+                        {currentTopic.articles &&
+                        currentTopic.articles.length > 0 ? (
+                          currentTopic.articles.map((a, idx) => (
+                            <Link
+                              key={a.id}
+                              to={`/help/${currentTopic.id}/${a.id}`}
+                              className="group flex items-start gap-4 px-4 py-3 hover:bg-[#f6f0ff] transition-colors rounded-md"
+                            >
+                              <span className="flex-shrink-0 inline-flex items-center justify-center w-8 h-8 rounded-full bg-gray-100 text-sm font-medium text-gray-700 group-hover:bg-[#5e255dff] group-hover:text-white transition">
+                                {idx + 1}
+                              </span>
+
+                              <div className="flex-1">
+                                <h3 className="text-lg font-semibold text-gray-800">
+                                  {a.title}
+                                </h3>
+                                {a.excerpt && (
+                                  <p className="text-sm text-gray-500 mt-1">
+                                    {a.excerpt}
+                                  </p>
+                                )}
+                              </div>
+                            </Link>
+                          ))
+                        ) : (
+                          <p className="text-gray-600">
+                            No articles are available for this topic yet.
+                          </p>
+                        )}
+                      </div>
                     </div>
-                  </div>
+                  ) : (
+                    <div>
+                      <h2 className="text-2xl font-bold">Article not found</h2>
+                      <p className="mt-3 text-gray-600">
+                        We couldn't find the article you're looking for.
+                      </p>
+                      <div className="mt-4">
+                        <Link
+                          to="/help-center"
+                          className="text-[#5e255dff] hover:underline"
+                        >
+                          Back to Help Center
+                        </Link>
+                      </div>
+                    </div>
+                  )
                 ) : (
                   <article>
                     {/* Breadcrumb / path headline */}
@@ -252,7 +287,7 @@ const HelpArticle = () => {
                         </Link>
                         <span className="text-gray-300">/</span>
                         <Link
-                          to={`/help/${currentTopic?.id}/${currentTopic?.articles?.[0]?.id}`}
+                          to={`/help/${currentTopic?.id}`}
                           className="text-gray-600 hover:text-[#5e255dff]"
                         >
                           {currentTopic?.title || "Topic"}
@@ -264,13 +299,19 @@ const HelpArticle = () => {
                       </nav>
                     </div>
 
-                    <header className="mb-6">
-                      <h1 className="text-3xl font-extrabold text-gray-900">
+                    <header className="mb-8">
+                      <h1 className="text-3xl sm:text-3xl md:text-4xl font-extrabold tracking-tight text-black">
                         {currentArticle.title}
                       </h1>
-                      <div className="mt-2 flex items-center justify-between">
-                        <p className="text-gray-600">
-                          {currentTopic?.description || ""}
+
+                      {/* decorative underline (plain black) */}
+                      <div className="mt-3 w-24 h-1 rounded-full bg-black opacity-90" />
+
+                      <div className="mt-4 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+                        <p className="text-gray-600 max-w-2xl">
+                          {currentArticle.excerpt ||
+                            currentTopic?.description ||
+                            ""}
                         </p>
                         <time className="text-sm text-gray-400">
                           Last updated: Sep 24, 2025

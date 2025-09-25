@@ -151,11 +151,10 @@ const Helpcenter1 = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {filtered.map((card) => {
             // Find the topic index in helpData.topics (alphabetical import order)
-            const topicIndex = helpData.topics.findIndex(
+            const topic = helpData.topics.find(
               (t) => t.title.toLowerCase() === card.title.toLowerCase()
             );
-            const to =
-              topicIndex >= 0 ? `/help/${topicIndex + 1}` : `/help/${card.id}`;
+            const to = topic ? `/help/${topic.id}` : `/help/${card.id}`;
             return (
               <div key={card.id} className="h-full">
                 <Link to={to} className="block h-full">

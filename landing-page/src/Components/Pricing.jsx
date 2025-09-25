@@ -24,7 +24,7 @@ const plans = [
   {
     name: "Grow",
     // monthly view: show the per-month price when billed yearly is selected the UI computes from yearlyPrice
-    price: "$8.25",
+    price: "$9",
     yearlyPrice: "$99",
     period: "/month",
     yearlyPeriod: "/year",
@@ -41,7 +41,7 @@ const plans = [
   },
   {
     name: "Advanced",
-    price: "$20.75",
+    price: "$24",
     yearlyPrice: "$249",
     period: "/month",
     yearlyPeriod: "/year",
@@ -360,50 +360,52 @@ const Pricing = () => {
                   </button>
                 </div>
                 <div className="text-sm text-center mb-6 w-full">
-                  {(() => {
-                    // Prefer showing the explicit yearly price (plan.yearlyPrice)
-                    // in the small "bill at" line. Fallback to computed annual
-                    // from the monthly price only if yearlyPrice is missing.
-                    const annualFromYearly = parsePrice(plan.yearlyPrice);
-                    if (annualFromYearly && annualFromYearly > 0) {
-                      return (
-                        <div
-                          className={`${
-                            isDark ? "text-[#e9e7ee]/60" : "text-gray-500"
-                          }`}
-                        >
-                          bill at {plan.yearlyPrice} once per year
-                        </div>
-                      );
-                    }
+                  {billingPeriod === "yearly"
+                    ? (() => {
+                        // Prefer showing the explicit yearly price (plan.yearlyPrice)
+                        // in the small "bill at" line. Fallback to computed annual
+                        // from the monthly price only if yearlyPrice is missing.
+                        const annualFromYearly = parsePrice(plan.yearlyPrice);
+                        if (annualFromYearly && annualFromYearly > 0) {
+                          return (
+                            <div
+                              className={`${
+                                isDark ? "text-[#e9e7ee]/60" : "text-gray-500"
+                              }`}
+                            >
+                              bill at {plan.yearlyPrice} once per year
+                            </div>
+                          );
+                        }
 
-                    // No explicit yearly price: try to compute from monthly price
-                    const monthly = parsePrice(plan.price);
-                    if (monthly === null || monthly === 0) {
-                      return (
-                        <div
-                          className={`${
-                            isDark ? "text-[#e9e7ee]/60" : "text-gray-500"
-                          }`}
-                        >
-                          Free
-                        </div>
-                      );
-                    }
+                        // No explicit yearly price: try to compute from monthly price
+                        const monthly = parsePrice(plan.price);
+                        if (monthly === null || monthly === 0) {
+                          return (
+                            <div
+                              className={`${
+                                isDark ? "text-[#e9e7ee]/60" : "text-gray-500"
+                              }`}
+                            >
+                              Free
+                            </div>
+                          );
+                        }
 
-                    const formattedAnnual =
-                      formatCurrency(monthly * 12) ??
-                      `$${(monthly * 12).toFixed(2)}`;
-                    return (
-                      <div
-                        className={`${
-                          isDark ? "text-[#e9e7ee]/60" : "text-gray-500"
-                        }`}
-                      >
-                        bill at {formattedAnnual} once per year
-                      </div>
-                    );
-                  })()}
+                        const formattedAnnual =
+                          formatCurrency(monthly * 12) ??
+                          `$${(monthly * 12).toFixed(2)}`;
+                        return (
+                          <div
+                            className={`${
+                              isDark ? "text-[#e9e7ee]/60" : "text-gray-500"
+                            }`}
+                          >
+                            bill at {formattedAnnual} once per year
+                          </div>
+                        );
+                      })()
+                    : null}
                 </div>
 
                 <ul className="mb-8 w-full flex-grow">

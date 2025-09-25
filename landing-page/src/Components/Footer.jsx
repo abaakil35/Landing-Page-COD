@@ -6,7 +6,7 @@ import { useNavigate, useLocation } from "react-router-dom";
 
 const socialLinks = [
   {
-    href: "https://facebook.com",
+    href: "https://www.facebook.com/CODRocket/",
     label: "Facebook",
     color: "hover:bg-blue-600",
     svg: (
@@ -16,27 +16,7 @@ const socialLinks = [
     ),
   },
   {
-    href: "https://twitter.com",
-    label: "Twitter",
-    color: "hover:bg-sky-500",
-    svg: (
-      <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
-        <path d="M24 4.557a9.93 9.93 0 0 1-2.828.775 4.932 4.932 0 0 0 2.165-2.724c-.951.564-2.005.974-3.127 1.195a4.92 4.92 0 0 0-8.384 4.482C7.691 8.095 4.066 6.13 1.64 3.161c-.542.929-.856 2.01-.857 3.17 0 2.188 1.115 4.117 2.823 5.254a4.904 4.904 0 0 1-2.229-.616c-.054 2.281 1.581 4.415 3.949 4.89a4.936 4.936 0 0 1-2.224.084c.627 1.956 2.444 3.377 4.6 3.417A9.867 9.867 0 0 1 0 21.543a13.94 13.94 0 0 0 7.548 2.209c9.058 0 14.009-7.513 14.009-14.009 0-.213-.005-.425-.014-.636A10.012 10.012 0 0 0 24 4.557z" />
-      </svg>
-    ),
-  },
-  {
-    href: "https://linkedin.com",
-    label: "LinkedIn",
-    color: "hover:bg-blue-700",
-    svg: (
-      <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
-        <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11.75 20h-3v-10h3v10zm-1.5-11.268c-.966 0-1.75-.784-1.75-1.75s.784-1.75 1.75-1.75 1.75.784 1.75 1.75-.784 1.75-1.75 1.75zm15.25 11.268h-3v-5.604c0-1.337-.025-3.063-1.868-3.063-1.868 0-2.154 1.459-2.154 2.967v5.7h-3v-10h2.881v1.367h.041c.401-.761 1.379-1.563 2.838-1.563 3.036 0 3.6 2.001 3.6 4.601v5.595z" />
-      </svg>
-    ),
-  },
-  {
-    href: "https://instagram.com",
+    href: "https://instagram.com/codrocket.official/#",
     label: "Instagram",
     color: "hover:bg-pink-600",
     svg: (
@@ -45,36 +25,33 @@ const socialLinks = [
       </svg>
     ),
   },
+  {
+    href: "https://www.youtube.com/@codrocket",
+    label: "YouTube",
+    color: "hover:bg-red-600",
+    svg: (
+      <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
+        <path d="M23.498 6.186a2.994 2.994 0 0 0-2.107-2.116C19.6 3.5 12 3.5 12 3.5s-7.6 0-9.391.57A2.994 2.994 0 0 0 .502 6.186 31.003 31.003 0 0 0 0 12a31.003 31.003 0 0 0 .502 5.814 2.994 2.994 0 0 0 2.107 2.116C4.4 20.5 12 20.5 12 20.5s7.6 0 9.391-.57a2.994 2.994 0 0 0 2.107-2.116A31.003 31.003 0 0 0 24 12a31.003 31.003 0 0 0-.502-5.814zM9.75 15.02V8.98L15.5 12l-5.75 3.02z" />
+      </svg>
+    ),
+  },
 ];
 
 const footerSections = [
   {
-    title: "Products",
+    title: "Features",
     links: [
-      { href: "#features", label: "Features" },
       { href: "#pricing", label: "Pricing" },
-
-      { href: "#api", label: "Help Center" },
-      { href: "#integrations", label: "Documentation" },
-    ],
-  },
-  {
-    title: "Company",
-    links: [
-      { href: "#about", label: "About Us" },
-      { href: "#blog", label: "Blog" },
-      { href: "#privacy", label: "Privacy Policy" },
-      { href: "#terms", label: "Terms of Service" },
-    ],
-  },
-
-  {
-    title: "Learn",
-    links: [
+      { href: "#features", label: "Features" },
       { href: "/help-center", label: "Help Center" },
-      { href: "#docs", label: "Documentation" },
-      { href: "#tutorials", label: "Video Tutorials" },
-      { href: "#support", label: "Contact Support" },
+    ],
+  },
+  {
+    title: "Support",
+    links: [
+      { href: "/contact", label: "Contact" },
+      { href: "mailto:support@codrocket.com", label: "Email" },
+      { href: "https://wa.me/212656588699", label: "WhatsApp" },
     ],
   },
 ];

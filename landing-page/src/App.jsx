@@ -17,6 +17,9 @@ import Customers from "./Components/customers";
 import Contact from "./Components/contact";
 import HelpCenter from "./Components/helpCenter";
 import Documentation from "./Components/Documentation";
+import Privacy from "./Components/Privacy";
+import Terms from "./Components/Terms";
+import Cookies from "./Components/Cookies";
 import { ThemeProvider } from "./Context/ThemeContext";
 import { useEffect } from "react";
 import Helpcenter1 from "./Components/Helpcenter1";
@@ -87,6 +90,9 @@ function AppContent() {
           <Route path="/how-it-works" element={<HowCODWorks />} />
           <Route path="/pricing" element={<Pricing />} />
           <Route path="/contact" element={<Contact />} />
+          <Route path="/privacy" element={<Privacy />} />
+          <Route path="/terms" element={<Terms />} />
+          <Route path="/cookies" element={<Cookies />} />
           <Route path="/doc" element={<Documentation />} />
           <Route path="/help-center" element={<Helpcenter1 />} />
           <Route path="/help/:topic/:article" element={<HelpArticle />} />

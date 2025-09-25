@@ -210,21 +210,24 @@ const Footer = () => {
               <div className="flex flex-col md:flex-row items-center gap-6 text-sm text-gray-400">
                 <div className="flex items-center gap-4">
                   <a
-                    href="#privacy"
+                    href="/privacy"
+                    onClick={handleNav("/privacy")}
                     className="hover:text-white transition-colors"
                   >
                     Privacy Policy
                   </a>
                   <span className="text-gray-500">•</span>
                   <a
-                    href="#terms"
+                    href="/terms"
+                    onClick={handleNav("/terms")}
                     className="hover:text-white transition-colors"
                   >
                     Terms of Service
                   </a>
                   <span className="text-gray-500">•</span>
                   <a
-                    href="#cookies"
+                    href="/cookies"
+                    onClick={handleNav("/cookies")}
                     className="hover:text-white transition-colors"
                   >
                     Cookies

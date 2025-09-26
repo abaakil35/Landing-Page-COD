@@ -7,7 +7,7 @@ const Ready = () => {
 
   return (
     <section
-      className={`relative w-full lg:pt-6 pb-16 px-4 lg:px-6 text-center overflow-hidden ${
+      className={`relative w-full lg:pt-9 pb-16 px-4 lg:px-6 text-center overflow-hidden ${
         isDark ? "bg-[#0f0712]" : "bg-[#FCFCFC]"
       }`}
     >

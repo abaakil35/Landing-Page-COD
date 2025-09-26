@@ -15,13 +15,14 @@ import HowCODWorks from "./Components/how";
 import SeeAction from "./Components/seeAction";
 import Customers from "./Components/customers";
 import Contact from "./Components/contact";
+import HelpArticle from "./Components/HelpArticle";
 import Privacy from "./Components/Privacy";
 import Terms from "./Components/Terms";
 import Cookies from "./Components/Cookies";
 import { ThemeProvider } from "./Context/ThemeContext";
 import { useEffect } from "react";
 import Helpcenter1 from "./Components/Helpcenter1";
-// import FAQ from "./Components/FAQ";
+import FAQ from "./Components/FAQ";
 
 function AppContent() {
   const location = useLocation();
@@ -78,6 +79,7 @@ function AppContent() {
                 {/* <FAQ /> */}
                 {/* <Customers /> */}
                 <Pricing />
+                <FAQ />
                 {/* <Contact /> */}
                 <Ready />
               </>
@@ -90,12 +92,15 @@ function AppContent() {
           <Route path="/privacy" element={<Privacy />} />
           <Route path="/terms" element={<Terms />} />
           <Route path="/cookies" element={<Cookies />} />
-          <Route path="/doc" element={<Documentation />} />
+          <Route path="/doc" element={<Navigate to="/help-center" replace />} />
           <Route path="/help-center" element={<Helpcenter1 />} />
           <Route path="/help/:topic/:article" element={<HelpArticle />} />
           <Route path="/help/:topic" element={<HelpArticle />} />
           <Route path="/help/:id" element={<HelpArticle />} />
-          <Route path="/help-center/doc" element={<Documentation />} />
+          <Route
+            path="/help-center/doc"
+            element={<Navigate to="/help-center" replace />}
+          />
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
       </div>

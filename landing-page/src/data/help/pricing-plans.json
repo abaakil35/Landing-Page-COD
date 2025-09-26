@@ -1,0 +1,27 @@
+{
+    "id": "pricing-plans",
+    "title": "Pricing & Plans",
+    "description": "Costs & Billing",
+    "articles": [
+        {
+            "id": "overview-plans",
+            "title": "Overview: Free vs Paid Plans",
+            "body": "CODRocket offers a free tier to get started with basic functionality (single COD button, limited analytics). Paid plans unlock advanced features: multiple button placements, conditional shipping rules, advanced exports, and priority support."
+        },
+        {
+            "id": "upgrade-downgrade",
+            "title": "How to Upgrade or Downgrade Your Plan",
+            "body": "Change plans from the app dashboard under Billing. Upgrades are applied immediately and billed pro-rata through Shopify. Downgrades take effect at the next billing cycle."
+        },
+        {
+            "id": "billing-invoices",
+            "title": "Billing & Invoices in Shopify",
+            "body": "Billing is handled through Shopify’s app billing system. You can view invoices from your Shopify admin under Settings → Billing → App charges. For any billing disputes, contact support with your store ID and invoice number."
+        },
+        {
+            "id": "plans-faq",
+            "title": "Frequently Asked Questions About Plans & Payments",
+            "body": "Q: Will I lose settings when I downgrade?\nA: Most settings are preserved but some premium features will be disabled. We recommend exporting configuration or contacting support before making large billing changes.\nQ: Is there a trial?\nA: Trial availability is shown on the pricing page inside the app and in the Shopify App Store listing."
+        }
+    ]
+}

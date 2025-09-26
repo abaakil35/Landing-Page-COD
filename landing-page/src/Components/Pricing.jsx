@@ -13,56 +13,47 @@ const plans = [
     yearlyPeriod: "/year",
     features: [
       "Up to 60 orders /month",
-      "1-Click Upsells",
-      "Quantity offers",
-      "Google Sheets",
-      "Abandoned carts",
-      "Discount codes",
-      "Shipping rates",
-      "Google Autocomplete",
-      "Multi-Pixels",
+      "Form Customization",
+      "Conditional Shipping",
+      "Post-Purchase Redirect",
+      "Advanced Analytics",
       "Multi-Language",
-      "Email support",
+      "Basic Support: Email & Chat",
     ],
   },
   {
     name: "Grow",
-    price: "$9.98",
-    yearlyPrice: "$119.76",
+    // monthly view: show the per-month price when billed yearly is selected the UI computes from yearlyPrice
+    price: "$9",
+    yearlyPrice: "$99",
     period: "/month",
     yearlyPeriod: "/year",
     features: [
       "Up to 490 orders /month",
-      "1-Click Upsells",
-      "Quantity offers",
-      "Google Sheets",
-      "Abandoned carts",
-      "Discount codes",
-      "Shipping rates",
-      "Google Autocomplete",
-      "Multi-Pixels",
+      "Form Customization",
+      "Conditional Shipping",
+      "Post-Purchase Redirect",
+      "Advanced Analytics",
       "Multi-Language",
-      "Email & WhatsApp support",
+      "50% Off on COD Rocket Manager",
+      "Priority Support: WhatsApp, Email & Live",
     ],
   },
   {
     name: "Advanced",
-    price: "$21.98",
-    yearlyPrice: "$263.76",
+    price: "$24",
+    yearlyPrice: "$249",
     period: "/month",
     yearlyPeriod: "/year",
     features: [
-      "Unlimited orders / month",
-      "1-Click Upsells",
-      "Quantity offers",
-      "Google Sheets",
-      "Abandoned carts",
-      "Discount codes",
-      "Shipping rates",
-      "Google Autocomplete",
-      "Multi-Pixels",
+      "Unlimited orders /month",
+      "Form Customization",
+      "Conditional Shipping",
+      "Post-Purchase Redirect",
+      "Advanced Analytics",
       "Multi-Language",
-      "Email & WhatsApp support",
+      "50% Off on COD Rocket Manager",
+      "Priority Support: WhatsApp, Email & Live",
     ],
     status: "",
   },
@@ -73,7 +64,7 @@ const Pricing = () => {
   const isPricingPage = location.pathname === "/pricing";
   const { theme } = useContext(ThemeContext);
   const isDark = theme === "dark";
-  const [billingPeriod, setBillingPeriod] = useState("monthly");
+  const [billingPeriod, setBillingPeriod] = useState("yearly");
 
   // Pricing FAQs state and content (centered accordion)
   // const [openPricingFAQ, setOpenPricingFAQ] = useState(null);
@@ -83,7 +74,7 @@ const Pricing = () => {
       question: "Can I switch plans later?",
       answer:
         "Yes — you can upgrade or downgrade your plan at any time. Billing is prorated where applicable, and changes take effect immediately.",
-    },
+                              {billingPeriod === "yearly" ? "$99" : "$9"}
     {
       question: "Do you offer discounts for annual billing?",
       answer:
@@ -172,18 +163,11 @@ const Pricing = () => {
 
   return (
     <section
-      className={`relative w-full py-23 px-23 overflow-hidden ${
+      className={`relative w-full pt-19 pb-6 px-23 overflow-hidden ${
         isDark ? "bg-[#0f0712]" : "bg-[#FCFCFC]"
       }`}
     >
-      {/* Inline styles: hide table scrollbar for the pricing comparison area */}
-      <style>{`
-        /* Hide scrollbar (WebKit) */
-        .pricing-scroll::-webkit-scrollbar { display: none; }
-        /* Hide scrollbar (Firefox) */
-        .pricing-scroll { scrollbar-width: none; -ms-overflow-style: none; }
-      `}</style>
-      <div className="max-w-7xl mx-auto">
+      <div className="max-w-7xl mx-auto space-y-16">
         {/* Decorative blurred circles */}
         <div
           className={`absolute -bottom-24 -right-24 w-72 h-72 rounded-full blur-3xl opacity-60 z-0 ${
@@ -286,7 +270,7 @@ const Pricing = () => {
                         }`
                   }`}
                 >
-                  Save 20%
+                  Save 14%
                 </span>
               </button>
             </div>
@@ -342,7 +326,18 @@ const Pricing = () => {
                       }`}
                     >
                       {billingPeriod === "yearly"
-                        ? plan.yearlyPrice
+                        ? (() => {
+                            const annual = parsePrice(plan.yearlyPrice);
+                            if (annual === null || annual === 0) {
+                              // Fallback: show yearlyPrice string (e.g., 'Free')
+                              return plan.yearlyPrice;
+                            }
+                            const perMonth = annual / 12;
+                            const formattedPerMonth =
+                              formatCurrency(perMonth) ??
+                              `$${perMonth.toFixed(2)}`;
+                            return formattedPerMonth;
+                          })()
                         : plan.price}
                     </span>
                     <span
@@ -350,9 +345,7 @@ const Pricing = () => {
                         isDark ? "text-[#ffffff]" : "text-[#702c91]"
                       }`}
                     >
-                      {billingPeriod === "yearly"
-                        ? plan.yearlyPeriod
-                        : plan.period}
+                      {plan.period}
                     </span>
                     {/* Non-interactive plan status/info (e.g., 'Current plan') */}
                     {plan.status && (
@@ -367,12 +360,27 @@ const Pricing = () => {
                   </button>
                 </div>
                 <div className="text-sm text-center mb-6 w-full">
-                  {billingPeriod === "monthly"
+                  {billingPeriod === "yearly"
                     ? (() => {
+                        // Prefer showing the explicit yearly price (plan.yearlyPrice)
+                        // in the small "bill at" line. Fallback to computed annual
+                        // from the monthly price only if yearlyPrice is missing.
+                        const annualFromYearly = parsePrice(plan.yearlyPrice);
+                        if (annualFromYearly && annualFromYearly > 0) {
+                          return (
+                            <div
+                              className={`${
+                                isDark ? "text-[#e9e7ee]/60" : "text-gray-500"
+                              }`}
+                            >
+                              bill at {plan.yearlyPrice} once per year
+                            </div>
+                          );
+                        }
+
+                        // No explicit yearly price: try to compute from monthly price
                         const monthly = parsePrice(plan.price);
-                        if (monthly === null) return null;
-                        const annual = monthly * 12;
-                        if (annual === 0) {
+                        if (monthly === null || monthly === 0) {
                           return (
                             <div
                               className={`${
@@ -383,45 +391,21 @@ const Pricing = () => {
                             </div>
                           );
                         }
+
                         const formattedAnnual =
-                          formatCurrency(annual) ?? `$${annual.toFixed(2)}`;
+                          formatCurrency(monthly * 12) ??
+                          `$${(monthly * 12).toFixed(2)}`;
                         return (
                           <div
                             className={`${
                               isDark ? "text-[#e9e7ee]/60" : "text-gray-500"
                             }`}
                           >
-                            Bill at {formattedAnnual} once per year
+                            bill at {formattedAnnual} once per year
                           </div>
                         );
                       })()
-                    : (() => {
-                        const annual = parsePrice(plan.yearlyPrice);
-                        if (annual === null || annual === 0) {
-                          // fallback to showing 'Free' when yearly is free or non-numeric
-                          return (
-                            <div
-                              className={`${
-                                isDark ? "text-[#e9e7ee]/60" : "text-gray-500"
-                              }`}
-                            >
-                              Free
-                            </div>
-                          );
-                        }
-                        const perMonth = annual / 12;
-                        const formattedPerMonth =
-                          formatCurrency(perMonth) ?? `$${perMonth.toFixed(2)}`;
-                        return (
-                          <div
-                            className={`${
-                              isDark ? "text-[#e9e7ee]/60" : "text-gray-500"
-                            }`}
-                          >
-                            Equivalent to {formattedPerMonth} per month
-                          </div>
-                        );
-                      })()}
+                    : null}
                 </div>
 
                 <ul className="mb-8 w-full flex-grow">
@@ -561,502 +545,8 @@ const Pricing = () => {
             </motion.div>
           )}
 
-          {/* Comparison Table - Only show on /pricing page */}
-          {isPricingPage && (
-            <motion.div
-              className="mt-16 mx-auto max-w-6xl"
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6 }}
-              viewport={{ once: true }}
-            >
-              <div className="text-center mb-16">
-                <h3
-                  id="compare"
-                  className={`text-4xl font-bold mb-6 ${
-                    isDark ? "text-[#e9e7ee]" : "text-gray-900"
-                  }`}
-                >
-                  Compare All Plans
-                </h3>
-                <p
-                  className={`text-xl max-w-3xl mx-auto ${
-                    isDark ? "text-[#e9e7ee]/80" : "text-gray-600"
-                  }`}
-                >
-                  Choose the perfect plan for your business needs with detailed
-                  feature comparison
-                </p>
-              </div>
-
-              <div
-                className={`rounded-3xl shadow-2xl overflow-hidden ${
-                  isDark
-                    ? "bg-[#1b0f20]/80 border border-[#b76be0]/20"
-                    : "bg-white border border-gray-200"
-                }`}
-              >
-                {/* Make header sticky: wrap table in a vertically-scrollable container */}
-                <div className="overflow-x-auto">
-                  {/* pricing-table wrapper: force light table text in dark mode */}
-                  <div
-                    className={`max-h-[520px] overflow-y-auto pricing-scroll ${
-                      isDark ? "text-white" : ""
-                    }`}
-                  >
-                    <table className="w-full">
-                      {/* Header with Plan Names and Pricing */}
-                      <thead>
-                        <tr
-                          className={`${
-                            isDark
-                              ? "bg-[#2d1129] border-[#b76be0]/20"
-                              : "bg-gray-50 border-gray-200"
-                          }`}
-                        >
-                          <th
-                            className={`px-8 py-6 text-left sticky top-0 z-20 ${
-                              isDark ? "bg-[#2d1129]" : "bg-gray-50"
-                            }`}
-                          >
-                            <div
-                              className={`text-xl font-bold ${
-                                isDark ? "text-[#e9e7ee]" : "text-gray-900"
-                              }`}
-                            >
-                              Features
-                            </div>
-                          </th>
-                          <th
-                            className={`px-8 py-6 text-center sticky top-0 z-20 ${
-                              isDark
-                                ? "bg-[#2d1129] border-[#2d1129]"
-                                : "border-l border-gray-200 bg-gray-50"
-                            }`}
-                          >
-                            <div
-                              className={`text-2xl font-bold mb-2 ${
-                                isDark ? "text-[#e9e7ee]" : "text-gray-900"
-                              }`}
-                            >
-                              Basic
-                            </div>
-                            <div
-                              className={`text-3xl font-bold mb-1 ${
-                                isDark ? "text-[#e9e7ee]" : "text-gray-900"
-                              }`}
-                            >
-                              {billingPeriod === "yearly" ? "Free" : "$0"}
-                            </div>
-                            <div
-                              className={`text-sm ${
-                                isDark ? "text-[#e9e7ee]/80" : "text-gray-500"
-                              }`}
-                            >
-                              {billingPeriod === "yearly"
-                                ? "Forever free"
-                                : "USD/month"}
-                            </div>
-                            {/* Downgrade button removed per request */}
-                          </th>
-                          <th
-                            className={`px-8 py-6 text-center sticky top-0 z-20 ${
-                              isDark
-                                ? "bg-[#2d1129] border-[#2d1129]"
-                                : "border-[#5e255dff] bg-[#9D14A8]"
-                            }`}
-                          >
-                            <div
-                              className={`text-2xl font-bold mb-2 ${
-                                isDark ? "text-[#ffffff]" : "text-white"
-                              }`}
-                            >
-                              Grow
-                            </div>
-                            <div
-                              className={`text-3xl font-bold mb-1 ${
-                                isDark ? "text-[#e9e7ee]" : "text-white"
-                              }`}
-                            >
-                              {billingPeriod === "yearly" ? "$119.76" : "$9.98"}
-                              <span
-                                className={`text-lg ${
-                                  isDark ? "text-[#e9e7ee]/80" : "text-white"
-                                }`}
-                              >
-                                {billingPeriod === "yearly"
-                                  ? "/year"
-                                  : " USD/month"}
-                              </span>
-                            </div>
-                            <div
-                              className={`text-sm ${
-                                isDark ? "text-[#e9e7ee]/80" : "text-white"
-                              }`}
-                            >
-                              grow features
-                            </div>
-                            {/* current plan button intentionally omitted */}
-                          </th>
-                          <th
-                            className={`px-8 py-6 text-center sticky top-0 z-20 ${
-                              isDark
-                                ? "bg-[#2d1129] border-[#2d1129]"
-                                : "border-gray-200 bg-gray-50"
-                            }`}
-                          >
-                            <div
-                              className={`text-2xl font-bold mb-2 ${
-                                isDark ? "text-[#e9e7ee]" : "text-gray-900"
-                              }`}
-                            >
-                              Advanced
-                            </div>
-                            <div
-                              className={`text-3xl font-bold mb-1 ${
-                                isDark ? "text-[#e9e7ee]" : "text-gray-900"
-                              }`}
-                            >
-                              {billingPeriod === "yearly"
-                                ? "$263.76"
-                                : "$21.98"}
-                              <span
-                                className={`text-lg ${
-                                  isDark ? "text-[#e9e7ee]/80" : "text-gray-600"
-                                }`}
-                              >
-                                {billingPeriod === "yearly"
-                                  ? "/year"
-                                  : " USD/month"}
-                              </span>
-                            </div>
-                            <div
-                              className={`text-sm ${
-                                isDark ? "text-[#e9e7ee]/80" : "text-gray-500"
-                              }`}
-                            >
-                              Advanced features
-                            </div>
-                            {/* Upgrade button removed per request */}
-                          </th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        {/* Section title */}
-                        <tr>
-                          <td
-                            colSpan={4}
-                            className={`px-8 py-4 text-left font-semibold ${
-                              isDark
-                                ? "text-[#e9e7ee] bg-[#f8f5fb]/0"
-                                : "text-gray-700 bg-gray-50"
-                            }`}
-                          >
-                            Core Features
-                          </td>
-                        </tr>
-
-                        {/* Orders row */}
-                        <tr
-                          className={`transition-all duration-200 ${
-                            isDark
-                              ? "border-[#b76be0]/20 hover:bg-[#2d1129]/30"
-                              : "border-gray-100 hover:bg-gray-50/50"
-                          }`}
-                        >
-                          <td className="px-8 py-6 text-left">
-                            <div
-                              className={`font-medium text-lg ${
-                                isDark ? "text-[#e9e7ee]" : "text-gray-900"
-                              }`}
-                            >
-                              Orders / month
-                            </div>
-                          </td>
-                          <td
-                            className={`px-8 py-6 text-center ${
-                              isDark ? "border-[#b76be0]/20" : "border-gray-100"
-                            }`}
-                          >
-                            Up to 60 orders /month
-                          </td>
-                          <td
-                            className={`px-8 py-6 text-center ${
-                              isDark
-                                ? "border-[#b76be0]/20 bg-[#2d1129]/20"
-                                : "border-gray-100 bg-gradient-to-br from-[#5e255dff]/5 to-[#9d3ecb]/5"
-                            }`}
-                          >
-                            Up to 490 orders /month
-                          </td>
-                          <td
-                            className={`px-8 py-6 text-center ${
-                              isDark ? "border-[#b76be0]/20" : "border-gray-100"
-                            }`}
-                          >
-                            Unlimited orders / month
-                          </td>
-                        </tr>
-
-                        {/* Feature checklist rows */}
-                        <tr
-                          className={`transition-all duration-200 ${
-                            isDark
-                              ? "border-[#b76be0]/20 hover:bg-[#2d1129]/30"
-                              : "border-gray-100 hover:bg-gray-50/50"
-                          }`}
-                        >
-                          <td className="px-8 py-6 text-left">
-                            <div
-                              className={`font-medium text-lg ${
-                                isDark ? "text-[#e9e7ee]" : "text-gray-900"
-                              }`}
-                            >
-                              1-Click Upsells
-                            </div>
-                          </td>
-                          <td
-                            className={`px-8 py-6 text-center ${
-                              isDark ? "border-[#b76be0]/20" : "border-gray-100"
-                            }`}
-                          >
-                            <div
-                              className={`inline-flex items-center justify-center w-8 h-8 rounded-full ${
-                                isDark ? "bg-green-500/20" : "bg-green-100"
-                              }`}
-                            >
-                              <svg
-                                className={`w-5 h-5 ${
-                                  isDark ? "text-green-400" : "text-green-600"
-                                }`}
-                                fill="currentColor"
-                                viewBox="0 0 20 20"
-                              >
-                                <path
-                                  fillRule="evenodd"
-                                  d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-                                  clipRule="evenodd"
-                                />
-                              </svg>
-                            </div>
-                          </td>
-                          <td
-                            className={`px-8 py-6 text-center ${
-                              isDark
-                                ? "border-[#b76be0]/20 bg-[#2d1129]/20"
-                                : "border-gray-100 bg-gradient-to-br from-[#5e255dff]/5 to-[#9d3ecb]/5"
-                            }`}
-                          >
-                            <div
-                              className={`inline-flex items-center justify-center w-8 h-8 rounded-full ${
-                                isDark ? "bg-green-500/20" : "bg-green-100"
-                              }`}
-                            >
-                              <svg
-                                className={`w-5 h-5 ${
-                                  isDark ? "text-green-400" : "text-green-600"
-                                }`}
-                                fill="currentColor"
-                                viewBox="0 0 20 20"
-                              >
-                                <path
-                                  fillRule="evenodd"
-                                  d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-                                  clipRule="evenodd"
-                                />
-                              </svg>
-                            </div>
-                          </td>
-                          <td
-                            className={`px-8 py-6 text-center ${
-                              isDark ? "border-[#b76be0]/20" : "border-gray-100"
-                            }`}
-                          >
-                            <div
-                              className={`inline-flex items-center justify-center w-8 h-8 rounded-full ${
-                                isDark ? "bg-green-500/20" : "bg-green-100"
-                              }`}
-                            >
-                              <svg
-                                className={`w-5 h-5 ${
-                                  isDark ? "text-green-400" : "text-green-600"
-                                }`}
-                                fill="currentColor"
-                                viewBox="0 0 20 20"
-                              >
-                                <path
-                                  fillRule="evenodd"
-                                  d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-                                  clipRule="evenodd"
-                                />
-                              </svg>
-                            </div>
-                          </td>
-                        </tr>
-
-                        {/* Reuse same structure for the remaining simple feature rows */}
-                        {[
-                          "Quantity offers",
-                          "Google Sheets",
-                          "Abandoned carts",
-                          "Discount codes",
-                          "Shipping rates",
-                          "Google Autocomplete",
-                          "Multi-Pixels",
-                          "Multi-Language",
-                        ].map((feat, i) => (
-                          <tr
-                            key={i}
-                            className={`transition-all duration-200 ${
-                              isDark
-                                ? "border-[#b76be0]/20 hover:bg-[#2d1129]/30"
-                                : "border-gray-100 hover:bg-gray-50/50"
-                            }`}
-                          >
-                            <td className="px-8 py-6 text-left">
-                              <div
-                                className={`font-medium text-lg ${
-                                  isDark ? "text-[#e9e7ee]" : "text-gray-900"
-                                }`}
-                              >
-                                {feat}
-                              </div>
-                            </td>
-                            <td
-                              className={`px-8 py-6 text-center ${
-                                isDark
-                                  ? "border-[#b76be0]/20"
-                                  : "border-gray-100"
-                              }`}
-                            >
-                              <div
-                                className={`inline-flex items-center justify-center w-8 h-8 rounded-full ${
-                                  isDark ? "bg-green-500/20" : "bg-green-100"
-                                }`}
-                              >
-                                <svg
-                                  className={`w-5 h-5 ${
-                                    isDark ? "text-green-400" : "text-green-600"
-                                  }`}
-                                  fill="currentColor"
-                                  viewBox="0 0 20 20"
-                                >
-                                  <path
-                                    fillRule="evenodd"
-                                    d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-                                    clipRule="evenodd"
-                                  />
-                                </svg>
-                              </div>
-                            </td>
-                            <td
-                              className={`px-8 py-6 text-center ${
-                                isDark
-                                  ? "border-[#b76be0]/20 bg-[#2d1129]/20"
-                                  : "border-gray-100 bg-gradient-to-br from-[#5e255dff]/5 to-[#9d3ecb]/5"
-                              }`}
-                            >
-                              <div
-                                className={`inline-flex items-center justify-center w-8 h-8 rounded-full ${
-                                  isDark ? "bg-green-500/20" : "bg-green-100"
-                                }`}
-                              >
-                                <svg
-                                  className={`w-5 h-5 ${
-                                    isDark ? "text-green-400" : "text-green-600"
-                                  }`}
-                                  fill="currentColor"
-                                  viewBox="0 0 20 20"
-                                >
-                                  <path
-                                    fillRule="evenodd"
-                                    d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-                                    clipRule="evenodd"
-                                  />
-                                </svg>
-                              </div>
-                            </td>
-                            <td
-                              className={`px-8 py-6 text-center ${
-                                isDark
-                                  ? "border-[#b76be0]/20"
-                                  : "border-gray-100"
-                              }`}
-                            >
-                              <div
-                                className={`inline-flex items-center justify-center w-8 h-8 rounded-full ${
-                                  isDark ? "bg-green-500/20" : "bg-green-100"
-                                }`}
-                              >
-                                <svg
-                                  className={`w-5 h-5 ${
-                                    isDark ? "text-green-400" : "text-green-600"
-                                  }`}
-                                  fill="currentColor"
-                                  viewBox="0 0 20 20"
-                                >
-                                  <path
-                                    fillRule="evenodd"
-                                    d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-                                    clipRule="evenodd"
-                                  />
-                                </svg>
-                              </div>
-                            </td>
-                          </tr>
-                        ))}
-
-                        {/* Support row */}
-                        <tr
-                          className={`transition-all duration-200 ${
-                            isDark
-                              ? "border-[#b76be0]/20 hover:bg-[#2d1129]/30"
-                              : "border-gray-100 hover:bg-gray-50/50"
-                          }`}
-                        >
-                          <td className="px-8 py-6 text-left">
-                            <div
-                              className={`font-medium text-lg ${
-                                isDark ? "text-[#e9e7ee]" : "text-gray-900"
-                              }`}
-                            >
-                              Support
-                            </div>
-                          </td>
-                          <td
-                            className={`px-8 py-6 text-center ${
-                              isDark ? "text-white" : ""
-                            }`}
-                          >
-                            Email support
-                          </td>
-                          <td
-                            className={`px-8 py-6 text-center ${
-                              isDark
-                                ? "text-white"
-                                : "bg-gradient-to-br from-[#5e255dff]/5 to-[#9d3ecb]/5"
-                            }`}
-                          >
-                            Email & WhatsApp support
-                          </td>
-                          <td
-                            className={`px-8 py-6 text-center ${
-                              isDark ? "text-white" : ""
-                            }`}
-                          >
-                            Email & WhatsApp support
-                          </td>
-                        </tr>
-                      </tbody>
-                    </table>
-                  </div>
-                </div>
-              </div>
-            </motion.div>
-          )}
-
           {/* Pricing FAQs */}
-          {/* {isPricingPage && (
+          {isPricingPage && (
             <motion.div
               className="mt-16 mx-auto max-w-6xl"
               initial={{ opacity: 0, y: 30 }}
@@ -1081,103 +571,51 @@ const Pricing = () => {
                 </p>
               </div>
 
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
-                <div
-                  className={`p-6 rounded-xl ${
-                    isDark
-                      ? "bg-[#1b0f20]/50 border border-[#b76be0]/20"
-                      : "bg-white/80 border border-gray-200"
+              {/* Centered clickable FAQ accordion */}
+              <div className="max-w-3xl mx-auto mt-12 mb-16">
+                <p
+                  className={`text-sm mb-4 text-center ${
+                    isDark ? "text-[#e9e7ee]/70" : "text-gray-600"
                   }`}
                 >
-                  <h4
-                    className={`text-lg font-semibold mb-2 ${
-                      isDark ? "text-[#e9e7ee]" : "text-gray-900"
-                    }`}
-                  >
-                    Can I change plans anytime?
-                  </h4>
-                  <p
-                    className={`text-sm ${
-                      isDark ? "text-[#e9e7ee]/80" : "text-gray-600"
-                    }`}
-                  >
-                    Yes, you can upgrade or downgrade your plan at any time.
-                    Changes take effect immediately.
-                  </p>
-                </div>
+                  Need more details about payments or billing? Read the FAQs
+                  below or reach out to our support team for help.
+                </p>
+                {/* We'll render an accordion with JS-controlled open index */}
+                {(() => {
+                  const faqs = [
+                    {
+                      q: "Can I change plans anytime?",
+                      a: "Yes, you can upgrade or downgrade your plan at any time. Changes take effect immediately.",
+                    },
+                    {
+                      q: "Is there a free trial?",
+                      a: "Yes, our Basic plan is completely free with up to 60 orders per month.",
+                    },
+                    {
+                      q: "What payment methods do you accept?",
+                      a: "We accept all major credit cards, PayPal, and bank transfers for annual plans.",
+                    },
+                    {
+                      q: "Do you offer refunds?",
+                      a: "We offer a 30-day money-back guarantee on all paid plans.",
+                    },
+                    // New payment-related questions requested
+                    {
+                      q: "Can I pay monthly with a credit card?",
+                      a: "Yes — monthly billing via major credit cards is supported. For annual billing we also accept PayPal and bank transfer depending on your region.",
+                    },
+                    {
+                      q: "Will my payment be automatically renewed?",
+                      a: "Yes, subscriptions renew automatically. You can cancel anytime from your account before the next billing cycle to avoid renewal.",
+                    },
+                  ];
 
-                <div
-                  className={`p-6 rounded-xl ${
-                    isDark
-                      ? "bg-[#1b0f20]/50 border border-[#b76be0]/20"
-                      : "bg-white/80 border border-gray-200"
-                  }`}
-                >
-                  <h4
-                    className={`text-lg font-semibold mb-2 ${
-                      isDark ? "text-[#e9e7ee]" : "text-gray-900"
-                    }`}
-                  >
-                    Is there a free trial?
-                  </h4>
-                  <p
-                    className={`text-sm ${
-                      isDark ? "text-[#e9e7ee]/80" : "text-gray-600"
-                    }`}
-                  >
-                    Yes, our Basic plan is completely free with up to 60 orders
-                    per month.
-                  </p>
-                </div>
-
-                <div
-                  className={`p-6 rounded-xl ${
-                    isDark
-                      ? "bg-[#1b0f20]/50 border border-[#b76be0]/20"
-                      : "bg-white/80 border border-gray-200"
-                  }`}
-                >
-                  <h4
-                    className={`text-lg font-semibold mb-2 ${
-                      isDark ? "text-[#e9e7ee]" : "text-gray-900"
-                    }`}
-                  >
-                    What payment methods do you accept?
-                  </h4>
-                  <p
-                    className={`text-sm ${
-                      isDark ? "text-[#e9e7ee]/80" : "text-gray-600"
-                    }`}
-                  >
-                    We accept all major credit cards, PayPal, and bank transfers
-                    for annual plans.
-                  </p>
-                </div>
-
-                <div
-                  className={`p-6 rounded-xl ${
-                    isDark
-                      ? "bg-[#1b0f20]/50 border border-[#b76be0]/20"
-                      : "bg-white/80 border border-gray-200"
-                  }`}
-                >
-                  <h4
-                    className={`text-lg font-semibold mb-2 ${
-                      isDark ? "text-[#e9e7ee]" : "text-gray-900"
-                    }`}
-                  >
-                    Do you offer refunds?
-                  </h4>
-                  <p
-                    className={`text-sm ${
-                      isDark ? "text-[#e9e7ee]/80" : "text-gray-600"
-                    }`}
-                  >
-                    We offer a 30-day money-back guarantee on all paid plans.
-                  </p>
-                </div>
+                  return <FaqAccordion faqs={faqs} isDark={isDark} />;
+                })()}
               </div>
-              */}
+            </motion.div>
+          )}
 
           {/* Ready card at bottom of pricing page */}
 
@@ -1189,3 +627,73 @@ const Pricing = () => {
 };
 
 export default Pricing;
+
+// Local accordion component used only by Pricing.jsx
+function FaqAccordion({ faqs, isDark }) {
+  const [openIndex, setOpenIndex] = useState(null);
+
+  return (
+    <div className="space-y-4">
+      {faqs.map((f, i) => {
+        const open = openIndex === i;
+        return (
+          <div
+            key={i}
+            className={`rounded-2xl transition-shadow p-3 md:p-4 ${
+              isDark
+                ? "bg-[#120913]/60 border border-[#2d1129]"
+                : "bg-white border border-gray-100"
+            } shadow-sm ${open ? "shadow-lg" : ""}`}
+          >
+            <button
+              onClick={() => setOpenIndex(open ? null : i)}
+              aria-expanded={open}
+              aria-controls={`faq-content-${i}`}
+              className={`w-full text-left px-6 py-4 flex justify-between items-center cursor-pointer ${
+                isDark ? "text-[#e9e7ee]" : "text-gray-900"
+              }`}
+            >
+              <span className="font-semibold text-lg">{f.q}</span>
+              <svg
+                className={`w-5 h-5 transform transition-transform duration-200 ${
+                  open ? "rotate-180" : ""
+                }`}
+                viewBox="0 0 20 20"
+                fill="none"
+                stroke="currentColor"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M6 8l4 4 4-4"
+                />
+              </svg>
+            </button>
+
+            <div
+              id={`faq-content-${i}`}
+              role="region"
+              aria-labelledby={`faq-label-${i}`}
+              style={{
+                maxHeight: open ? "400px" : "0px",
+              }}
+              className={`px-6 overflow-hidden transition-all duration-300 ${
+                open ? "opacity-100" : "opacity-0"
+              }`}
+            >
+              <div
+                className={`${
+                  isDark ? "text-[#e9e7ee]/80 py-4" : "text-gray-600 py-4"
+                }`}
+                id={`faq-label-${i}`}
+              >
+                {f.a}
+              </div>
+            </div>
+          </div>
+        );
+      })}
+    </div>
+  );
+}

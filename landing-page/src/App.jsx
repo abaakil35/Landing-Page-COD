@@ -15,7 +15,6 @@ import HowCODWorks from "./Components/how";
 import SeeAction from "./Components/seeAction";
 import Customers from "./Components/customers";
 import Contact from "./Components/contact";
-import HelpCenter from "./Components/helpCenter";
 import Privacy from "./Components/Privacy";
 import Terms from "./Components/Terms";
 import Cookies from "./Components/Cookies";

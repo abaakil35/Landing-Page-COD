@@ -16,14 +16,12 @@ import SeeAction from "./Components/seeAction";
 import Customers from "./Components/customers";
 import Contact from "./Components/contact";
 import HelpCenter from "./Components/helpCenter";
-import Documentation from "./Components/Documentation";
 import Privacy from "./Components/Privacy";
 import Terms from "./Components/Terms";
 import Cookies from "./Components/Cookies";
 import { ThemeProvider } from "./Context/ThemeContext";
 import { useEffect } from "react";
 import Helpcenter1 from "./Components/Helpcenter1";
-import HelpArticle from "./Components/HelpArticle";
 // import FAQ from "./Components/FAQ";
 
 function AppContent() {

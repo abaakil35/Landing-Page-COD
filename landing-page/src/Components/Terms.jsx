@@ -150,8 +150,7 @@ const Terms = () => {
       </p>
       <ul className="list-disc list-inside text-gray-700 leading-relaxed">
         <li>Email: support@codrocket.com</li>
-        <li>Phone: +1 (555) 123-4567</li>
-        <li>Address: 123 Tech Street, Innovation City, IC 12345</li>
+        <li>Phone: +212 656-588699 </li>
       </ul>
     </div>
   );

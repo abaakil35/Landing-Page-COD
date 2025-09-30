@@ -1,10 +1,11 @@
-import React, { useMemo, useState } from "react";
+import React, { useMemo, useState, useContext } from "react";
 import AboutCard from "./AboutCard";
 import Footer from "./Footer";
 import { Link } from "react-router-dom";
 import logoWhite from "../assets/logo_white.png";
 import Navbar from "./Navbar";
 import helpData from "../data/help";
+import ThemeContext from "../Context/ThemeContextContext.js";
 
 const cardsData = [
   {
@@ -79,12 +80,26 @@ const Helpcenter1 = () => {
         c.subContent.toLowerCase().includes(q)
     );
   }, [query]);
+  const { theme } = useContext(ThemeContext);
+  const isDark = theme === "dark";
   return (
-    <div className="w-full">
-      <Navbar variant="purple" />
+    <div
+      className={`w-full ${
+        isDark
+          ? "bg-[#0b0710] text-gray-200 min-h-screen"
+          : "bg-white text-gray-900"
+      }`}
+    >
+      <Navbar variant={isDark ? undefined : "purple"} />
 
       <header className="w-full">
-        <div className="relative bg-[#5e255dff] via-[#4a1d49] to-[#2d1129] text-white">
+        <div
+          className={`relative ${
+            isDark
+              ? "bg-[#0b0710] text-[#e9e7ee]"
+              : "bg-[#5e255dff] via-[#4a1d49] to-[#2d1129] text-white"
+          }`}
+        >
           <div className="max-w-7xl mx-auto py-6 flex items-center justify-center">
             <div className="flex items-center space-x-4">
               <img
@@ -106,7 +121,11 @@ const Helpcenter1 = () => {
 
           <div className="py-8">
             <div className="max-w-3xl mx-auto px-6">
-              <div className="bg-white rounded-lg p-3 shadow-md flex items-center">
+              <div
+                className={`rounded-lg p-3 shadow-md flex items-center ${
+                  isDark ? "bg-[#0f0b12] border border-gray-700" : "bg-white"
+                }`}
+              >
                 <svg
                   className="w-6 h-6 text-gray-400 mr-3"
                   viewBox="0 0 24 24"
@@ -123,12 +142,31 @@ const Helpcenter1 = () => {
                 <input
                   value={query}
                   onChange={(e) => setQuery(e.target.value)}
-                  className="flex-1 text-gray-700 placeholder-gray-400 bg-transparent outline-none px-2 py-3"
+                  className={`flex-1 placeholder-gray-400 bg-transparent outline-none px-2 py-3 ${
+                    isDark ? "text-gray-200" : "text-gray-700 "
+                  }`}
                   placeholder="Search our help center..."
                   aria-label="Search help"
                 />
-                <button className="ml-3 bg-[#5e255dff] text-white px-4 py-2 rounded-lg">
-                  Search
+                <button
+                  aria-label="Search"
+                  title="Search"
+                  className="ml-3 bg-[#5e255dff] text-white px-3 py-2 rounded-lg flex items-center justify-center"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    className="w-5 h-5"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                    strokeWidth={2}
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="M21 21l-4.35-4.35M11 19a8 8 0 100-16 8 8 0 000 16z"
+                    />
+                  </svg>
                 </button>
               </div>
             </div>
@@ -138,10 +176,18 @@ const Helpcenter1 = () => {
 
       <div className="max-w-7xl mx-auto px-6 py-10">
         <div className="text-center mb-12">
-          <h2 className="text-3xl font-bold text-gray-900 mb-4">
+          <h2
+            className={`text-3xl font-bold mb-4 ${
+              isDark ? "text-white" : "text-gray-900"
+            }`}
+          >
             Help Center Topics
           </h2>
-          <p className="text-lg text-gray-600 max-w-3xl mx-auto">
+          <p
+            className={`text-lg max-w-3xl mx-auto ${
+              isDark ? "text-gray-300" : "text-gray-600"
+            }`}
+          >
             Explore our comprehensive collection of guides, tutorials, and
             resources to help you make the most of COD Form & Manager by
             CODRocket
@@ -163,6 +209,7 @@ const Helpcenter1 = () => {
                     headline={card.headline}
                     content={card.content}
                     subContent={card.subContent}
+                    isDark={isDark}
                   />
                 </Link>
               </div>
@@ -173,7 +220,13 @@ const Helpcenter1 = () => {
         <div className="mt-16 text-center">
           {/* Latest Articles & News */}
 
-          <div className="mt-8 bg-gradient-to-r from-[#5e255dff] to-[#4a1d49] rounded-2xl p-8 text-white">
+          <div
+            className={`mt-8 rounded-2xl p-8 ${
+              isDark
+                ? "bg-gradient-to-r from-[#241022] to-[#1a0b16] text-white"
+                : "bg-gradient-to-r from-[#5e255dff] to-[#4a1d49] text-white"
+            }`}
+          >
             <h3 className="text-2xl font-bold mb-4">
               Not finding what you're looking for?
             </h3>
@@ -182,7 +235,13 @@ const Helpcenter1 = () => {
               you might have.
             </p>
             <Link to="/contact">
-              <button className="bg-white text-[#5e255dff] font-semibold py-3 px-8 rounded-lg hover:bg-gray-100 transition-colors duration-300 shadow-lg cursor-pointer">
+              <button
+                className={`font-semibold py-3 px-8 rounded-lg hover:bg-gray-100 transition-colors duration-300 shadow-lg cursor-pointer ${
+                  isDark
+                    ? "bg-white text-[#5e255dff]"
+                    : "bg-white text-[#5e255dff]"
+                }`}
+              >
                 Send an Email
               </button>
             </Link>

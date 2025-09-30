@@ -1,8 +1,9 @@
-import React from "react";
+import React, { useContext } from "react";
 import { useParams, Link, useNavigate } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import Navbar from "./Navbar";
 import helpData from "../data/help";
+import ThemeContext from "../Context/ThemeContextContext.js";
 
 // helper: find topic/article by slug (normalize ids to be robust against trailing spaces/casing)
 const normalize = (s) => (typeof s === "string" ? s.trim().toLowerCase() : s);
@@ -40,45 +41,48 @@ const HelpArticle = () => {
   // Do NOT auto-redirect when visiting /help/:topic — render a topic landing
   // listing articles so the user can choose which article to open.
 
+  const { theme } = useContext(ThemeContext);
+  const isDark = theme === "dark";
+
   return (
-    <div className="min-h-screen bg-gray-50">
-      <Navbar variant="purple" />
+    <div className={`min-h-screen ${isDark ? "bg-[#0b0710] text-gray-200" : "bg-gray-50 text-gray-900"}`}>
+      <Navbar variant={isDark ? undefined : "purple"} />
 
       {/* Compact headline between nav and content (fixed under the navbar) */}
       <motion.div
         initial={{ opacity: 0, y: 6 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.36 }}
-        className="fixed inset-x-0 top-16 z-40 bg-white shadow"
+        className={`fixed inset-x-0 top-16 z-40 ${isDark ? "bg-[#0b0710] text-[#e9e7ee] shadow" : "bg-white shadow"}`}
       >
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 shadow-b">
-          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 ">
+        <div className={`max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 ${isDark ? "" : "shadow-b"}`}>
+            <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 ">
             <div>
               <nav
-                className="text-sm text-gray-500 mb-1 "
+                className={`text-sm mb-1 ${isDark ? "text-gray-400" : "text-gray-500"}`}
                 aria-label="Breadcrumb"
               >
-                <Link to="/help-center" className="hover:text-[#5e255dff]">
+                <Link to="/help-center" className={isDark ? "hover:text-[#b76be0] text-gray-300" : "hover:text-[#5e255dff]"}>
                   Help Center
                 </Link>
                 <span className="px-2">/</span>
-                <span className="text-gray-700 font-medium">
+                <span className={`${isDark ? "text-gray-200" : "text-gray-700"} font-medium`}>
                   {currentTopic?.title || "Topic"}
                 </span>
               </nav>
-              <h2 className="text-lg sm:text-2xl font-extrabold text-gray-900">
+              <h2 className={`text-lg sm:text-2xl font-extrabold ${isDark ? "text-white" : "text-gray-900"}`}>
                 {currentArticle?.title || currentTopic?.title || "Help Center"}
               </h2>
-              <p className="text-sm text-gray-500 mt-1">
+              <p className={`text-sm mt-1 ${isDark ? "text-gray-300" : "text-gray-500"}`}>
                 {currentTopic?.description ||
                   "Find helpful guides and troubleshooting articles."}
               </p>
             </div>
-            <div className="flex-shrink-0">
+              <div className="flex-shrink-0">
               {/* optional quick action button */}
               <Link
                 to="/help-center"
-                className="inline-flex items-center px-4 py-2 rounded-md bg-[#5e255dff] text-white text-sm font-medium hover:brightness-95"
+                  className={`inline-flex items-center px-4 py-2 rounded-md text-white text-sm font-medium hover:brightness-95 ${isDark ? "bg-[#5e255dff]" : "bg-[#5e255dff]"}`}
               >
                 Browse Topics
               </Link>
@@ -91,13 +95,13 @@ const HelpArticle = () => {
       responsive: taller on mobile (stacked layout) and shorter on sm+ */}
       <div className="h-28 sm:h-24" aria-hidden="true" />
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+      <div className={`max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12`}> 
         <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
           {/* Sidebar navigation */}
           <aside className="order-2 lg:order-1 lg:col-span-1">
             <div className="hidden lg:block sticky top-24">
-              <div className="bg-white rounded-xl shadow-sm p-4">
-                <h4 className="text-sm font-semibold text-gray-700 mb-3">
+              <div className={`${isDark ? "bg-[#0f0b12] border border-gray-700" : "bg-white"} rounded-xl shadow-sm p-4`}>
+                <h4 className={`text-sm font-semibold mb-3 ${isDark ? "text-gray-200" : "text-gray-700"}`}>
                   Articles
                 </h4>
                 <nav className="space-y-1">
@@ -109,12 +113,12 @@ const HelpArticle = () => {
                           to={`/help/${topic.id}`}
                           className={`block rounded-md px-3 py-2 text-sm transition-all duration-150 group ${
                             isActiveTopic
-                              ? "bg-[#f6f0ff] text-[#5e255dff] font-semibold shadow"
-                              : "text-gray-700 hover:bg-gray-50 hover:translate-x-1"
+                              ? `${isDark ? "bg-[#1a0b16] text-[#b76be0] font-semibold shadow" : "bg-[#f6f0ff] text-[#5e255dff] font-semibold shadow"}`
+                              : `${isDark ? "text-gray-300 hover:bg-[#0f0b12] hover:translate-x-1" : "text-gray-700 hover:bg-gray-50 hover:translate-x-1"}`
                           }`}
                         >
                           <span className="block truncate">{topic.title}</span>
-                          <span className="text-xs text-gray-400 block mt-0.5">
+                          <span className={`${isDark ? "text-gray-400" : "text-xs text-gray-400"} block mt-0.5`}>
                             {topic.description}
                           </span>
                         </Link>
@@ -127,8 +131,8 @@ const HelpArticle = () => {
                                 to={`/help/${topic.id}/${a.id}`}
                                 className={`flex items-center gap-2 text-sm ${
                                   a.id === currentArticle?.id
-                                    ? "text-[#5e255dff] font-semibold"
-                                    : "text-gray-600 hover:text-[#5e255dff]"
+                                    ? `${isDark ? "text-[#b76be0] font-semibold" : "text-[#5e255dff] font-semibold"}`
+                                    : `${isDark ? "text-gray-300 hover:text-[#b76be0]" : "text-gray-600 hover:text-[#5e255dff]"}`
                                 }`}
                                 aria-current={
                                   a.id === currentArticle?.id
@@ -138,7 +142,7 @@ const HelpArticle = () => {
                               >
                                 {a.id === currentArticle?.id ? (
                                   <svg
-                                    className="h-4 w-4 text-[#5e255dff] flex-shrink-0"
+                                    className={`h-4 w-4 ${isDark ? "text-[#b76be0]" : "text-[#5e255dff]"} flex-shrink-0`}
                                     xmlns="http://www.w3.org/2000/svg"
                                     viewBox="0 0 20 20"
                                     fill="currentColor"
@@ -163,20 +167,20 @@ const HelpArticle = () => {
                   })}
                 </nav>
               </div>
-              <div className="mt-4 bg-white rounded-xl shadow-sm p-4">
-                <h5 className="text-sm font-semibold text-gray-700">
+              <div className={`${isDark ? "mt-4 bg-[#0f0b12] border border-gray-700" : "mt-4 bg-white"} rounded-xl shadow-sm p-4`}>
+                <h5 className={`text-sm font-semibold ${isDark ? "text-gray-200" : "text-gray-700"}`}>
                   Quick actions
                 </h5>
                 <div className="mt-3 space-y-2">
                   <Link
                     to="/help-center"
-                    className="block text-sm text-gray-600 hover:text-[#5e255dff]"
+                    className={`${isDark ? "block text-sm text-gray-300 hover:text-[#b76be0]" : "block text-sm text-gray-600 hover:text-[#5e255dff]"}`}
                   >
                     Back to Help Center
                   </Link>
                   <Link
                     to="/contact"
-                    className="block text-sm text-gray-600 hover:text-[#5e255dff]"
+                    className={`${isDark ? "block text-sm text-gray-300 hover:text-[#b76be0]" : "block text-sm text-gray-600 hover:text-[#5e255dff]"}`}
                   >
                     Contact support
                   </Link>
@@ -192,8 +196,8 @@ const HelpArticle = () => {
                     to={`/help/${topic.id}`}
                     className={`flex-shrink-0 px-3 py-2 rounded-md text-sm border ${
                       currentTopic?.id === topic.id
-                        ? "bg-[#5e255dff] text-white"
-                        : "bg-white text-gray-700"
+                        ? `${isDark ? "bg-[#5e255dff] text-white" : "bg-[#5e255dff] text-white"}`
+                        : `${isDark ? "bg-transparent text-gray-300 border border-gray-700" : "bg-white text-gray-700"}`
                     }`}
                   >
                     {topic.title}
@@ -212,15 +216,15 @@ const HelpArticle = () => {
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -6 }}
                 transition={{ duration: 0.32 }}
-                className="bg-white rounded-2xl shadow-sm p-8 lg:max-h-[calc(100vh)] lg:overflow-y-auto"
+                className={`${isDark ? "bg-[#0f0b12] border border-gray-700 text-gray-200" : "bg-white"} rounded-2xl shadow-sm p-8 lg:max-h-[calc(100vh)] lg:overflow-y-auto`}
               >
                 {!currentArticle ? (
                   currentTopic ? (
                     <div>
-                      <h2 className="text-2xl font-bold">
+                      <h2 className={`${isDark ? "text-white" : "text-2xl"} text-2xl font-bold`}>
                         {currentTopic.title}
                       </h2>
-                      <p className="mt-3 text-gray-600">
+                      <p className={`mt-3 ${isDark ? "text-gray-300" : "text-gray-600"}`}>
                         {currentTopic.description}
                       </p>
                       <div className="mt-6 grid gap-4">
@@ -230,18 +234,18 @@ const HelpArticle = () => {
                             <Link
                               key={a.id}
                               to={`/help/${currentTopic.id}/${a.id}`}
-                              className="group flex items-start gap-4 px-4 py-3 hover:bg-[#f6f0ff] transition-colors rounded-md"
+                              className={`group flex items-start gap-4 px-4 py-3 transition-colors rounded-md ${isDark ? "hover:bg-[#0f0b12]" : "hover:bg-[#f6f0ff]"}`}
                             >
-                              <span className="flex-shrink-0 inline-flex items-center justify-center w-8 h-8 rounded-full bg-gray-100 text-sm font-medium text-gray-700 group-hover:bg-[#5e255dff] group-hover:text-white transition">
+                              <span className={`flex-shrink-0 inline-flex items-center justify-center w-8 h-8 rounded-full text-sm font-medium transition ${isDark ? "bg-[#0f0b12] text-gray-300" : "bg-gray-100 text-gray-700 group-hover:bg-[#5e255dff] group-hover:text-white"}`}>
                                 {idx + 1}
                               </span>
 
                               <div className="flex-1">
-                                <h3 className="text-lg font-semibold text-gray-800">
+                                <h3 className={`text-lg font-semibold ${isDark ? "text-gray-100" : "text-gray-800"}`}>
                                   {a.title}
                                 </h3>
                                 {a.excerpt && (
-                                  <p className="text-sm text-gray-500 mt-1">
+                                  <p className={`text-sm mt-1 ${isDark ? "text-gray-300" : "text-gray-500"}`}>
                                     {a.excerpt}
                                   </p>
                                 )}
@@ -300,20 +304,20 @@ const HelpArticle = () => {
                     </div>
 
                     <header className="mb-8">
-                      <h1 className="text-3xl sm:text-3xl md:text-4xl font-extrabold tracking-tight text-black">
+                      <h1 className={`text-3xl sm:text-3xl md:text-4xl font-extrabold tracking-tight ${isDark ? "text-white" : "text-black"}`}>
                         {currentArticle.title}
                       </h1>
 
-                      {/* decorative underline (plain black) */}
-                      <div className="mt-3 w-24 h-1 rounded-full bg-black opacity-90" />
+                      {/* decorative underline */}
+                      <div className={`mt-3 w-24 h-1 rounded-full ${isDark ? "bg-[#b76be0]" : "bg-black"} opacity-90`} />
 
                       <div className="mt-4 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
-                        <p className="text-gray-600 max-w-2xl">
+                        <p className={`max-w-2xl ${isDark ? "text-gray-300" : "text-gray-600"}`}>
                           {currentArticle.excerpt ||
                             currentTopic?.description ||
                             ""}
                         </p>
-                        <time className="text-sm text-gray-400">
+                        <time className={`text-sm ${isDark ? "text-gray-400" : "text-gray-400"}`}>
                           Last updated: Sep 24, 2025
                         </time>
                       </div>
@@ -321,7 +325,7 @@ const HelpArticle = () => {
 
                     <motion.div
                       {...itemMotion}
-                      className="prose prose-lg max-w-none text-gray-800 prose-headings:text-[#5e255dff] prose-strong:text-[#5e255dff] prose-a:text-[#5e255dff] hover:prose-a:underline"
+                      className={`prose prose-lg max-w-none ${isDark ? "prose-invert text-gray-200" : "text-gray-800"} prose-headings:text-[#5e255dff] prose-strong:text-[#5e255dff] prose-a:text-[#5e255dff] hover:prose-a:underline`}
                       dangerouslySetInnerHTML={{ __html: currentArticle.body }}
                     />
 
@@ -354,7 +358,7 @@ const HelpArticle = () => {
                                   disabled={!prevA}
                                   className={`px-4 py-2 rounded-md transition ${
                                     prevA
-                                      ? "bg-white text-gray-700 hover:shadow-sm"
+                                      ? `${isDark ? "bg-[#0b0710] text-gray-200 border border-gray-700 hover:shadow-sm" : "bg-white text-gray-700 hover:shadow-sm"}`
                                       : "bg-gray-100 text-gray-400 cursor-not-allowed"
                                   }`}
                                 >
@@ -371,9 +375,9 @@ const HelpArticle = () => {
                                     )
                                   }
                                   disabled={!nextA}
-                                  className={`px-4 py-2 rounded-md bg-[#5e255dff] text-white transition ${
+                                  className={`px-4 py-2 rounded-md transition ${
                                     nextA
-                                      ? "hover:brightness-95"
+                                      ? `${isDark ? "bg-[#5e255dff] text-white hover:brightness-95" : "bg-[#5e255dff] text-white hover:brightness-95"}`
                                       : "opacity-60 cursor-not-allowed"
                                   }`}
                                 >
@@ -394,7 +398,7 @@ const HelpArticle = () => {
       </div>
 
       <div className="px-39 py-6 text-center">
-        <div className=" bg-gradient-to-r from-[#5e255dff] to-[#4a1d49] rounded-2xl p-8 text-white">
+        <div className={`${isDark ? "bg-gradient-to-r from-[#241022] to-[#1a0b16] text-white" : "bg-gradient-to-r from-[#5e255dff] to-[#4a1d49] text-white"} rounded-2xl p-8`}>
           <h3 className="text-2xl font-bold mb-4">
             Not finding what you're looking for?
           </h3>
@@ -403,7 +407,7 @@ const HelpArticle = () => {
             you might have.
           </p>
           <Link to="/contact">
-            <button className="bg-white text-[#5e255dff] font-semibold py-3 px-8 rounded-lg hover:bg-gray-100 transition-colors duration-300 shadow-lg">
+            <button className={`${isDark ? "bg-white text-[#5e255dff] font-semibold py-3 px-8 rounded-lg hover:bg-gray-100 transition-colors duration-300 shadow-lg" : "bg-white text-[#5e255dff] font-semibold py-3 px-8 rounded-lg hover:bg-gray-100 transition-colors duration-300 shadow-lg"}`}>
               Send an Email
             </button>
           </Link>
